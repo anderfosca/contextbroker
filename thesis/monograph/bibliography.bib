@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% INCLUSION OF BIBLIOGRAPHY
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% common addresses
+%
+@string{add:cambridge = "Cambridge, USA"}
+@string{add:newyork = "New~York, USA"}
+@string{add:poa = "Porto~Alegre, Brasil"}
+@string{add:rj = "Rio~de~Janeiro, Brasil"}
+@string{add:reading = "Reading, USA"}
+@string{add:redwood = "Redwood~City, USA"}
+@string{add:uppersr = "Upper Saddle River"}
+@string{add:barcelona = "Barcelona, Spain"}
+
+
+%
+% common publishers
+%
+@string{pub:acm = "ACM~Press"}
+@string{pub:aw = "Addison-Wesley"}
+@string{pub:bc = "Benjamin/Cummings"}
+@string{pub:mgh = "McGraw-Hill"}
+@string{pub:mit = "MIT~Press"}
+@string{pub:ptr = "Prentice Hall PTR"}
+@string{pub:springer = "Springer-Verlag Berlin Heidelberg"}
+@string{pub:cpgcc = "CPGCC da UFRGS"}
+@string{pub:ppgc = "PPGC da UFRGS"}
+@string{pub:sbc = "SBC"}
+@string{pub:oxford = "Oxford University Press, USA"}
+
+%
+% common others
+%
+@string{org:ieee = "Institute of Electrical and Electronic Engineers"}
+@string{org:IEEE = "{INSTITUTE OF ELECTRICAL AND ELECTRONIC ENGINEERS}"}
+@string{org:ieee-abbrv = "IEEE"}
+@string{org:sbc = "Sociedade Brasileira de Computa{\c{c}}{\~a}o"}
+@string{ser:lncs = "Lecture Notes in Computer Science"}
+@string{ins:ii = "Instituto de Inform{\'a}tica"}
+@string{sch:ufrgs = "Universidade Federal do Rio Grande do~Sul"}
+@string{sch:iiufrgs = "Instituto de Inform{\'a}tica, Universidade Federal do Rio Grande do~Sul"}
+@string{sch:ppgc = "PPGC/UFRGS"}
+@string{sch:cpgcc = "CPGCC/UFRGS"}
+
+%
+% Common events
+%
+@string{ev:sbac = "Simp{\'o}sio Brasileiro de Arquitetura de Computadores---Processamento de Alto Desempenho"}
+@string{ev:semish = "Semin{\'a}rio Integrado de Software e~Hardware"}
+@string{ev:cacic = "Congreso Argentino de Ciencias de la~Computaci{\'o}n"}
+
+%%%%%%%%%%%%%%%%%%%%%
+% MY REFERENCES BELOW
+%%%%%%%%%%%%%%%%%%%%%
+
+@incollection{bk:sbc2007,
+  author = "Ana L. C. Bazzan and Franziska Kl{\"u}gl",
+  title = "Sistemas Inteligentes de Transporte e Tr\'{a}fego: uma Abordagem de Tecnologia da Informa\c{c}\~{a}o",
+  booktitle = "Anais das Jornadas de Atualiza\c{c}\~{a}o em Inform\'{a}tica",
+  chapter = 8,
+  editor = "Tomasz Kowaltowski and Karin Koogan Breitman",
+  year = 2007,
+  month = "July",
+  address = add:rj,
+  publisher = pub:sbc,
+  isbn = "978-85-7669-116-7",
+  url = "http://www.inf.ufrgs.br/maslab/pergamus/pubs/jai07BazzanKluegl.zip",
+}
+
+@book{ds:aco2004,
+  author = "Dorigo, Marco and St{\"u}tzle, Thomas",
+  title = "Ant Colony Optimization",
+  year = 2004,
+  isbn = "0262042193",
+  publisher = "Bradford Company",
+  address = "Scituate, MA, USA",
+}
+
+@article{dmc:as1996,
+  author = "Dorigo, M. and Maniezzo, V. and Colorni, A.",
+  journal = "Systems, Man, and Cybernetics, Part B: Cybernetics, IEEE Transactions on",
+  title = "Ant system: optimization by a colony of cooperating agents",
+  year = 1996,
+  volume = 26,
+  number = 1,
+  pages = "29-41",
+  doi = "10.1109/3477.484436",
+  issn = "1083-4419",
+}
+
+@inproceedings{bbek:simul2011,
+  author = "M. Behrisch and L. Bieker and J. Erdmann and D. Krajzewicz",
+  title = "SUMO - Simulation of Urban MObility: An Overview",
+  booktitle = "SIMUL 2011, The Third International Conference on Advances in System Simulation",
+  year = 2011,
+  pages = "63-68",
+  address = add:barcelona,
+  month = "October",
+  abstract = "SUMO is an open source traffic simulation package including net import
+	and demand modeling components. We describe the current state of
+	the package as well as future
+	
+	developments and extensions. SUMO helps to investigate several research
+	topics e.g. route choice and traffic light algorithm or simulating
+	vehicular communication. Therefore the framework is used in different
+	projects to simulate automatic driving or traffic management strategies.",
+  keywords = "microscopic traffic simulation, software, open source"
+}
+
+@manual{rossum:lang1995,
+  title = "The Python Language Reference",
+  author = "Rossum, Guido van",
+  year =	 1995,
+  publisher = "Python Software Foundation",
+  url = "http://docs.python.org/release/2.7/reference/index.html"
+}
+
+@techreport{silva:ti2005,
+  author = "Silva, Bruno Castro da",
+  title = "Um estudo sobre métodos de aprendizagem de conceitos e de modelos de mundo",
+  institution = sch:ppgc,
+  year = 2005,
+  pages = 55,
+  series = "TI. 1177",
+  misc = "Trabalho Individual I",
+  address = add:poa
+}
+
+@mastersthesis{oliveira:master2005, 
+  author = "Oliveira, Denise de",
+  title = "Um Estudo de coordena\c{c}\~{a}o din\^{a}mica de agentes aplicado ao gerenciamento de tr\'{a}fego veicular urbano",
+  school = sch:iiufrgs,
+  year = 2005,
+  address = add:poa,
+  month = "Abril",
+  url = "http://hdl.handle.net/10183/6224"
+}
+
+% Exemplo de como utilizar crossref
+% crossref pode ser utilizado para evitar repetições, como vários artigos de 
+% um mesmo congresso
+@InProceedings{Joe:COFFEE2000,
+  author = 	 "John Gi Joe{\'a} and Joe Gi John{\c{c}}{\~a}o",
+  title = 	 "Importance of Coffee in Computer Sciences",
+  crossref =     "COFFEE:2000",
+  pages =	 "99--100"
+}
+
+% Note que a entrada referenciada deve estar depois da referência
+% É interessante colocar um `key' com a abreviacao da conferencia
+% para o caso dos anais serem referenciados por completo
+@Proceedings{COFFEE:2000,
+  editor = 	 "Java Guy",
+  title = 	 "Proc.\ of the 1st~Conference on Coffee Importance",
+  booktitle =    "Proc.\ of the 1st~Conference on Coffee Importance",
+  year = 	 2000,
+  address =      "Java Island", 
+  publisher = 	 "Java Island, The{P}ublisher",
+  month = 	 jan,
+  key =		 "COFFEE",
+}

@@ -1,0 +1,178 @@
+% 
+% HOW TO COMPILE:
+% 1) I used the Texmaker at Ubuntu with PDFLaTeX compiler to pdf. So basically call the quick build, and after call Bibtex and Makeindex.
+% Makeindex configuration is the below mode:
+% makeindex % -s %.ist -o %.nls
+% 2) After, for the glossaries, execute at shell:
+% makeglossaries <your_monograph_file_name>
+% Call quick build one or two more times to correct the indexes.
+
+
+%%%%%%%%%%%%%%%%%%%
+%
+% SETTING THE LATEX
+%
+%%%%%%%%%%%%%%%%%%%
+
+\documentclass[tc,portuguese,openright]{iiufrgs}
+
+% document encoding
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+
+% internationalization for brazilian portuguese
+\usepackage[brazilian]{babel}
+
+% create landscape pages
+%\usepackage{lscape}
+
+% to include comments in body text
+\usepackage{comment}
+
+% add content to Table of Contents
+\usepackage{tocbibind}
+
+% includes bibtex bibliography
+% reference: http://merkel.zoneo.net/Latex/natbib.php
+%\cite{id} %\citep{id} %\citet{id}
+\usepackage{natbib}
+
+% creates an appendix page
+\usepackage[toc,title]{appendix}
+
+% text format
+\usepackage[T1]{fontenc} % font
+%\usepackage{verbatim} % typewriter
+\usepackage{times} % Times New Roman
+%\usepackage[overload]{textcase} % for the problem with altercase in sections and acronym
+
+% typeset algorithm
+%\usepackage[lined, boxed, linesnumbered]{algorithm2e}
+%\newcommand{\listofalgorithmes}{\tocfile{\listalgorithmcfname}{loa}}
+%\usepackage{listings}
+
+% advanced math format
+%\usepackage{amsthm} % theorem's
+%\usepackage{amsfonts} % fonts
+%%\usepackage{amsmath} % symbols, unnecessary with mathtools
+%\usepackage{mathtools} % more symbols
+
+% for tables
+%\usepackage{array}
+%\usepackage{makecell}
+
+% for images
+%\usepackage{graphicx}
+%\usepackage{float}
+%\usepackage{caption}
+%\usepackage{subcaption}
+%\usepackage{subfig}
+%\usepackage{tikz}
+
+% links definition
+\usepackage{url}
+\usepackage[pdftex,colorlinks=false]{hyperref}
+
+% elimina os retângulos dos links
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0},
+}
+
+%
+% below the packages that need to stay after hyperref
+%
+
+% create an index file for glossaries
+\usepackage{makeidx}
+\makeindex
+
+% create the list of abbreviations, replaced for glossaries package
+%\usepackage[intoc,refpage]{nomencl}
+%\renewcommand*\pagedeclaration[1]{~p.\,#1}
+%\renewcommand{\nomname}{List of Abbreviation and Acronyms}
+%\makenomenclature
+%\nomenclature{$abbrv$}{full name}} % example
+% makeindex %.nlo -s %.ist -o %.nls %% needed in the editor settings
+
+% create the list of abbreviations and glossaries
+\usepackage[acronym,shortcuts,toc]{glossaries}
+\makeglossaries
+%% examples
+%\newacronym{ida}{abbrv}{full name}
+%\newglossaryentry{id}{name={abbrv},description={description},first={full name (abbrv)}}
+%\gls{id} % print the item glossary id
+%\glsreset{ida} % restarts the acronym ida full name
+%\gls{ida} % print the acronym ida
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% BEGINNING THE  WRITING OF THE MONOGRAPH
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% update nominata data
+\renewcommand{\nominata}{
+       \MakeUppercase{\ufrgs}\\
+       \nominataReitname: \nominataReit\\
+       \nominataReitVicename: \nominataReitVice\\
+       \nominataPROGRADname: \nominataPROGRAD\\
+       \nominataDirname: \nominataDir\\
+       \nominataCoordname: \nominataCoord\\
+       \nominataBibchefename: \nominataBibchefe
+}
+
+\input{personaldefs.tex}
+
+% define space for paragraph
+\setlength{\parskip}{1.9mm}
+%\gdef\citet#1{\citeauthor*{#1} \citeyearpar{#1}}
+
+\begin{document}
+
+\selectlanguage{brazilian}
+
+%\sloppy
+\maketitle % ok
+
+% inclusion of version control
+\input{chapters/version_control.tex}
+
+% inclusion of the quote from a personality
+\input{chapters/quote.tex} % ok
+
+% inclusion of acknowledgments
+\input{chapters/acknowledgments.tex}
+
+\tableofcontents
+\listoffigures
+\listoftables
+%\listofalgorithmes
+%\printnomenclature
+\printglossary[type=\acronymtype]
+
+% inclusion of the abstracts
+\input{chapters/abstract.tex}
+\input{chapters/pt_abstract.tex}
+
+% inclusion of the chapters
+\input{chapters/introduction.tex}
+\input{chapters/conceptual_basis.tex}
+\input{chapters/methodology.tex}
+\input{chapters/experimental_evaluation.tex}
+\input{chapters/results.tex}
+\input{chapters/conclusions_and_future_work.tex}
+
+% inclusion of bibliography
+% DBLP-bibtex: http://www.dblp.org/search/index.php
+\bibliography{bibliography}
+\bibliographystyle{plainnat}
+
+% inclusion of the appendices
+\input{chapters/appendices.tex}
+
+% inclusion of the glossary
+% linking acronym with glossary: http://tex.stackexchange.com/questions/8946/how-to-combine-acronym-and-glossary
+\printglossary
+
+\end{document}
