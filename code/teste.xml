@@ -1,0 +1,13 @@
+<contextML>
+	<ctxPrvEls>
+		<ctxPrvEl>
+			<par n="scope">position</par>
+			<parA n="contextProviders">
+				<parS n="contextProvider">
+					<par n="id">LP</par>
+					<par n="url">mobilife2.tilab.com/LP/loc/getLocation</par>
+				</parS>
+			</parA>
+		</ctxPrvEl>
+	</ctxPrvEls>
+</contextML>
