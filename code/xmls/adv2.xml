@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contextML>
+	<ctxAdvs>
+		<ctxAdv>
+			<contextProvider id="testProv" v="1.0.0"/>
+			<urlRoot>http://testProv</urlRoot>
+			<providerLocation>
+				<lat>49.425323</lat>
+				<lon>7.754138</lon>
+				<location>Paul-Ehrlich-Strasse 34, TU Kaiserslautern, 67663 Kaiserslautern, Deutschland</location>
+			</providerLocation>
+			<scopes>
+				<scopeDef n="test1">
+					<urlPath>/test/getTest1</urlPath>
+					<entityTypes>username,mobile</entityTypes>
+					<inputDef>
+						 <inputEl name="phone" type="currentSettings:mobile"></inputEl>
+						 <inputEl name="cgi" type="cell:cgi"></inputEl>
+						 <inputEl name="btList" type="bt:btList"></inputEl>
+						 <inputEl name="wfList" type="wf:wfList"></inputEl>
+					 </inputDef>
+				 </scopeDef>
+				 <scopeDef n="test2">
+					 <urlPath>/test/getTest2</urlPath>
+					 <entityTypes>username</entityTypes>
+					 <inputDef>
+						 <inputEl name="lat" type="position:latitude"></inputEl>
+						 <inputEl name="lon" type="position:longitude"></inputEl>
+					 </inputDef>
+				 </scopeDef>
+			 </scopes>
+		 </ctxAdv>
+        <ctxAdv>
+			<contextProvider id="testProv" v="1.0.0"/>
+			<urlRoot>http://testProv</urlRoot>
+			<scopes>
+				<scopeDef n="test1">
+					<urlPath>/test/getTest1</urlPath>
+					<entityTypes>mobile</entityTypes>
+					<inputDef>
+						<inputEl name="phonenr" type="string"></inputEl>
+					</inputDef>
+				</scopeDef>
+			</scopes>
+		</ctxAdv>
+	 </ctxAdvs>
+ </contextML>
