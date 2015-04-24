@@ -2,7 +2,7 @@
 <contextML>
 	<ctxAdvs>
 		<ctxAdv>
-			<contextProvider id="testProv" v="1.0.0"/>
+			<contextProvider id="testProv2" v="1.0.0"/>
 			<urlRoot>http://testProv</urlRoot>
 			<scopes>
 				<scopeDef n="test1">
