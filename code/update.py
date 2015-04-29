@@ -18,7 +18,7 @@ try:
             scope = ctxEl.find('scope').text
             timestamp = ctxEl.find('timestamp').text
             expires = ctxEl.find('expires').text
-            dataPart=[]
+            dataPart = []
             for data in ctxEl.find('dataPart').findall('par'):
                 namePar = data.get('n')
                 valuePar = data.text
