@@ -9,3 +9,6 @@ baseando-se numa entrada definida, numa ideia já desenvolvida em outro codigo
 um banco para os providers, com status de ativo ao se registrar, status que será "conferido",
 a cada X tempo, que é quando o Broker pede um sinal de vida ao Provider, se ele não responder,
 vira inativo
+
+
+##conferir maneira de validar o xml como sendo ContextML

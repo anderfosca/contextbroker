@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import MySQLdb
 import sys
 
-tree = ET.parse('xmls/adv1.xml')
+tree = ET.parse('filename2.xml')
 root = tree.getroot()
 
 try:
