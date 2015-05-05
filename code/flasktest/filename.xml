@@ -1,0 +1,17 @@
+<contextML>
+    <ctxAdvs>
+        <ctxAdv>
+            <contextProvider id="testProv2" v="1.0.0" />
+            <urlRoot>http://testProv</urlRoot>
+            <scopes>
+                <scopeDef n="test1">
+                    <urlPath>/test/getTest1</urlPath>
+                    <entityTypes>mobile</entityTypes>
+                    <inputDef>
+                        <inputEl name="phonenr" type="string" />
+                    </inputDef>
+                </scopeDef>
+            </scopes>
+        </ctxAdv>
+    </ctxAdvs>
+</contextML>

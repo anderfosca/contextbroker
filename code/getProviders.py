@@ -51,4 +51,5 @@ for provider in results:
 con.commit()
 con.close()
 tree = ET.ElementTree(root)
-tree.write("filename3.xml")
+xmlString = ET.tostring(root)
+print xmlString
