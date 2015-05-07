@@ -5,6 +5,9 @@ import MySQLdb
 import sys
 import getProviders
 import advertisement
+import getContext
+import subscription
+import update
 
 broker = Flask(__name__)
 
@@ -25,17 +28,20 @@ def register_broker():
 
 @broker.route('/getContext', methods=['GET'])
 def get_context():
-    return jsonify({'result': ""})
+    result = getContext.get_context()
+    return jsonify({'result': result})
 
 
 @broker.route('/subscribe', methods=['POST'])
 def subscribe():
-    return jsonify({'result': ""})
+    result = subscription.subscribe(request.data, request.data)
+    return jsonify({'result': result})
 
 
 @broker.route('/update', methods=['POST'])
 def context_update():
-    return jsonify({'result': ""})
+    result = update.context_update(request.data)
+    return jsonify({'result': result})
 
 if __name__ == '__main__':
     broker.run(debug=True)
