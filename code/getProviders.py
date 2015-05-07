@@ -8,19 +8,14 @@ import sys
 root = ET.Element("contextML")
 ctxAdvs = ET.SubElement(root, "ctxAdvs")
 
-# Open database connection
 con = MySQLdb.connect(host='localhost', user='root', passwd='showtime', db='broker')
-
-# prepare a cursor object using cursor() method
 cursor = con.cursor()
 
-# Prepare SQL query to INSERT a record into the database.
 sql = "SELECT provider_id, name, url, version, location, location_desc FROM providers"
-#sql = "SELECT name, urlPath, entityTypes, inputs FROM scopes WHERE provider_id = 5"
-
 
 cursor.execute(sql)
 results = cursor.fetchall()
+cursor.close()
 
 
 for provider in results:
@@ -33,6 +28,7 @@ for provider in results:
         ET.SubElement(providerLocation, "lon").text = provider[4].split(';')[1]
         ET.SubElement(providerLocation, "location").text = provider[5]
     sql = "SELECT name, urlPath, entityTypes, inputs FROM scopes WHERE provider_id = %s" % (provider[0])
+    cursor = con.cursor()
     cursor.execute(sql)
     scopeResults = cursor.fetchall()
     cursor.close()
@@ -50,6 +46,5 @@ for provider in results:
 
 con.commit()
 con.close()
-tree = ET.ElementTree(root)
 xmlString = ET.tostring(root)
 print xmlString
