@@ -43,5 +43,6 @@ def context_update():
     result = update.context_update(request.data)
     return jsonify({'result': result})
 
+
 if __name__ == '__main__':
     broker.run(debug=True)

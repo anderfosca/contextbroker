@@ -2,7 +2,10 @@
 metodologia de testes, fazendo um modulo por vez e testando
 baseando-se numa entrada definida, numa ideia já desenvolvida em outro codigo
 
+##falar sobre o controle de versão, GitHub, sobre como eu to usando ele pra poder programar
+em locais diferentes, com computadores, sistemas operacionais diferentes
 
+##explicar a escolha do Flask, Request, ElementTree
 
 
 ##design do banco de dados
