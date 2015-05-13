@@ -4,55 +4,62 @@ import xml.etree.ElementTree as ET
 import MySQLdb
 import sys
 
-
-def register_broker(broker_info):
+# register_provider
+# dados esperados: xml com informacoes do Provider
+# descricao: Faz o registro (ou atualizacao) das informacoes do Provider que enviou
+# os dados
+# retorna: mensagem de sucesso ou erro
+def register_provider(broker_info):
     root = ET.fromstring(broker_info)
     try:
-        con = MySQLdb.connect(host='localhost', user='root', passwd='showtime', db='broker')
-        for adv in root.find('ctxAdvs').findall('ctxAdv'):
+        for adv in root.find('ctxAdvs').findall('ctxAdv'):  # tratar casos de mais de um Provider ter sido advertido
             try:
                 nameProv = adv.find('contextProvider').get('id')
                 version = adv.find('contextProvider').get('v')
                 urlRoot = adv.find('urlRoot').text
                 lat, lon, location = '', '', ''
-                if adv.find('providerLocation') is not None:
+                if adv.find('providerLocation') is not None:    # Location pode nao ter sido anunciada
                     lat = adv.find('providerLocation').find('lat').text
                     lon = adv.find('providerLocation').find('lon').text
                     location = adv.find('providerLocation').find('location').text
-                try:
+                try:    # aqui eh feita a insercao do provider no banco
+                    con = MySQLdb.connect(host='localhost', user='root', passwd='showtime', db='broker')
                     c = con.cursor()
-                    c.execute("INSERT INTO providers(name, url, version, location, location_desc) VALUES (%s, %s, %s, %s, %s)", (
-                                                nameProv, urlRoot, version, lat+";"+lon, location))
+                    c.execute("INSERT INTO providers(name, url, version, location, location_desc) VALUES (%s, %s, %s, %s, %s)",
+                              (nameProv, urlRoot, version, lat+";"+lon, location))
                     c.close()
                     con.commit()
+                    con.close()
                 except MySQLdb.Error, e:
                     error_message = "<p>Erro no registro do Provider %s [%d]: %s</p>" % (nameProv, e.args[0], e.args[1])
                     return error_message
-                scopes=''
+                # a partir daqui sao inseridos os scopes, na tabela de scopes
                 for scope in adv.find('scopes').findall('scopeDef'):
-                    nameScope = scope.get('n')
-                    urlPath = scope.find('urlPath').text
-                    entityTypes = scope.find('entityTypes').text
-                    inputs=[]
-                    for inputEl in scope.find('inputDef').findall('inputEl'):
-                        name = inputEl.get('name')
-                        type = inputEl.get('type')
-                        inputs.append(name+";"+type)
+                    name_scope = scope.get('n')
+                    url_path = scope.find('urlPath').text
+                    entity_types = scope.find('entityTypes').text
+                    inputs = []
+                    for inputEl in scope.find('inputDef').findall('inputEl'):   # inputs sao colocados juntos em string
+                        input_name = inputEl.get('name')
+                        input_type = inputEl.get('type')
+                        inputs.append(input_name+";"+input_type)
+                    con = MySQLdb.connect(host='localhost', user='root', passwd='showtime', db='broker')
                     c = con.cursor()
                     c.execute("SELECT provider_id FROM providers WHERE name = '%s'" % nameProv)
-                    providerId = c.fetchone()[0]
+                    provider_id = c.fetchone()[0]
                     c.close()
                     try:
                         c = con.cursor()
                         c.execute("INSERT INTO scopes (name, urlPath, entityTypes, inputs, provider_id)"
-                                  "          VALUES (%s, %s, %s, %s, %s)", (nameScope, urlPath, entityTypes, str(inputs), providerId))
+                                  "          VALUES (%s, %s, %s, %s, %s)",
+                                  (name_scope, url_path, entity_types, str(inputs), provider_id))
                         c.close()
                     except MySQLdb.Error, e:
                         con.commit()
                         con.close()
-                        error_message = "<p>Erro no registro do Scope %s [%d]: %s</p>" % (nameScope, e.args[0], e.args[1])
+                        error_message = "<p>Erro no registro do Scope %s [%d]: %s</p>" % (name_scope, e.args[0], e.args[1])
                         return error_message
-            except: # catch *all* exceptions
+            except: # TODO reduzir escopo da excecoes
                 con.commit()
                 con.close()
                 e = sys.exc_info()[0]
@@ -61,8 +68,7 @@ def register_broker(broker_info):
         con.commit()
         con.close()
         return "Sucesso"
-    except MySQLdb.Error, e:
-        con.commit()
-        con.close()
-        error_message = "<p>Erro ao conectar a base de Dados [%d]: %s</p>" % (e.args[0], e.args[1])
+    except: # TODO reduzir escopo da excecoes
+        e = sys.exc_info()[0]
+        error_message = "<p>Erro no Advertisement: %s</p>" % e
         return error_message

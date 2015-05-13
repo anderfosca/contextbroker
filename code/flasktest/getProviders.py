@@ -6,13 +6,20 @@ import ast
 import sys
 
 
+# get_providers
+# quem acessa: Consumer
+# dados esperados: nenhum
+# descricao: Consumer faz uma requisicao dos Providers cadastrados no Broker
+# retorna: xml com estrutura de Advertisement, contendo as informacoes dos Providers
+# cadastrados
 def get_providers():
+    # criacao da arvore xml
     root = ET.Element("contextML")
     ctxAdvs = ET.SubElement(root, "ctxAdvs")
 
     con = MySQLdb.connect(host='localhost', user='root', passwd='showtime', db='broker')
     cursor = con.cursor()
-
+    # select de todos os Providers cadastrados no Broker
     sql = "SELECT provider_id, name, url, version, location, location_desc FROM providers"
 
     cursor.execute(sql)
@@ -28,12 +35,13 @@ def get_providers():
             ET.SubElement(providerLocation, "lat").text = provider[4].split(';')[0]
             ET.SubElement(providerLocation, "lon").text = provider[4].split(';')[1]
             ET.SubElement(providerLocation, "location").text = provider[5]
+        # seleciona os scopes relacionados a este provider
         sql = "SELECT name, urlPath, entityTypes, inputs FROM scopes WHERE provider_id = %s" % (provider[0])
         cursor = con.cursor()
         cursor.execute(sql)
         scopeResults = cursor.fetchall()
         cursor.close()
-        if len(scopeResults) > 0:
+        if len(scopeResults) > 0:   # montagem dos scopes no xml
             scopes = ET.SubElement(ctxAdv, "scopes")
             for scope in scopeResults:
                 scopeDef = ET.SubElement(scopes, "scopeDef", n=scope[0])
@@ -46,5 +54,5 @@ def get_providers():
 
     con.commit()
     con.close()
-    xmlString = ET.tostring(root)
+    xmlString = ET.tostring(root)   # arvore xml resultante transformada numa string
     return xmlString
