@@ -67,7 +67,12 @@ def get_context():
 # retorna: mensagem de sucesso ou erro
 @broker.route('/subscribe', methods=['POST'])
 def subscribe():
-    result = subscription.subscribe(request.data, request.data)
+    entity_id = request.args.get('entity')
+    entity_type = request.args.get('type')
+    scope_list = request.args.get('scopeList')
+    callback_url = request.args.get('callbackUrl')
+    time = request.args.get('time')
+    result = subscription.subscribe(callback_url, entity_id, entity_type, scope_list, time)
     return jsonify({'result': result})
 
 # update
