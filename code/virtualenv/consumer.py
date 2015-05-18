@@ -18,10 +18,10 @@ time = 30
 
 subscribe_url = "http://localhost:5000/subscribe"
 subscribe_tuple = {'entity': entity_id, 'type': entity_type, 'scopeList': scope_list, 'callbackUrl': callback_url, 'time': time}
-#r = requests.post(subscribe_url, params=subscribe_tuple)
+r = requests.post(subscribe_url, params=subscribe_tuple)
 
 getcontext_url = "http://localhost:5000/getContext"
 getcontext_tuple = {'scopeList': 'test2', 'entities': 'username|marcos'}
-r = requests.get(getcontext_url, params=getcontext_tuple)
+#r = requests.get(getcontext_url, params=getcontext_tuple)
 
 print r.json(), r.status_code

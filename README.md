@@ -17,6 +17,7 @@ Python e git
 - pip flask
 - pip requests
 - pip mysql-python
+- (Ubuntu-based)apt-get install libxml2-dev libxslt1-dev python-dev
 - pip lxml
 
 

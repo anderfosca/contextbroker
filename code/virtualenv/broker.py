@@ -99,6 +99,15 @@ def context_update():
         result = "Falha no Update"
     return jsonify({'result': result})
 
+# before_request
+# descricao: realiza o que estiver aqui antes de qualquer request, seja GET ou POST, tanto faz
+@broker.before_request
+def before_request():
+    print "bla"
+
+
 # TODO rotinas que ficam contando os expires, etc
 if __name__ == '__main__':
-    broker.run(debug=True)
+    print "la"
+    broker.run(threaded=True)
+

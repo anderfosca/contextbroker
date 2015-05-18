@@ -49,4 +49,4 @@ def get_context(scope_list, entities):
             con.close()
             error_message = "<p>Erro no GetContext %s: %s</p>" % (e.args[0], e.args[1])
             return error_message
-    return ET.tostring(root).replace('&lt;', '<').replace('&gt;', '>')
+    return ET.tostring(root).replace('&lt;', '<').replace('&gt;', '>').replace('\n', '')
