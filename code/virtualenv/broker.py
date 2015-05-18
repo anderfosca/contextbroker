@@ -4,10 +4,11 @@ import xml.etree.ElementTree as ET
 import MySQLdb
 import sys
 import getProviders
-import advertisement
+import advertisement as adv
 import getContext
 import subscription
 import update
+import contextml_validator
 
 broker = Flask(__name__)
 
@@ -37,9 +38,12 @@ def get_providers():
 @broker.route('/advertisement', methods=['POST'])
 def advertisement():
     broker_info = request.data
-    message = advertisement.register_provider(broker_info)
+    if contextml_validator.validate_contextml(broker_info):
+        result = adv.register_provider(broker_info)
+    else:
+        result = "Falha no Advertisement"
     # return codigo de erro, sucesso, etc
-    return jsonify({'result': message})
+    return jsonify({'result': result})
 
 # getContext
 # quem usa: Consumer
@@ -53,7 +57,12 @@ def advertisement():
 # retorna: ctxEL mensagem, com os dados que combinem com os parametros, ou uma mensagem de erro
 @broker.route('/getContext', methods=['GET'])
 def get_context():
-    result = getContext.get_context()
+    scope_list = request.args.get('scopeList')
+    if request.args.get('entities'):
+        entities = request.args.get('entities')
+    else:
+        entities = request.args.get('type') + '|' + request.args.get('entity')
+    result = getContext.get_context(scope_list, entities)
     return jsonify({'result': result})
 
 # subscribe
@@ -71,19 +80,23 @@ def subscribe():
     entity_type = request.args.get('type')
     scope_list = request.args.get('scopeList')
     callback_url = request.args.get('callbackUrl')
-    time = request.args.get('time')
-    result = subscription.subscribe(callback_url, entity_id, entity_type, scope_list, time)
+    minutes = request.args.get('time')
+    result = subscription.subscribe(callback_url, entity_id, entity_type, scope_list, minutes)
     return jsonify({'result': result})
 
 # update
 # quem usa: Provider
-# dados esperados: mensagem XML, validada como ContextML, contendo ctxEL que indica o Provider, entityID e type, scope,
+# dados esperados: mensagem XML, contendo ctxEL que indica o Provider, entityID e type, scope,
 #   timestamp, tempo de vida da informacao, e os dados (dataPart)
-# descricao:
+# descricao: valida XML como sendo ContextML
 # retorna:
 @broker.route('/update', methods=['POST'])
 def context_update():
-    result = update.context_update(request.data)
+    update_xml = request.data
+    if contextml_validator.validate_contextml(update_xml):
+        result = update.context_update(update_xml)
+    else:
+        result = "Falha no Update"
     return jsonify({'result': result})
 
 

@@ -17,7 +17,7 @@ def get_providers():
     root = ET.Element("contextML")
     ctxAdvs = ET.SubElement(root, "ctxAdvs")
 
-    con = MySQLdb.connect(host='localhost', user='root', passwd='showtime', db='broker')
+    con = MySQLdb.connect(host='localhost', user='broker_manager', passwd='senhamanager', db='broker')
     cursor = con.cursor()
     # select de todos os Providers cadastrados no Broker
     sql = "SELECT provider_id, name, url, version, location, location_desc FROM providers"

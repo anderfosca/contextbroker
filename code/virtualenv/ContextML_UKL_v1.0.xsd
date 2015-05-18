@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://ContextML/1.6c" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ContextML/1.6c" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:simpleType name="ResponseType">
+        <xs:annotation>
+            <xs:documentation>Value available for response status</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OK"/>
+            <xs:enumeration value="ERROR"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ProviderProperty">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="id"/>
+            <xs:enumeration value="url"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="par">
+        <xs:annotation>
+            <xs:documentation>Parameter (with name)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="n" type="xs:string" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="parS">
+        <xs:annotation>
+            <xs:documentation>ParameterStruct contains parameters (with name)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="par"/>
+                <xs:element ref="parS"/>
+            </xs:choice>
+            <xs:attribute name="n" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="parA">
+        <xs:annotation>
+            <xs:documentation>An array of homogenous elements: Parameters or ParameterStructs all with the same name. The name of the array should be the plural of the name of its childs</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice>
+                <xs:element ref="par" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="parS" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:choice>
+            <xs:attribute name="n" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="contextProvider">
+        <xs:annotation>
+            <xs:documentation>Context Provider with version and optional ID</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="v" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="PrivacyLevel">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Public" />
+            <xs:enumeration value="Private_Auth_Provider" />
+            <xs:enumeration value="Private_Auth_Broker" />
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:element name="scopes">
+        <xs:annotation>
+            <xs:documentation>Context scopes returned by the Context Provider</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="scopeDef" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	<xs:element name="scopeDef">
+        <xs:annotation>
+            <xs:documentation>Definition of the context scope</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="urlPath" type="xs:string"/>
+                <xs:element name="entityTypes" type="xs:string"/>
+                <xs:element name="privacyLevel" type="PrivacyLevel" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="sharedPassword" type="xs:string" minOccurs="0" maxOccurs="1"/>
+             <xs:element ref="inputDef"/>
+            </xs:sequence>
+            <xs:attribute name="n" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="providerLocation">
+        <xs:annotation>
+            <xs:documentation>latitude, longitude and location of a context provider </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="lat" type="xs:string" />
+                <xs:element name="lon" type="xs:string"/>
+                <xs:element name="location" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="inputDef">
+        <xs:annotation>
+            <xs:documentation>Input parameters for a Context provider </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="inputEl" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="dataPart">
+        <xs:annotation>
+            <xs:documentation>DataPart of a context element or a context response</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="par" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="parS" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="parA" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+	<xs:element name="ctxResp">
+        <xs:annotation>
+            <xs:documentation>Context Response</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="contextProvider">
+                    <xs:annotation>
+                        <xs:documentation>The Context Provider that has generated the information (with ID and version)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="sharedSecret" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="timestamp" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="entity" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>The entity this information belongs to (with ID and type)</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="scope" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>The scope indicates what the context information is about</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="method" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>The requested application method </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="resp">
+                    <xs:complexType>
+                        <xs:attribute name="status" type="ResponseType" use="required"/>
+                        <xs:attribute name="code" type="xs:int" use="required"/>
+                        <xs:attribute name="msg" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ctxEl">
+        <xs:annotation>
+            <xs:documentation>A Context Element represents context information about an entity</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="contextProvider">
+                    <xs:annotation>
+                        <xs:documentation>The Context Provider that has generated the information (with ID and version)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="sharedSecret" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="entity">
+                    <xs:annotation>
+                        <xs:documentation>The entity this information belongs to (with ID and type)</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:attribute name="id" type="xs:string" use="required"/>
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="scope" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The scope indicates what the context information is about</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="timestamp" type="xs:dateTime">
+                    <xs:annotation>
+                        <xs:documentation>Instant in time when the information was taken</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="expires" type="xs:dateTime">
+                    <xs:annotation>
+                        <xs:documentation>Instant in time when the information is no longer valid</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="hash" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="dataPart"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ctxAdv">
+        <xs:annotation>
+            <xs:documentation>Context Provider Advertisement describes the type of context information the provider returns </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="contextProvider"/>
+                <xs:element name="sharedSecret" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="urlRoot" type="xs:string" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>URL root of the Context Provider interface</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="providerLocation" minOccurs="0"/>
+                <xs:element ref="scopes" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ctxPrvEl">
+        <xs:annotation>
+            <xs:documentation>Context Provider Element describes the Context Providers that support a scope</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="par">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="n" type="xs:string" use="required" fixed="scope"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="parA" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="parS" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="par" minOccurs="2" maxOccurs="2">
+                                            <xs:complexType>
+                                                <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                        <xs:attribute name="n" type="ProviderProperty" use="required"/>
+                                                    </xs:extension>
+                                                </xs:simpleContent>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="n" type="xs:string" use="required" fixed="contextProvider"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="n" type="xs:string" use="required" fixed="contextProvider"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="contextML">
+        <xs:annotation>
+            <xs:documentation>ContextML document root element</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice>
+                <xs:element name="ctxEls">
+                    <xs:annotation>
+                        <xs:documentation>A ContextML document contains one or more Context Element from different providers</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="ctxEl" minOccurs="1" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>A Context Element represents context information about an entity</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="ctxAdvs">
+                    <xs:annotation>
+                        <xs:documentation>Contains the advertisement of Context Provider features</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="ctxAdv" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ctxResp"/>
+                <xs:element name="ctxPrvEls">
+                    <xs:annotation>
+                        <xs:documentation>Contains response from the Context Broker to the getContextProviders method</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="ctxPrvEl" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

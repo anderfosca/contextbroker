@@ -18,7 +18,9 @@ class Provider(object):
         self.scopes = scopes  # list of dictionaries
 
     def generate_xml(self):
-        root = ET.Element("contextML")
+        NS_XSI = "{http://www.w3.org/2001/XMLSchema-instance}"
+        root = ET.Element("contextML", xmlns="http://ContextML/1.6c")
+        root.set(NS_XSI + "schemaLocation", "http://ContextML/1.7http://cark3.cselt.it/schemas/ContextML-1.6.c.xsd")
         ctxAdvs = ET.SubElement(root, "ctxAdvs")
         ctxAdv = ET.SubElement(ctxAdvs, "ctxAdv")
         ET.SubElement(ctxAdv, "contextProvider", id=self.name, v=self.version)
@@ -45,6 +47,8 @@ class Provider(object):
 
     def advertise(self, broker_url):
         xml_string = self.generate_xml()
+        print xml_string
+
         target_url = broker_url+"/advertisement"
         #dataA = json.dumps({'advMessage': advMessage})
         r = requests.post(target_url, xml_string)
@@ -72,7 +76,7 @@ provider_scopes = [
      ]}
 ]
 
-provider = Provider("provTeste", "1.0.0", "http://provTeste", "0", "0", "aqui", provider_scopes)
+provider = Provider("provTeste4", "1.0.0", "http://provTeste4", "0", "0", "aqui", provider_scopes)
 # with open ("filename.xml", "r") as myfile:
 #     advMessage=myfile.read().replace("\n",'')
 provider.advertise("http://localhost:5000")
