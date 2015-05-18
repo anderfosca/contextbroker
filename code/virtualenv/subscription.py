@@ -2,6 +2,16 @@ __author__ = 'anderson'
 import MySQLdb
 
 
+# subscribe
+# dados esperados: parametros URL:
+#                               entity - ID da entidade desejada: entity=joao
+#                               type - tipo da entidade desejada: type=user
+#                               scopeList - lista de scopes desejados, separados por virgula, sem espaco: location,name
+#                               callbackUrl - endereco pra onde o Broker vai enviar dados quando atualizados pelo Prov
+#                               time - quantidade de tempo de vida da subscription, em minutos, inteiro maior que 0
+# descricao: Consumer envia entidade e escopos sobre os quais deseja receber atualizacoes, na sua Url, e um tempo de
+#   vida para a subscription
+# retorna: mensagem de sucesso ou erro
 def subscribe(callback_url, entity_id, entity_type, scope_list, minutes):
     try:
         # TODO validar os campos, url ser URL, entidade e escopo(s) existirem de fato
@@ -13,7 +23,7 @@ def subscribe(callback_url, entity_id, entity_type, scope_list, minutes):
         c.close()
         con.commit()
         con.close()
-        return "Sucesso"
+        return "Sucesso na Subscription de %s" % callback_url
     except MySQLdb.Error, e:
         error_message = "<p>Erro no Subscription [%d]: %s</p>" % (e.args[0], e.args[1])
         return error_message

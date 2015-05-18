@@ -1,8 +1,5 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request
-import xml.etree.ElementTree as ET
-import MySQLdb
-import sys
 import getProviders
 import advertisement as adv
 import getContext
@@ -53,7 +50,7 @@ def advertisement():
 #                                                                           entities=user|joao,user|roberto,
 #                                   ou
 #                                   entity e type - para so uma entidade: entity=joao&type=user
-# descricao:
+# descricao: Consumer pede por dados que satisfacam os Scopes e entidades listadas nos parametros
 # retorna: ctxEL mensagem, com os dados que combinem com os parametros, ou uma mensagem de erro
 @broker.route('/getContext', methods=['GET'])
 def get_context():
@@ -63,6 +60,7 @@ def get_context():
     else:
         entities = request.args.get('type') + '|' + request.args.get('entity')
     result = getContext.get_context(scope_list, entities)
+    print result
     return jsonify({'result': result})
 
 # subscribe
@@ -73,6 +71,8 @@ def get_context():
 #                               scopeList - lista de scopes desejados, separados por virgula, sem espaco: location,name
 #                               callbackUrl - endereco pra onde o Broker vai enviar dados quando atualizados pelo Prov
 #                               time - quantidade de tempo de vida da subscription, em minutos, inteiro maior que 0
+# descricao: Consumer envia entidade e escopos sobre os quais deseja receber atualizacoes, na sua Url, e um tempo de
+#   vida para a subscription
 # retorna: mensagem de sucesso ou erro
 @broker.route('/subscribe', methods=['POST'])
 def subscribe():
@@ -99,6 +99,6 @@ def context_update():
         result = "Falha no Update"
     return jsonify({'result': result})
 
-
+# TODO rotinas que ficam contando os expires, etc
 if __name__ == '__main__':
     broker.run(debug=True)

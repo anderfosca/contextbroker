@@ -14,3 +14,18 @@
         </ctxEl>
     </ctxEls>
 </contextML>
+
+<contextML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ContextML/1.6c" xsi:schemaLocation="http://ContextML/1.7http://cark3.cselt.it/schemas/ContextML-1.6.c.xsd">
+<ctxEls>
+    <ctxEl>
+        <contextProvider id="testProv" v="1.0.0" />
+        <entity id="username" type="marcos" />
+        <scope>test2</scope>
+        <timestamp>2013-09-10T14:57:18+02:00</timestamp>
+        <expires>2013-09-10T14:57:48+02:00</expires>
+        <dataPart>&lt;par n="lat"&gt;49.424978&lt;/par&gt;
+                &lt;par n="lon"&gt;7.750602&lt;/par&gt;
+            </dataPart>
+    </ctxEl>
+</ctxEls>
+</contextML>

@@ -17,7 +17,7 @@ class Provider(object):
         self.location_description = location_description
         self.scopes = scopes  # list of dictionaries
 
-    def generate_xml(self):
+    def generate_advertise_xml(self):
         NS_XSI = "{http://www.w3.org/2001/XMLSchema-instance}"
         root = ET.Element("contextML", xmlns="http://ContextML/1.6c")
         root.set(NS_XSI + "schemaLocation", "http://ContextML/1.7http://cark3.cselt.it/schemas/ContextML-1.6.c.xsd")
@@ -45,11 +45,26 @@ class Provider(object):
 
         return ET.tostring(root)
 
+    def generate_update_xml(self):
+        with open('upd1.xml', 'r') as f:
+            xmlstring= f.read()
+        return xmlstring
+
+
     def advertise(self, broker_url):
-        xml_string = self.generate_xml()
+        xml_string = self.generate_advertise_xml()
+        print xml_string
+        target_url = broker_url+"/advertisement"
+        #dataA = json.dumps({'advMessage': advMessage})
+        r = requests.post(target_url, xml_string)
+        print r.json(), r.status_code
+
+
+    def update(self, broker_url):
+        xml_string = self.generate_update_xml()
         print xml_string
 
-        target_url = broker_url+"/advertisement"
+        target_url = broker_url+"/update"
         #dataA = json.dumps({'advMessage': advMessage})
         r = requests.post(target_url, xml_string)
         print r.json(), r.status_code
@@ -79,5 +94,5 @@ provider_scopes = [
 provider = Provider("provTeste4", "1.0.0", "http://provTeste4", "0", "0", "aqui", provider_scopes)
 # with open ("filename.xml", "r") as myfile:
 #     advMessage=myfile.read().replace("\n",'')
-provider.advertise("http://localhost:5000")
+provider.update("http://localhost:5000")
 
