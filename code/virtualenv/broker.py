@@ -74,7 +74,7 @@ def get_context():
 # descricao: Consumer envia entidade e escopos sobre os quais deseja receber atualizacoes, na sua Url, e um tempo de
 #   vida para a subscription
 # retorna: mensagem de sucesso ou erro
-@broker.route('/subscribe', methods=['POST'])
+@broker.route('/subscribe', methods=['GET'])
 def subscribe():
     entity_id = request.args.get('entity')
     entity_type = request.args.get('type')
@@ -95,6 +95,7 @@ def context_update():
     update_xml = request.data
     if contextml_validator.validate_contextml(update_xml):
         result = update.context_update(update_xml)
+        subscription.check_subscriptions()
     else:
         result = "Falha no Update"
     return jsonify({'result': result})
@@ -108,6 +109,5 @@ def before_request():
 
 # TODO rotinas que ficam contando os expires, etc
 if __name__ == '__main__':
-    print "la"
     broker.run(threaded=True)
 

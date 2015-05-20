@@ -4,14 +4,16 @@ import xml.etree.ElementTree as ET
 import MySQLdb
 import sys
 import re
+import subscription
+import requests
 
 # context_update
 # dados esperados: xml com informacoes do update do Provider
 # descricao: Registra os dados fornecidos pelo Provider na tabela de registros (registryTable)
 # retorna: mensagem de sucesso ou erro
 # TODO verificar consistencia dos dados
-def context_update(xml_string):
-    xml_string = re.sub(' xmlns="[^"]+"', '', xml_string, count=1)
+def context_update(xml_string_original):
+    xml_string = re.sub(' xmlns="[^"]+"', '', xml_string_original, count=1)
     xml_string = re.sub(' xmlns:xsi="[^"]+"', '', xml_string, count=1)
     xml_string = re.sub(' xsi:schemaLocation="[^"]+"', '', xml_string, count=1)
 
@@ -48,7 +50,13 @@ def context_update(xml_string):
                 c.close()
                 con.commit()
                 con.close()
-                # TODO conferir tabela de Subscriptions e avisar Consumers assinados nesta combinacao Entity+Scope
+                # TODO
+                # if subscription.check_subscriptions(entityId, entityType, scope)
+                #   enviar esse ctxEl para o Consumer subscripted
+                #   if send_to_consumer(xml_string_original) == 200
+                #       return sucesso update sucesso atualizar subscripted
+                #   else
+                #       return sucesso update erro atualizar subscripted
             except: # catch *all* exceptions
                 e = sys.exc_info()[0]
                 error_message = "<p>Erro no Update: %s</p>" % e
@@ -58,3 +66,9 @@ def context_update(xml_string):
         e = sys.exc_info()[0]
         error_message = "<p>Erro no Update: %s</p>" % e
         return error_message
+
+
+def send_to_consumer(url, xml_string):
+    r = requests.post(url, xml_string)
+    print r.json(), r.status_code
+    return r.status_code

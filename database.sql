@@ -51,14 +51,6 @@ CREATE TABLE IF NOT EXISTS `providers` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `providers`
---
-
-INSERT INTO `providers` (`provider_id`, `name`, `url`, `version`, `location`, `location_desc`, `updated_at`) VALUES
-(8, 'testProv', 'http://testProv', '1.0.0', '49.425323;7.754138', 'Paul-Ehrlich-Strasse 34, TU Kaiserslautern, 67663 Kaiserslautern, Deutschland', '2015-05-04 22:21:30'),
-(10, 'testProv3', 'http://testProv3', '1.0.0', ';', '', '2015-05-07 17:49:12'),
-(11, 'provTeste', 'http://provTeste', '1.0.0', '0;0', 'aqui', '2015-05-07 18:20:01');
 
 -- --------------------------------------------------------
 
@@ -69,13 +61,13 @@ INSERT INTO `providers` (`provider_id`, `name`, `url`, `version`, `location`, `l
 CREATE TABLE IF NOT EXISTS `registryTable` (
   `registry_id` int(11) NOT NULL,
   `provider_id` int(11) NOT NULL,
-  `entity` varchar(80) CHARACTER SET utf8 NOT NULL,
   `scope_id` int(11) NOT NULL,
-  `timestamp` datetime NOT NULL,
-  `expires` datetime NOT NULL,
+  `entity_id` int(11) NOT NULL,
+  `timestamp` varchar(80) CHARACTER SET utf8 NOT NULL,
+  `expires` varchar(80) CHARACTER SET utf8 NOT NULL,
   `dataPart` varchar(100) CHARACTER SET utf8 NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -85,24 +77,24 @@ CREATE TABLE IF NOT EXISTS `registryTable` (
 
 CREATE TABLE IF NOT EXISTS `scopes` (
   `scope_id` int(11) NOT NULL,
+  `provider_id` int(11) NOT NULL,
   `name` varchar(100) CHARACTER SET utf8 NOT NULL,
   `urlPath` varchar(100) CHARACTER SET utf8 NOT NULL,
   `entityTypes` varchar(100) CHARACTER SET utf8 NOT NULL,
   `inputs` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `provider_id` int(11) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `scopes`
+-- Table structure for table `scopes_subscriptions`
 --
 
-INSERT INTO `scopes` (`scope_id`, `name`, `urlPath`, `entityTypes`, `inputs`, `provider_id`, `updated_at`) VALUES
-(5, 'test1', '/test/getTest1', 'username,mobile', '[''phone;currentSettings:mobile'', ''cgi;cell:cgi'', ''btList;bt:btList'', ''wfList;wf:wfList'']', 8, '2015-05-04 22:21:30'),
-(6, 'test2', '/test/getTest2', 'username', '[''lat;position:latitude'', ''lon;position:longitude'']', 8, '2015-05-04 22:21:30'),
-(7, 'test1', '/test/getTest1', 'mobile', '[''phonenr;string'']', 10, '2015-05-07 17:49:12'),
-(8, 'scope1', '/scope1', 'username,mobile', '[''lat;position:latitude'', ''lon;position:longitude'']', 11, '2015-05-07 18:20:01'),
-(9, 'scope2', '/scope2', 'username,mobile', '[''lat;position:latitude'', ''lon;position:longitude'']', 11, '2015-05-07 18:20:01');
+CREATE TABLE IF NOT EXISTS `scopes_subscriptions` (
+  `scope_id` int(11) NOT NULL,
+  `subscription_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -112,13 +104,11 @@ INSERT INTO `scopes` (`scope_id`, `name`, `urlPath`, `entityTypes`, `inputs`, `p
 
 CREATE TABLE IF NOT EXISTS `subscriptions` (
   `subscription_id` int(11) NOT NULL,
+  `entity_id` int(11) NOT NULL,
   `callbackUrl` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `entityID` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `entityType` varchar(30) CHARACTER SET utf8 NOT NULL,
-  `scopeList` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `time` int(11) NOT NULL,
+  `minutes` int(11) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -142,7 +132,10 @@ ALTER TABLE `providers`
 -- Indexes for table `registryTable`
 --
 ALTER TABLE `registryTable`
-  ADD PRIMARY KEY (`registry_id`);
+  ADD PRIMARY KEY (`registry_id`),
+  ADD KEY `scope` (`scope_id`),
+  ADD KEY `providerid` (`provider_id`) USING BTREE,
+  ADD KEY `entityid` (`entity_id`) USING BTREE;
 
 --
 -- Indexes for table `scopes`
@@ -152,10 +145,18 @@ ALTER TABLE `scopes`
   ADD KEY `provider_id` (`provider_id`);
 
 --
+-- Indexes for table `scopes_subscriptions`
+--
+ALTER TABLE `scopes_subscriptions`
+  ADD KEY `subscription_subscriptions` (`subscription_id`),
+  ADD KEY `scope_scopes` (`scope_id`) USING BTREE;
+
+--
 -- Indexes for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  ADD PRIMARY KEY (`subscription_id`);
+  ADD PRIMARY KEY (`subscription_id`),
+  ADD KEY `entity` (`entity_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -175,7 +176,7 @@ ALTER TABLE `providers`
 -- AUTO_INCREMENT for table `registryTable`
 --
 ALTER TABLE `registryTable`
-  MODIFY `registry_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `registry_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `scopes`
 --
@@ -185,7 +186,37 @@ ALTER TABLE `scopes`
 -- AUTO_INCREMENT for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  MODIFY `subscription_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subscription_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `registryTable`
+--
+ALTER TABLE `registryTable`
+  ADD CONSTRAINT `entity` FOREIGN KEY (`entity_id`) REFERENCES `entities` (`entity_id`),
+  ADD CONSTRAINT `providerid` FOREIGN KEY (`provider_id`) REFERENCES `providers` (`provider_id`),
+  ADD CONSTRAINT `scope` FOREIGN KEY (`scope_id`) REFERENCES `scopes` (`scope_id`);
+
+--
+-- Constraints for table `scopes`
+--
+ALTER TABLE `scopes`
+  ADD CONSTRAINT `provider` FOREIGN KEY (`provider_id`) REFERENCES `providers` (`provider_id`);
+
+--
+-- Constraints for table `scopes_subscriptions`
+--
+ALTER TABLE `scopes_subscriptions`
+  ADD CONSTRAINT `subscription_subscriptions` FOREIGN KEY (`subscription_id`) REFERENCES `subscriptions` (`subscription_id`);
+
+--
+-- Constraints for table `subscriptions`
+--
+ALTER TABLE `subscriptions`
+  ADD CONSTRAINT `entityid` FOREIGN KEY (`entity_id`) REFERENCES `entities` (`entity_id`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

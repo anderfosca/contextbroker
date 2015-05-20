@@ -45,6 +45,11 @@ def check_subscriptions(entity_id, entity_type, scope):
         c.close()
         con.commit()
         con.close()
+        # TODO
+        # dividir scopeList
+        # checar se o scope em questao esta incluso nesse scopeList
+        # se sim, retorna true
+
         return "Sucesso na Subscription"
     except MySQLdb.Error, e:
         error_message = "<p>Erro no Subscription [%d]: %s</p>" % (e.args[0], e.args[1])
