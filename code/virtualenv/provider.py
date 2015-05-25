@@ -71,8 +71,8 @@ class Provider(object):
 
 
 provider_scopes = [
-    {'name': "scope1",
-     'url': "/scope1",
+    {'name': "test8",
+     'url': "/test8",
      'entityTypes': "username,mobile",
      'inputs': [
          {'name': "lat",
@@ -80,8 +80,8 @@ provider_scopes = [
          {'name': "lon",
           'type': "position:longitude"}
      ]},
-    {'name': "scope2",
-     'url': "/scope2",
+    {'name': "scope8",
+     'url': "/scope8",
      'entityTypes': "username,mobile",
      'inputs': [
          {'name': "lat",
@@ -91,8 +91,10 @@ provider_scopes = [
      ]}
 ]
 
-provider = Provider("provTeste4", "1.0.0", "http://provTeste4", "0", "0", "aqui", provider_scopes)
+provider = Provider("provTeste9", "1.0.0", "http://provTeste9", "0", "0", "aqui", provider_scopes)
 # with open ("filename.xml", "r") as myfile:
 #     advMessage=myfile.read().replace("\n",'')
-provider.update("http://localhost:5000")
+provider.advertise("http://localhost:5000")
+
+#provider.update("http://localhost:5000")
 

@@ -3,6 +3,8 @@ __author__ = 'anderson'
 import sys
 import MySQLdb
 import xml.etree.ElementTree as ET
+import config
+
 
 
 # getContext
@@ -18,7 +20,7 @@ def get_context(scope_list, entities):
     ctxEls = ET.SubElement(root, "ctxEls")
     for scopeName in scope_list.split(','):
         try:
-            con = MySQLdb.connect(host='localhost', user='broker_manager', passwd='senhamanager', db='broker')
+            con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
             c = con.cursor()
             c.execute("SELECT scope_id FROM scopes WHERE name = '%s'" % scopeName)
             scope_id = c.fetchone()[0]

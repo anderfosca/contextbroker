@@ -1,5 +1,6 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request
+import config
 import getProviders
 import advertisement as adv
 import getContext
@@ -9,8 +10,10 @@ import contextml_validator
 
 broker = Flask(__name__)
 
-# temos aqui as diferentes interfaces do Broker, cada qual corresponde a uma
-# funcionalidade
+# TODO padronizar mensagens de resposta, de sucesso e de erro
+# TODO
+
+# Temos aqui as diferentes interfaces do Broker, cada qual corresponde a uma funcionalidade
 
 # getProviders
 # quem acessa: Consumer
@@ -20,7 +23,9 @@ broker = Flask(__name__)
 # cadastrados
 @broker.route('/getProviders', methods=['GET'])
 def get_providers():
-    xml_string = getProviders.get_providers()
+    scope = request.args.get('scope')
+    entity_type = request.args.get('entity')
+    xml_string = getProviders.get_providers(scope, entity_type)
     return jsonify({'providers': xml_string})
 
 
@@ -39,6 +44,7 @@ def advertisement():
         result = adv.register_provider(broker_info)
     else:
         result = "Falha no Advertisement"
+    print result
     # return codigo de erro, sucesso, etc
     return jsonify({'result': result})
 
@@ -95,7 +101,7 @@ def context_update():
     update_xml = request.data
     if contextml_validator.validate_contextml(update_xml):
         result = update.context_update(update_xml)
-        subscription.check_subscriptions()
+        #subscription.check_subscriptions()
     else:
         result = "Falha no Update"
     return jsonify({'result': result})
@@ -104,10 +110,9 @@ def context_update():
 # descricao: realiza o que estiver aqui antes de qualquer request, seja GET ou POST, tanto faz
 @broker.before_request
 def before_request():
-    print "bla"
+    print "before_request"
 
 
 # TODO rotinas que ficam contando os expires, etc
 if __name__ == '__main__':
     broker.run(threaded=True)
-

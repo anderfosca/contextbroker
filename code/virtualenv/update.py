@@ -6,6 +6,12 @@ import sys
 import re
 import subscription
 import requests
+import config
+
+def send_to_consumer(url, xml_string):
+    print "sending to: " + url + '\n' + xml_string
+    #r = requests.post(url, xml_string)
+    #print r.json(), r.status_code
 
 # context_update
 # dados esperados: xml com informacoes do update do Provider
@@ -16,7 +22,6 @@ def context_update(xml_string_original):
     xml_string = re.sub(' xmlns="[^"]+"', '', xml_string_original, count=1)
     xml_string = re.sub(' xmlns:xsi="[^"]+"', '', xml_string, count=1)
     xml_string = re.sub(' xsi:schemaLocation="[^"]+"', '', xml_string, count=1)
-
     root = ET.fromstring(xml_string)
 
     try:
@@ -25,7 +30,6 @@ def context_update(xml_string_original):
             version = ctxEl.find('contextProvider').get('v')
             entityType = ctxEl.find('entity').get('type')
             entityId = ctxEl.find('entity').get('id')
-            entity = entityType+'|'+entityId
             scope = ctxEl.find('scope').text
             timestamp = ctxEl.find('timestamp').text
             expires = ctxEl.find('expires').text
@@ -34,7 +38,7 @@ def context_update(xml_string_original):
                 parList.append(ET.tostring(par))
             dataPart = "".join(parList)
             try:
-                con = MySQLdb.connect(host='localhost', user='broker_manager', passwd='senhamanager', db='broker')
+                con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
                 c = con.cursor()
                 c.execute("SELECT provider_id FROM providers WHERE name = '%s'" % nameProv)
                 provider_id = c.fetchone()[0]
@@ -44,31 +48,37 @@ def context_update(xml_string_original):
                 scope_id = c.fetchone()[0]
                 c.close()
                 c = con.cursor()
-                c.execute("INSERT INTO registryTable(provider_id, entity, scope_id, timestamp, expires, dataPart)"
+                c.execute("INSERT INTO entities(name, type)"
+                          " VALUES (%s, %s)", (entityId, entityType))
+                c.close()
+                c = con.cursor()
+                c.execute("SELECT entity_id FROM entities WHERE name = '%s'" % entityId)
+                entity_id = c.fetchone()[0]
+                c.close()
+                c = con.cursor()
+                c.execute("INSERT INTO registryTable(provider_id, scope_id, entity_id, timestamp, expires, dataPart)"
                           " VALUES (%s, %s, %s, %s, %s, %s)",
-                          (provider_id, entity, scope_id, timestamp, expires, dataPart))
+                          (provider_id, scope_id, entity_id, timestamp, expires, dataPart))
                 c.close()
                 con.commit()
                 con.close()
+                #return "Sucesso no Update"
                 # TODO
-                # if subscription.check_subscriptions(entityId, entityType, scope)
+                callbacks = subscription.check_subscriptions(entityId, entityType, scope)
+                #if length(callbacks) > 0:
                 #   enviar esse ctxEl para o Consumer subscripted
-                #   if send_to_consumer(xml_string_original) == 200
-                #       return sucesso update sucesso atualizar subscripted
-                #   else
-                #       return sucesso update erro atualizar subscripted
+                for url in callbacks:
+                    send_to_consumer(url[0], xml_string_original)
+                return "Sucesso e subscripteds atualizados"
+                #else:
+                 #   return "Sucesso nenhum subscripted"
             except: # catch *all* exceptions
                 e = sys.exc_info()[0]
                 error_message = "<p>Erro no Update: %s</p>" % e
                 return error_message
-        return "Sucesso no Update"
     except:
         e = sys.exc_info()[0]
         error_message = "<p>Erro no Update: %s</p>" % e
         return error_message
 
 
-def send_to_consumer(url, xml_string):
-    r = requests.post(url, xml_string)
-    print r.json(), r.status_code
-    return r.status_code
