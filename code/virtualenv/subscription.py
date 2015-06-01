@@ -49,30 +49,3 @@ def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
         return error_message
 
 
-# check_subscriptions
-# dados esperados: entity, scope
-# descricao: Consumer envia entidade e escopos sobre os quais deseja receber atualizacoes, na sua Url, e um tempo de
-#   vida para a subscription
-# # retorna: mensagem de sucesso ou erro
-def check_subscriptions(entity_name, entity_type, scope):
-    try:
-        # TODO validar os campos, url ser URL, entidade e escopo(s) existirem de fato
-        con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-        c = con.cursor()
-        c.execute("SELECT callbackUrl FROM subscriptions "
-                  "LEFT JOIN (entities, scopes, scopes_subscriptions) ON subscriptions.entity_id=entities.entity_id "
-                  "AND subscriptions.subscription_id = scopes_subscriptions.subscription_id "
-                  "AND scopes.scope_id=scopes_subscriptions.scope_id "
-                  "WHERE entities.name='%s' AND entities.type='%s' "
-                  "AND scopes.name='%s'" % (entity_name, entity_type, scope))
-        callbacks = c.fetchall()
-        c.close()
-        con.commit()
-        con.close()
-        for url in callbacks:
-            print url[0]
-        return callbacks
-
-    except MySQLdb.Error, e:
-        error_message = "<p>Erro no Subscription [%d]: %s</p>" % (e.args[0], e.args[1])
-        return False

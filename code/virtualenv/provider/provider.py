@@ -94,7 +94,7 @@ provider_scopes = [
 provider = Provider("provTeste9", "1.0.0", "http://provTeste9", "0", "0", "aqui", provider_scopes)
 # with open ("filename.xml", "r") as myfile:
 #     advMessage=myfile.read().replace("\n",'')
-provider.advertise("http://localhost:5000")
+#provider.advertise("http://localhost:5000")
 
-#provider.update("http://localhost:5000")
+provider.update("http://localhost:5000")
 

@@ -7,11 +7,9 @@ import getContext
 import subscription
 import update
 import contextml_validator
+import generic_response
 
 broker = Flask(__name__)
-
-# TODO padronizar mensagens de resposta, de sucesso e de erro
-# TODO
 
 # Temos aqui as diferentes interfaces do Broker, cada qual corresponde a uma funcionalidade
 
@@ -43,7 +41,7 @@ def advertisement():
     if contextml_validator.validate_contextml(broker_info):
         result = adv.register_provider(broker_info)
     else:
-        result = "Falha no Advertisement"
+        result = generic_response.generate_response('ERROR','400','Bad XML','advertisement')
     print result
     # return codigo de erro, sucesso, etc
     return jsonify({'result': result})
@@ -101,9 +99,8 @@ def context_update():
     update_xml = request.data
     if contextml_validator.validate_contextml(update_xml):
         result = update.context_update(update_xml)
-        #subscription.check_subscriptions()
     else:
-        result = "Falha no Update"
+        result = generic_response.generate_response('ERROR','400','Bad XML','update')
     return jsonify({'result': result})
 
 # before_request
@@ -113,6 +110,11 @@ def before_request():
     print "before_request"
 
 
-# TODO rotinas que ficam contando os expires, etc
+# TODO timers que ficam contando os expires, etc
+# TODO sistema de log
+# TODO telas para visualizar a tabela de Registros e a de Providers
+# TODO docstring
 if __name__ == '__main__':
-    broker.run(threaded=True)
+    broker.run()
+    # broker.run(threaded=True)
+

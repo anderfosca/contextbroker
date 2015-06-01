@@ -26,7 +26,6 @@ def get_context(scope_list, entities):
             scope_id = c.fetchone()[0]
             c.close()
             for entity in entities.split(','):
-                print scope_id, entity
                 c = con.cursor()
                 c.execute("SELECT provider_id, timestamp, expires, dataPart FROM registryTable "
                           "WHERE scope_id = '%s' AND entity = '%s'" % (scope_id, entity))
@@ -44,7 +43,6 @@ def get_context(scope_list, entities):
                 ET.SubElement(ctxEl, "timestamp").text = elements[1]
                 ET.SubElement(ctxEl, "expires").text = elements[2]
                 ET.SubElement(ctxEl, "dataPart").text = elements[3]
-                print elements[3]
         except MySQLdb.Error, e:
             c.close()
             con.commit()

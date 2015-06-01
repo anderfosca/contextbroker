@@ -5,9 +5,9 @@ __author__ = 'anderson'
 import requests, json
 
 getproviders_url = "http://localhost:5000/getProviders"
-r = requests.get(getproviders_url, params={'scope': 'test5', 'entity': 'bla'})
-
-print r.json(), r.status_code
+for i in range(0, 1000):
+    r = requests.get(getproviders_url, params={'scope': 'test5', 'entity': ''})
+    print r.json(), r.status_code
 
 
 entity_id = 'marcos'
