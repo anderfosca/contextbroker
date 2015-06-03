@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import config
 import getProviders
 import advertisement as adv
@@ -8,6 +8,7 @@ import subscription
 import update
 import contextml_validator
 import generic_response
+import MySQLdb
 
 broker = Flask(__name__)
 
@@ -23,8 +24,8 @@ broker = Flask(__name__)
 def get_providers():
     scope = request.args.get('scope')
     entity_type = request.args.get('entity')
-    xml_string = getProviders.get_providers(scope, entity_type)
-    return jsonify({'providers': xml_string})
+    result = getProviders.get_providers(scope, entity_type)
+    return result
 
 
 # advertisement
@@ -44,7 +45,7 @@ def advertisement():
         result = generic_response.generate_response('ERROR','400','Bad XML','advertisement')
     print result
     # return codigo de erro, sucesso, etc
-    return jsonify({'result': result})
+    return result
 
 # getContext
 # quem usa: Consumer
@@ -65,7 +66,7 @@ def get_context():
         entities = request.args.get('type') + '|' + request.args.get('entity')
     result = getContext.get_context(scope_list, entities)
     print result
-    return jsonify({'result': result})
+    return result
 
 # subscribe
 # quem usa: Consumer
@@ -86,7 +87,7 @@ def subscribe():
     callback_url = request.args.get('callbackUrl')
     minutes = request.args.get('time')
     result = subscription.subscribe(callback_url, entity_id, entity_type, scope_list, minutes)
-    return jsonify({'result': result})
+    return result
 
 # update
 # quem usa: Provider
@@ -101,7 +102,61 @@ def context_update():
         result = update.context_update(update_xml)
     else:
         result = generic_response.generate_response('ERROR','400','Bad XML','update')
-    return jsonify({'result': result})
+    return result
+
+
+#index
+@broker.route('/')
+def index():
+    return render_template("index.html")
+
+
+#index
+@broker.route('/providers')
+def providers():
+    con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
+    cursor = con.cursor()
+    # select de todos os Providers cadastrados no Broker
+    sql = "SELECT name, url, version, location, location_desc" \
+          " FROM providers"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    con.commit()
+    con.close()
+    return render_template("providers.html", results=results)
+
+#subscriptions
+@broker.route('/subscriptions')
+def subscriptions():
+    con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
+    cursor = con.cursor()
+    # select de todos os Providers cadastrados no Broker
+    sql = "SELECT callbackUrl, minutes" \
+          " FROM subscriptions"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    con.commit()
+    con.close()
+    return render_template("subscriptions.html", results=results)
+
+#registrytable
+@broker.route('/registers')
+def registers():
+    con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
+    cursor = con.cursor()
+    # select de todos os Providers cadastrados no Broker
+    sql = "SELECT providers.name, scopes.name, entities.type, entities.name, registryTable.dataPart" \
+          " FROM registryTable, scopes, entities,providers " \
+          "WHERE providers.provider_id=registryTable.provider_id AND scopes.scope_id=registryTable.scope_id " \
+          "AND entities.entity_id=registryTable.entity_id"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    cursor.close()
+    con.commit()
+    con.close()
+    return render_template("registers.html", results=results)
 
 # before_request
 # descricao: realiza o que estiver aqui antes de qualquer request, seja GET ou POST, tanto faz
@@ -115,6 +170,6 @@ def before_request():
 # TODO telas para visualizar a tabela de Registros e a de Providers
 # TODO docstring
 if __name__ == '__main__':
-    broker.run()
+    broker.run(debug=True, use_reloader=True)
     # broker.run(threaded=True)
 

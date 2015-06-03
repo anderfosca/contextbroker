@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contextML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ContextML/1.6c" xsi:schemaLocation="http://ContextML/1.7http://cark3.cselt.it/schemas/ContextML-1.6.c.xsd">
+	<ctxAdvs>
+		<ctxAdv>
+			<contextProvider id="testProv2" v="1.0.0"/>
+			<urlRoot>http://testProv</urlRoot>
+			<scopes>
+				<scopeDef n="test1">
+					<urlPath>/test/getTest1</urlPath>
+					<entityTypes>mobile</entityTypes>
+					<inputDef>
+						<inputEl name="phonenr" type="string"></inputEl>
+					</inputDef>
+				</scopeDef>
+			</scopes>
+		</ctxAdv>
+	</ctxAdvs>
+</contextML>

@@ -22,7 +22,8 @@ def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
         c.close()
         c = con.cursor()
         c.execute("INSERT INTO subscriptions(entity_id, callbackUrl, minutes) "
-                  "VALUES (%s, %s, %s)",
+                  "VALUES (%s, %s, %s) ON DUPLICATE KEY "
+                      "UPDATE minutes=VALUES(minutes)",
                   (entity_id, callback_url, minutes))
         c.close()
         con.commit()
@@ -36,7 +37,7 @@ def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
             subscription_id = c.fetchone()[0]
             c.close()
             c = con.cursor()
-            c.execute("INSERT INTO scopes_subscriptions(scope_id, subscription_id) "
+            c.execute("INSERT IGNORE INTO scopes_subscriptions(scope_id, subscription_id) "
                       "VALUES (%s, %s)",
                       (scope_id, subscription_id))
             c.close()

@@ -66,7 +66,9 @@ def context_update(xml_string_original):
             c.close()
             c = con.cursor()
             c.execute("INSERT INTO registryTable(provider_id, scope_id, entity_id, timestamp, expires, dataPart)"
-                      " VALUES (%s, %s, %s, %s, %s, %s)",
+                      " VALUES (%s, %s, %s, %s, %s, %s) "
+                      "ON DUPLICATE KEY "
+                      "UPDATE timestamp=VALUES(timestamp), expires=VALUES(expires), dataPart=VALUES(dataPart)",
                       (provider_id, scope_id, entity_id, timestamp, expires, dataPart))
             c.close()
             con.commit()

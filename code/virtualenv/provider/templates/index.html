@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <title>Provider</title>
+</head>
+<body>
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+            <h1>Provider</h1>
+        </div>
+        <div class="col-md-4">
+            <label for="usr">Broker URL:</label>
+            <input type="text" class="form-control form-block" id="broker_url" value="{{ broker_url }}">
+        </div>
+    </div>
+</div>
+
+<div class="container" >
+    <div class="row">
+        <div class="col-md-5">
+            <form role="form">
+                <div class="form-group">
+                  <label for="comment">Advertisement XML:</label>
+                  <textarea class="form-control" rows="12" id="advxml">{{ adv_xml }}</textarea>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2 center-block" style="height: 100px; line-height: 100px">
+            <br><form action="/advertise">
+                <input type="submit" class="btn-block" value="Send Advertisement">
+            </form>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="comment">Advertisement Response:</label>
+                <textarea class="form-control" rows="12" id="advresp"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <form role="form">
+                <div class="form-group">
+                  <label for="comment">Update XML:</label>
+                  <textarea class="form-control" rows="12" id="updxml">{{ upd_xml }}</textarea>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2 center-block" style="height: 100px; line-height: 100px">
+            <br><form action="/update" >
+                <input type="submit" class="btn-block" value="Send Update">
+            </form>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="comment">Update Response:</label>
+                <textarea class="form-control" rows="12" id="updresp"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -16,3 +16,4 @@ vira inativo
 
 ##conferir maneira de validar o xml como sendo ContextML
 
+##explicar a escolha do Google Protocol-Buffers, citar sites falando que ele é uma boa escolha para criar protocolos

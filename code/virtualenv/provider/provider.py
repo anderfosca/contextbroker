@@ -46,7 +46,7 @@ class Provider(object):
         return ET.tostring(root)
 
     def generate_update_xml(self):
-        with open('upd1.xml', 'r') as f:
+        with open('provider/upd2.xml', 'r') as f:
             xmlstring= f.read()
         return xmlstring
 
@@ -67,7 +67,7 @@ class Provider(object):
         target_url = broker_url+"/update"
         #dataA = json.dumps({'advMessage': advMessage})
         r = requests.post(target_url, xml_string)
-        print r.json(), r.status_code
+        print r, r.status_code
 
 
 provider_scopes = [

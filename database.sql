@@ -118,7 +118,8 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
 -- Indexes for table `entities`
 --
 ALTER TABLE `entities`
-  ADD PRIMARY KEY (`entity_id`);
+  ADD PRIMARY KEY (`entity_id`),
+  ADD UNIQUE KEY `unique_entity` (`name`,`type`);
 
 --
 -- Indexes for table `providers`
@@ -148,6 +149,7 @@ ALTER TABLE `scopes`
 -- Indexes for table `scopes_subscriptions`
 --
 ALTER TABLE `scopes_subscriptions`
+  ADD UNIQUE KEY `uniqueness` (`scope_id`,`subscription_id`),
   ADD KEY `subscription_subscriptions` (`subscription_id`),
   ADD KEY `scope_scopes` (`scope_id`) USING BTREE;
 
@@ -156,6 +158,7 @@ ALTER TABLE `scopes_subscriptions`
 --
 ALTER TABLE `subscriptions`
   ADD PRIMARY KEY (`subscription_id`),
+  ADD UNIQUE KEY `entity_url` (`entity_id`,`callbackUrl`),
   ADD KEY `entity` (`entity_id`);
 
 --
@@ -209,8 +212,8 @@ ALTER TABLE `scopes`
 -- Constraints for table `scopes_subscriptions`
 --
 ALTER TABLE `scopes_subscriptions`
+  ADD CONSTRAINT `scope_scopes` FOREIGN KEY (`scope_id`) REFERENCES `scopes` (`scope_id`),
   ADD CONSTRAINT `subscription_subscriptions` FOREIGN KEY (`subscription_id`) REFERENCES `subscriptions` (`subscription_id`);
-
 --
 -- Constraints for table `subscriptions`
 --
