@@ -3,6 +3,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <title>Consumer</title>
 </head>
 <body>
@@ -21,73 +26,69 @@
     <div class="row">
         <div class="col-md-2">
             <label for="usr">Scope:</label>
-            <input type="text" class="form-control" id="scope" placeholder="Requisito">
+            <input type="text" class="form-control" id="scope_getP" placeholder="scope" value="{{ getp_scope }}">
         </div>
         <div class="col-md-2">
-            <label for="usr">Entity:</label>
-            <input type="text" class="form-control" id="entity">
+            <label for="usr">Entity Type:</label>
+            <input type="text" class="form-control" id="entity_getP" placeholder="type" value="{{ getp_entity }}">
         </div>
         <div class="col-md-2">
             <br>
-            <form action="/getProviders">
-                <input type="submit" class="btn-block" value="GetProviders">
-            </form>
-        </div>
+                 <input id="getprov" type="submit" class="btn-block" value="GetProviders">
+         </div>
         <div class="col-md-6">
            <label for="comment">Resposta:</label>
-      <textarea class="form-control" rows="2" id="respgetp"></textarea>
+      <textarea class="form-control" rows="5" id="getprovresp"></textarea>
 
         </div>
     </div>
-    <div class="row">
-        </div>
+
 <hr style="height: 2px;background-color: lightgray;">
     <div class="row">
         <div class="col-md-2">
-    <label for="usr">Entity:</label>
-    <input type="text" class="form-control" id="entity_subs">
-            </div>
-        <div class="col-md-2">
-    <label for="usr">ScopeList:</label>
-    <input type="text" class="form-control" id="scopelist_subs">
-            </div>
-        <div class="col-md-2">
-    <label for="usr">CallbackURL:</label>
-    <input type="text" class="form-control" id="url_subs">
+            <label for="entity_subs">Entity:</label>
+            <input type="text" class="form-control" id="entity_subs" placeholder="type|id" value="{{ subs_entity }}">
         </div>
-    <div class="col-md-2">
-        <br>
-        <form action="/subscribe">
-            <input type="submit" class="btn-block" value="Subscribe">
-        </form>
-    </div>
-    <div class="col-md-4">
-    <label for="comment">Resposta:</label>
-      <textarea class="form-control" rows="2" id="respgetp"></textarea>
+        <div class="col-md-2">
+            <label for="scope_subs">ScopeList:</label>
+            <input type="text" class="form-control" id="scope_subs" placeholder="scope1,scope2, ..." value="{{ subs_scopes }}">
+        </div>
+        <div class="col-md-2">
+            <label for="url_subs">CallbackURL:</label>
+            <input type="text" class="form-control" id="url_subs" placeholder="http://url.com" value="{{ subs_url }}">
+        </div>
+        <div class="col-md-1">
+            <label for="time_subs">Time:</label>
+            <input type="text" class="form-control" id="time_subs" placeholder="Int>0" value="{{ subs_time }}">
+        </div>
+        <div class="col-md-1">
+            <br>
+                 <input id="subsc" type="submit" class="btn-large" value="Subscribe">
+         </div>
+        <div class="col-md-4">
+            <label for="subscresp">Resposta: </label>
+            <textarea class="form-control" rows="2" id="subscresp"></textarea>
         </div>
 </div>
 <hr style="height: 2px;background-color: lightgray;">
 
     <div class="row">
         <div class="col-md-2">
-   <label for="usr">Entity:</label>
-    <input type="text" class="form-control" id="entity_subs">
+            <label for="usr">Entities:</label>
+            <input type="text" class="form-control" id="entity_getc" placeholder="type|id,type2|id2, ..." value="{{ getc_entities }}">
         </div>
         <div class="col-md-2">
-   <label for="usr">ScopeList:</label>
-    <input type="text" class="form-control" id="scopelist_subs">
+            <label for="usr">ScopeList:</label>
+            <input type="text" class="form-control" id="scope_getc" placeholder="scope1,scope2, ..." value="{{ getc_scopes }}">
         </div>
         <div class="col-md-2">
             <br>
-    <form action="/getContext">
-        <input type="submit" class="btn-block" value="GetContext">
-    </form>
-        </div>
+                 <input id="getcont" type="submit" class="btn-block" value="GetContext">
+         </div>
         <div class="col-md-6">
-    <label for="comment">Resposta:</label>
-      <textarea class="form-control" rows="2" id="respgetp"></textarea>
+            <label for="comment">Resposta:</label>
+            <textarea class="form-control" rows="5" id="getcresp"></textarea>
         </div>
-
     </div>
 
 
@@ -96,4 +97,59 @@
 </div>
 
 </body>
+
+<script>
+$(function () {
+    $('#getprov').click(function () {
+        jQuery.ajax("/getProviders",  {
+                    success: function (result, status) {
+                        document.getElementById('getprovresp').textContent = result.toString()
+                    },
+                    error: function (result, status) {
+                        document.getElementById('getprovresp').textContent = result.toString()
+                    },
+            data: {
+                    scope: document.getElementById('scope_getP').value,
+                    entity: document.getElementById('entity_getP').value,
+                    broker_url: document.getElementById('broker_url').value
+                }
+                });
+    });
+
+    $('#subsc').click(function () {
+        jQuery.ajax("/subscribe",  {
+                    success: function (result, status) {
+                        document.getElementById('subscresp').textContent = result.toString()
+                    },
+                    error: function (result, status) {
+                        document.getElementById('subscresp').textContent = result.toString()
+                    },
+            data: {
+                    entity: document.getElementById('entity_subs').value,
+                    scope_list: document.getElementById('scope_subs').value,
+                    url: document.getElementById('url_subs').value,
+                    time: document.getElementById('time_subs').value,
+                    broker_url: document.getElementById('broker_url').value
+                }
+                });
+    });
+
+    $('#getcont').click(function () {
+        jQuery.ajax("/getContext",  {
+                    success: function (result, status) {
+                        document.getElementById('getcresp').textContent = result.toString()
+                    },
+                    error: function (result, status) {
+                        document.getElementById('getcresp').textContent = result.toString()
+                    },
+            data: {
+                    entity: document.getElementById('entity_getc').value,
+                    scope_list: document.getElementById('scope_getc').value,
+                    broker_url: document.getElementById('broker_url').value
+                }
+                });
+    });
+});
+
+</script>
 </html>

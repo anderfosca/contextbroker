@@ -29,17 +29,10 @@ def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
         con.commit()
         for scope in scope_list.split(','):
             c = con.cursor()
-            c.execute("SELECT scope_id FROM scopes WHERE name = '%s'" % scope)
-            scope_id = c.fetchone()[0]
-            c.close()
-            c = con.cursor()
-            c.execute("SELECT subscription_id FROM subscriptions WHERE callbackUrl = '%s'" % callback_url)
-            subscription_id = c.fetchone()[0]
-            c.close()
-            c = con.cursor()
             c.execute("INSERT IGNORE INTO scopes_subscriptions(scope_id, subscription_id) "
-                      "VALUES (%s, %s)",
-                      (scope_id, subscription_id))
+                      "SELECT scope_id, subscription_id FROM scopes, subscriptions"
+                      " WHERE scopes.name='%s' AND subscriptions.callbackUrl='%s'" %
+                      (scope, callback_url))
             c.close()
             con.commit()
         con.commit()

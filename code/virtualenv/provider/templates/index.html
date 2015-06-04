@@ -3,6 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <title>Provider</title>
 </head>
 <body>
@@ -29,10 +33,9 @@
             </form>
         </div>
         <div class="col-md-2 center-block" style="height: 100px; line-height: 100px">
-            <br><form action="/advertise">
-                <input type="submit" class="btn-block" value="Send Advertisement">
-            </form>
-        </div>
+            <br>
+                <input id="advsend" type="submit" class="btn-block" value="Send Advertisement">
+         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label for="comment">Advertisement Response:</label>
@@ -51,10 +54,9 @@
             </form>
         </div>
         <div class="col-md-2 center-block" style="height: 100px; line-height: 100px">
-            <br><form action="/update" >
-                <input type="submit" class="btn-block" value="Send Update">
-            </form>
-        </div>
+            <br>
+                <input id="updsend" type="submit" class="btn-block" value="Send Update">
+         </div>
         <div class="col-md-5">
             <div class="form-group">
                 <label for="comment">Update Response:</label>
@@ -65,4 +67,38 @@
 </div>
 
 </body>
+<script>
+$(function () {
+    $('#advsend').click(function () {
+        jQuery.ajax("/advertise",  {
+                    success: function (result, status) {
+                        document.getElementById('advresp').textContent = result.toString()
+                    },
+                    error: function (result, status) {
+                        document.getElementById('advresp').textContent = result.toString()
+                    },
+            data: {
+                    xml_string: document.getElementById('advxml').value,
+                    broker_url: document.getElementById('broker_url').value
+                }
+                });
+    });
+
+    $('#updsend').click(function () {
+        jQuery.ajax("/update",  {
+                    success: function (result, status) {
+                        document.getElementById('updresp').textContent = result.toString()
+                    },
+                    error: function (result, status) {
+                        document.getElementById('updresp').textContent = result.toString()
+                    },
+            data: {
+                    xml_string: document.getElementById('updxml').value,
+                    broker_url: document.getElementById('broker_url').value
+                }
+                });
+    });
+});
+
+</script>
 </html>

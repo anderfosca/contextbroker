@@ -4,7 +4,7 @@ import sys
 import MySQLdb
 import xml.etree.ElementTree as ET
 import config
-
+import generic_response
 
 
 # getContext
@@ -18,35 +18,36 @@ def get_context(scope_list, entities):
     root = ET.Element("contextML", xmlns="http://ContextML/1.6c")
     root.set(NS_XSI + "schemaLocation", "http://ContextML/1.7http://cark3.cselt.it/schemas/ContextML-1.6.c.xsd")
     ctxEls = ET.SubElement(root, "ctxEls")
+    found=False
     for scopeName in scope_list.split(','):
         try:
             con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-            c = con.cursor()
-            c.execute("SELECT scope_id FROM scopes WHERE name = '%s'" % scopeName)
-            scope_id = c.fetchone()[0]
-            c.close()
             for entity in entities.split(','):
                 c = con.cursor()
-                c.execute("SELECT provider_id, timestamp, expires, dataPart FROM registryTable "
-                          "WHERE scope_id = '%s' AND entity = '%s'" % (scope_id, entity))
+                c.execute("SELECT rt.provider_id, rt.timestamp, rt.expires, rt.dataPart, pr.name, pr.version"
+                          " FROM registryTable rt, providers pr, entities, scopes "
+                          "WHERE rt.scope_id=scopes.scope_id AND rt.entity_id=entities.entity_id "
+                          "AND entities.name= '%s' AND entities.type='%s' AND scopes.name='%s'" %
+                                            (entity.split('|')[1], entity.split('|')[0], scopeName))
                 elements = c.fetchone()
                 c.close()
-                c = con.cursor()
-                c.execute("SELECT name, version FROM providers "
-                          "WHERE provider_id = '%s'" % elements[0])
-                provider_elements = c.fetchone()
-                c.close()
-                ctxEl = ET.SubElement(ctxEls, "ctxEl")
-                ET.SubElement(ctxEl, "contextProvider", id=provider_elements[0], v=provider_elements[1])
-                ET.SubElement(ctxEl, "entity", id=entity.split('|')[0], type=entity.split('|')[1])
-                ET.SubElement(ctxEl, "scope").text = scopeName
-                ET.SubElement(ctxEl, "timestamp").text = elements[1]
-                ET.SubElement(ctxEl, "expires").text = elements[2]
-                ET.SubElement(ctxEl, "dataPart").text = elements[3]
+                if  elements is not None:
+                    found=True
+                    ctxEl = ET.SubElement(ctxEls, "ctxEl")
+                    ET.SubElement(ctxEl, "contextProvider", id=elements[4], v=elements[5])
+                    ET.SubElement(ctxEl, "entity", id=entity.split('|')[0], type=entity.split('|')[1])
+                    ET.SubElement(ctxEl, "scope").text = scopeName
+                    ET.SubElement(ctxEl, "timestamp").text = elements[1]
+                    ET.SubElement(ctxEl, "expires").text = elements[2]
+                    ET.SubElement(ctxEl, "dataPart").text = elements[3]
         except MySQLdb.Error, e:
             c.close()
             con.commit()
             con.close()
             error_message = "<p>Erro no GetContext %s: %s</p>" % (e.args[0], e.args[1])
             return error_message
-    return ET.tostring(root).replace('&lt;', '<').replace('&gt;', '>').replace('\n', '')
+    if found:
+        xml_string = ET.tostring(root).replace('&lt;', '<').replace('&gt;', '>').replace('\n', '')
+    else:
+        xml_string = generic_response.generate_response('ERROR','400','Nothing found','getContext','','','','','')
+    return xml_string

@@ -39,8 +39,8 @@ def register_provider(broker_info):
         c.close()
         con.commit()
         con.close()
-        error_message = "<p>Erro no registro do Provider %s [%d]: %s</p>" % (nameProv, e.args[0], e.args[1])
-        return generic_response.generate_response('ERROR','400','Error','ping',nameProv,version,'','','')
+        error_message = "Erro no registro do Provider %s [%d]: %s" % (nameProv, e.args[0], e.args[1])
+        return generic_response.generate_response('ERROR','400',error_message,'advertisement',nameProv,version,'','','')
     # a partir daqui sao inseridos os scopes, na tabela de scopes
     for scope in adv.find('scopes').findall('scopeDef'):
         name_scope = scope.get('n')

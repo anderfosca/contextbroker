@@ -3,7 +3,7 @@
     <ctxEls>
         <ctxEl>
             <contextProvider id="provTeste4" v="1.0.0"/>
-            <entity id="marcos" type="username"/>
+            <entity id="anderson" type="username"/>
             <scope>test2</scope>
             <timestamp>2013-09-10T14:57:18+02:00</timestamp>
             <expires>2013-09-10T14:57:48+02:00</expires>

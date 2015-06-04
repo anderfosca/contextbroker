@@ -46,6 +46,7 @@ def advertisement():
     print result
     # return codigo de erro, sucesso, etc
     return result
+    #return jsonify({'result': result})
 
 # getContext
 # quem usa: Consumer
