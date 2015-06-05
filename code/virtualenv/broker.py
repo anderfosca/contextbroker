@@ -174,6 +174,14 @@ def registers():
     con.close()
     return render_template("registers.html", results=results)
 
+
+#subscriptions
+@broker.route('/log')
+def log_page():
+        with open(os.path.dirname(os.path.abspath(__file__)) + '/log/broker', 'r') as f:
+            log_string= f.read()
+        return render_template("log.html", log_string=log_string)
+
 # before_request
 # descricao: realiza o que estiver aqui antes de qualquer request, seja GET ou POST, tanto faz
 @broker.before_request
