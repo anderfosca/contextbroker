@@ -6,6 +6,7 @@ import ast
 import sys
 import config
 import generic_response
+import logging
 
 # get_providers
 # quem acessa: Consumer
@@ -14,6 +15,8 @@ import generic_response
 # retorna: xml com ctxPrvEl, com o scope e os Providers que possuem esse scope
 # cadastrados
 def get_providers(scope, entity_type):
+    logger = logging.getLogger('broker')
+    logger.info('get_providers;')
     if len(scope) == 0:
           return generic_response.generate_response('ERROR','400','Bad Parameter',
                                                   'getProviders','','','',entity_type,scope)

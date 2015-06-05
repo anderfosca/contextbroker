@@ -9,8 +9,22 @@ import update
 import contextml_validator
 import generic_response
 import MySQLdb
+import logging
+from logging.handlers import RotatingFileHandler
+import os
 
-broker = Flask(__name__)
+broker = Flask('broker')
+
+
+logger = logging.getLogger('broker')
+logger.setLevel(logging.INFO)
+file_handler = RotatingFileHandler(os.path.dirname(os.path.abspath(__file__)) + '/log/broker', maxBytes=1024 * 1024 * 100, backupCount=20)
+file_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+
 
 # Temos aqui as diferentes interfaces do Broker, cada qual corresponde a uma funcionalidade
 
@@ -24,6 +38,7 @@ broker = Flask(__name__)
 def get_providers():
     scope = request.args.get('scope')
     entity_type = request.args.get('entity')
+    logger.info('getProviders - scope: '+scope+' entity_type: '+entity_type+';')
     result = getProviders.get_providers(scope, entity_type)
     return result
 
