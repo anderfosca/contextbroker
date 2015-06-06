@@ -1,13 +1,13 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request, render_template
-import config
-import getProviders
-import advertisement as adv
-import getContext
-import subscription
-import update
-import contextml_validator
-import generic_response
+import modules.config as config
+import modules.getProviders as getProviders
+import modules.advertisement as adv
+import modules.getContext as getContext
+import modules.subscription as subscription
+import modules.update as update
+import modules.contextml_validator as contextml_validator
+import modules.generic_response as generic_response
 import MySQLdb
 import logging
 from logging.handlers import RotatingFileHandler
