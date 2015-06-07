@@ -12,6 +12,8 @@ import MySQLdb
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+import pymongo
+from pymongo import MongoClient
 
 broker = Flask('broker')
 
@@ -140,6 +142,11 @@ def providers():
     cursor.close()
     con.commit()
     con.close()
+    ##################MONGODB
+    client = MongoClient()
+    db = client.broker
+    answ = db.providers.find()
+    ##################MONGODB
     return render_template("providers.html", results=results)
 
 #subscriptions
@@ -155,6 +162,11 @@ def subscriptions():
     cursor.close()
     con.commit()
     con.close()
+    ###############MONGODB
+    client = MongoClient()
+    db = client.broker
+    answ = db.subscriptions.find()
+    ###############MONGODB
     return render_template("subscriptions.html", results=results)
 
 #registrytable
@@ -172,6 +184,12 @@ def registers():
     cursor.close()
     con.commit()
     con.close()
+    ###############MONGODB
+    client = MongoClient()
+    db = client.broker
+    answ = db.registries.find()
+    ###############MONGODB
+
     return render_template("registers.html", results=results)
 
 

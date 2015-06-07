@@ -7,6 +7,8 @@ import re
 import subscription
 import generic_response
 import config
+import pymongo
+from pymongo import MongoClient
 
 def send_to_consumer(url, xml_string):
     print "sending to: " + url + '\n' + xml_string
@@ -48,6 +50,16 @@ def context_update(xml_string_original):
                       "LEFT JOIN providers ON scopes.provider_id=providers.provider_id "
                       "WHERE scopes.name = '%s' AND providers.name = '%s'" % (scope, nameProv))
             result = c.fetchone()
+            ###################################MONGODB
+            client = MongoClient()
+            db = client.broker
+            providers_collection = db.providers
+            provider_el_id = providers_collection.find_one(
+                {'name': nameProv}, { '_id': 1})["_id"]
+            scopes_collection = db.scopes
+            scope_el_id = scopes_collection.find_one(
+                {'name': scope, 'provider_id': provider_el_id}, {'_id': 1})["_id"]
+            ##################################MONGODB
             if len(result) == 0:  # caso nao ache o scope
                 c.close()
                 con.close()
@@ -60,6 +72,11 @@ def context_update(xml_string_original):
                       " VALUES (%s, %s)",
                       (entityId, entityType))
             c.close()
+            #########################MONGODB
+            entity_element = { 'name': entityId, 'type': entityType}
+            entities_collection = db.entities
+            entity_el_id = entities_collection.insert_one(entity_element).inserted_id
+            #########################MONGODB
             c = con.cursor()
             c.execute("SELECT entity_id FROM entities WHERE name = '%s' AND type='%s'" % (entityId, entityType))
             entity_id = c.fetchone()[0]
@@ -73,6 +90,13 @@ def context_update(xml_string_original):
             c.close()
             con.commit()
             con.close()
+#################################MONGODB
+            on_insert = {'provider_id': provider_id, 'scope_id': scope_el_id, 'entity_id': entity_el_id}
+            on_update = {'timestamp': timestamp, 'expires': expires, 'dataPart': dataPart}
+            registries_collection = db.registries
+            registries_collection.update_one(on_insert, {'$setOnInsert': on_insert, '$set': on_update}, upsert=True)
+################################MONGODB
+
             # hora de conferir as subscriptions
             callbacks = check_subscriptions(entityId, entityType, scope)
             if len(callbacks) > 0:

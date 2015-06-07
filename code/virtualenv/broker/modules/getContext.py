@@ -5,7 +5,8 @@ import MySQLdb
 import xml.etree.ElementTree as ET
 import config
 import generic_response
-
+import pymongo
+from pymongo import MongoClient
 
 # getContext
 # dados esperados: scopeList - lista de scopes, separados por virgula, sem espacos, nao pode ser vazio
@@ -31,6 +32,15 @@ def get_context(scope_list, entities):
                                             (entity.split('|')[1], entity.split('|')[0], scopeName))
                 elements = c.fetchone()
                 c.close()
+                #################MONGODB
+                entity_name, entity_type = entity.split('|')
+                client = MongoClient()
+                db = client.broker
+                entity_el_id = db.entities.find_one({'name': entity_name, 'type': entity_type})["_id"]
+                scope_el_id = db.scopes.find_one({'name': scopeName})["_id"]
+                registry = db.registries.find_one({'entity_id': entity_el_id, 'scope_id': scope_el_id})
+                print registry
+                #################MONGODB
                 if  elements is not None:
                     found=True
                     ctxEl = ET.SubElement(ctxEls, "ctxEl")

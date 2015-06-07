@@ -1,6 +1,8 @@
 __author__ = 'anderson'
 import MySQLdb
 import config
+import pymongo
+from pymongo import MongoClient
 
 # subscribe
 # dados esperados: parametros URL:
@@ -20,6 +22,7 @@ def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
         c.execute("SELECT entity_id FROM entities WHERE name = '%s'" % entity_name)
         entity_id = c.fetchone()[0]
         c.close()
+
         c = con.cursor()
         c.execute("INSERT INTO subscriptions(entity_id, callbackUrl, minutes) "
                   "VALUES (%s, %s, %s) ON DUPLICATE KEY "
@@ -37,6 +40,20 @@ def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
             con.commit()
         con.commit()
         con.close()
+        ######################MONGODB
+        client = MongoClient()
+        db = client.broker
+        scopes_collection = db.scopes
+        scopes_ids = []
+        for result in scopes_collection.find({'name': {'$in' : scope_list.split(',')}}, {'_id': 1}):
+            scopes_ids.append(result["_id"])
+        entities_collection = db.entities
+        entity_el_id = entities_collection.find_one({'name': entity_name}, {'_id': 1})["_id"]
+        subscriptions_collection = db.subscriptions
+        subscriptions_collection.insert_one(
+                                {'callback_url': callback_url, 'minutes': minutes,
+                                 'entity_id': entity_el_id, 'scopes': scopes_ids})
+        #####################MONGODB
         return "Sucesso na Subscription de %s" % callback_url
     except MySQLdb.Error, e:
         error_message = "<p>Erro no Subscription [%d]: %s</p>" % (e.args[0], e.args[1])

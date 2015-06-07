@@ -7,6 +7,8 @@ import sys
 import config
 import generic_response
 import logging
+import pymongo
+from pymongo import MongoClient
 
 # get_providers
 # quem acessa: Consumer
@@ -32,6 +34,12 @@ def get_providers(scope, entity_type):
         cursor.close()
         con.commit()
         con.close()
+        ########################MONGODB
+        client = MongoClient()
+        db = client.broker
+        scope_el_id = db.scopes.find({'name': scope}, {'_id': 1})["_id"]
+        providers = db.providers.find({'scope_id': scope_el_id})
+        ########################MONGODB
         root = ET.Element("contextML")  # Inicio da construcao do XML
         ctxPrvEls = ET.SubElement(root, "ctxPrvEls")
         ctxPrvEl = ET.SubElement(ctxPrvEls, "ctxPrvEl")

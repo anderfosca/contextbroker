@@ -5,6 +5,8 @@ import MySQLdb
 import re
 import config
 import generic_response
+import pymongo
+from pymongo import MongoClient
 
 # register_provider
 # dados esperados: xml com informacoes do Provider
@@ -35,6 +37,14 @@ def register_provider(broker_info):
         c.close()
         con.commit()
         con.close()
+###########################MONGODB
+        provider = {'name': nameProv, 'version': version, 'url': urlRoot,
+                    'location': lat+';'+lon, 'location_desc': location}
+        client = MongoClient()
+        db = client.broker
+        providers_collection = db.providers
+        provider_el_id = providers_collection.insert_one(provider).inserted_id
+###########################MONGODB
     except MySQLdb.Error, e:
         c.close()
         con.commit()
@@ -65,6 +75,12 @@ def register_provider(broker_info):
             c.close()
             con.commit()
             con.close()
+###########################MONGODB
+            scope_element = {'name': name_scope, 'urlPath': url_path,
+                             'entityTypes': entity_types, 'inputs': inputs, 'provider_id': provider_el_id}
+            scopes_collection = db.scopes
+            scopes_collection.insert_one(scope_element)
+###########################MONGODB
         except MySQLdb.Error, e:
             con.commit()
             con.close()
