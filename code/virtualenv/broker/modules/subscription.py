@@ -1,6 +1,6 @@
 __author__ = 'anderson'
-import MySQLdb
-import config
+import sys
+import generic_response
 import pymongo
 from pymongo import MongoClient
 
@@ -17,46 +17,25 @@ from pymongo import MongoClient
 def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
     try:
         # TODO validar os campos, url ser URL, entidade e escopo(s) existirem de fato
-        con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-        c = con.cursor()
-        c.execute("SELECT entity_id FROM entities WHERE name = '%s'" % entity_name)
-        entity_id = c.fetchone()[0]
-        c.close()
-
-        c = con.cursor()
-        c.execute("INSERT INTO subscriptions(entity_id, callbackUrl, minutes) "
-                  "VALUES (%s, %s, %s) ON DUPLICATE KEY "
-                      "UPDATE minutes=VALUES(minutes)",
-                  (entity_id, callback_url, minutes))
-        c.close()
-        con.commit()
-        for scope in scope_list.split(','):
-            c = con.cursor()
-            c.execute("INSERT IGNORE INTO scopes_subscriptions(scope_id, subscription_id) "
-                      "SELECT scope_id, subscription_id FROM scopes, subscriptions"
-                      " WHERE scopes.name='%s' AND subscriptions.callbackUrl='%s'" %
-                      (scope, callback_url))
-            c.close()
-            con.commit()
-        con.commit()
-        con.close()
         ######################MONGODB
         client = MongoClient()
         db = client.broker
-        scopes_collection = db.scopes
         scopes_ids = []
-        for result in scopes_collection.find({'name': {'$in' : scope_list.split(',')}}, {'_id': 1}):
+        for result in db.scopes.find({'name': {'$in' : scope_list.split(',')}}, {'_id': 1}):
             scopes_ids.append(result["_id"])
-        entities_collection = db.entities
-        entity_el_id = entities_collection.find_one({'name': entity_name}, {'_id': 1})["_id"]
-        subscriptions_collection = db.subscriptions
-        subscriptions_collection.insert_one(
-                                {'callback_url': callback_url, 'minutes': minutes,
-                                 'entity_id': entity_el_id, 'scopes': scopes_ids})
+        entity_el = db.entities.find_one({'name': entity_name, 'type': entity_type}, {'_id': 1})
+        if entity_el and len(scopes_ids) > 0:
+            db.subscriptions.insert_one({'callback_url': callback_url, 'minutes': minutes,
+                                         'entity_id': entity_el["_id"], 'scopes': scopes_ids})
+            return "Sucesso na Subscription de %s" % callback_url
+        else:
+            return generic_response.generate_response('ERROR','500','Bad Parameters',
+                                                      'subscription','','',entity_name,entity_type,scope_list)
         #####################MONGODB
-        return "Sucesso na Subscription de %s" % callback_url
-    except MySQLdb.Error, e:
-        error_message = "<p>Erro no Subscription [%d]: %s</p>" % (e.args[0], e.args[1])
-        return error_message
+
+    except Exception as e:
+        error_message = "Erro no registro da Subscription: %s" % (sys.exc_info()[0])
+        return generic_response.generate_response('ERROR','500',error_message,
+                                                  'subscription','','','','','')
 
 

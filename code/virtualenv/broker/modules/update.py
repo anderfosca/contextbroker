@@ -1,12 +1,9 @@
 __author__ = 'anderson'
 
 import xml.etree.ElementTree as ET
-import MySQLdb
 import sys
 import re
-import subscription
 import generic_response
-import config
 import pymongo
 from pymongo import MongoClient
 
@@ -44,73 +41,34 @@ def context_update(xml_string_original):
             parList.append(ET.tostring(par))
         dataPart = "".join(parList)
         try:
-            con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-            c = con.cursor()
-            c.execute("SELECT scopes.scope_id, scopes.provider_id FROM scopes "
-                      "LEFT JOIN providers ON scopes.provider_id=providers.provider_id "
-                      "WHERE scopes.name = '%s' AND providers.name = '%s'" % (scope, nameProv))
-            result = c.fetchone()
             ###################################MONGODB
             client = MongoClient()
             db = client.broker
-            providers_collection = db.providers
-            provider_el_id = providers_collection.find_one(
-                {'name': nameProv}, { '_id': 1})["_id"]
-            scopes_collection = db.scopes
-            scope_el_id = scopes_collection.find_one(
-                {'name': scope, 'provider_id': provider_el_id}, {'_id': 1})["_id"]
+            provider_el = db.providers.find_one({'name': nameProv})
+            scope_el = db.scopes.find_one({'name': scope, 'provider_id': provider_el['_id']})
             ##################################MONGODB
-            if len(result) == 0:  # caso nao ache o scope
-                c.close()
-                con.close()
-                return generic_response.generate_response('ERROR','400','Bad parameters','update',nameProv,version,entityId,entityType,scope)
-            scope_id = result[0]
-            provider_id = result[1]
-            c.close()
-            c = con.cursor()
-            c.execute("INSERT IGNORE INTO entities(name, type)"  # insere soh uma vez a dupla nome-tipo pra entidade
-                      " VALUES (%s, %s)",
-                      (entityId, entityType))
-            c.close()
             #########################MONGODB
-            entity_element = { 'name': entityId, 'type': entityType}
-            entities_collection = db.entities
-            entity_el_id = entities_collection.insert_one(entity_element).inserted_id
+            entity_element = {'name': entityId, 'type': entityType}
+            db.entities.update_one(entity_element, {'$setOnInsert': entity_element}, upsert=True)
+            entity_el = db.entities.find_one(entity_element)
             #########################MONGODB
-            c = con.cursor()
-            c.execute("SELECT entity_id FROM entities WHERE name = '%s' AND type='%s'" % (entityId, entityType))
-            entity_id = c.fetchone()[0]
-            c.close()
-            c = con.cursor()
-            c.execute("INSERT INTO registryTable(provider_id, scope_id, entity_id, timestamp, expires, dataPart)"
-                      " VALUES (%s, %s, %s, %s, %s, %s) "
-                      "ON DUPLICATE KEY "
-                      "UPDATE timestamp=VALUES(timestamp), expires=VALUES(expires), dataPart=VALUES(dataPart)",
-                      (provider_id, scope_id, entity_id, timestamp, expires, dataPart))
-            c.close()
-            con.commit()
-            con.close()
 #################################MONGODB
-            on_insert = {'provider_id': provider_id, 'scope_id': scope_el_id, 'entity_id': entity_el_id}
-            on_update = {'timestamp': timestamp, 'expires': expires, 'dataPart': dataPart}
-            registries_collection = db.registries
-            registries_collection.update_one(on_insert, {'$setOnInsert': on_insert, '$set': on_update}, upsert=True)
+            on_insert = {'provider': provider_el, 'scope': scope_el, 'entity': entity_el}
+            on_update = {'timestamp': timestamp, 'expires': expires, 'data_part': dataPart}
+            db.registries.update_one(on_insert, {'$setOnInsert': on_insert, '$set': on_update}, upsert=True)
 ################################MONGODB
 
             # hora de conferir as subscriptions
-            callbacks = check_subscriptions(entityId, entityType, scope)
-            if len(callbacks) > 0:
-                for url in callbacks:
-                    send_to_consumer(url[0], xml_string_original)
+            results = check_subscriptions(entityId, entityType, scope)
+            if results.count() > 0:
+                for result in results:
+                    send_to_consumer(result['callback_url'], xml_string_original)
                 return generic_response.generate_response('OK','200','Update and subscription success','update',nameProv,version,entityId,entityType,scope)
             else:
                 return generic_response.generate_response('OK','200','Update success','update',nameProv,version,entityId,entityType,scope)
-        except MySQLdb.Error, e:
-            c.close()
-            con.commit()
-            con.close()
-            error_message = "<p>Erro no Update [%d]: %s</p>" % (e.args[0], e.args[1]) # catch *all* exceptions
-            return generic_response.generate_response('ERROR','400','Update failed '+error_message,'update',nameProv,version,entityId,entityType,scope)
+        except Exception as e:
+            error_message = "Erro no registro do Update: %s" % (sys.exc_info()[0])
+            return generic_response.generate_response('ERROR','500',error_message,'update',nameProv,version,entityId,entityType,scope)
 
 # check_subscriptions
 # dados esperados: entity, scope
@@ -123,18 +81,15 @@ def check_subscriptions(entity_name, entity_type, scope):
     :rtype : str
     :returns :
     """
-    con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-    c = con.cursor()
-    c.execute("SELECT callbackUrl FROM subscriptions "
-              "LEFT JOIN (entities, scopes, scopes_subscriptions) ON subscriptions.entity_id=entities.entity_id "
-              "AND subscriptions.subscription_id = scopes_subscriptions.subscription_id "
-              "AND scopes.scope_id=scopes_subscriptions.scope_id "
-              "WHERE entities.name='%s' AND entities.type='%s' "
-              "AND scopes.name='%s'" % (entity_name, entity_type, scope))
-    callbacks = c.fetchall()
-    c.close()
-    con.commit()
-    con.close()
-    for url in callbacks:
-        print url[0]
-    return callbacks
+    #################################MONGODB
+    client = MongoClient()
+    db = client.broker
+    entity_el_id = db.entities.find_one({'name': entity_name, 'type': entity_type}, {'_id': 1})["_id"]
+    scope_el_id = db.scopes.find_one({'name': scope}, {'_id': 1})["_id"]
+    results = db.subscriptions.find({'entity_id': entity_el_id,
+                                    'scopes': {'$in': [scope_el_id]}}, {'callback_url': 1})
+    ################################MONGODB
+    for r in results:
+        print r['callback_url']
+
+    return results

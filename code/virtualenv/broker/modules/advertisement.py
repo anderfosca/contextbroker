@@ -1,9 +1,8 @@
 __author__ = 'anderson'
 
 import xml.etree.ElementTree as ET
-import MySQLdb
 import re
-import config
+import sys
 import generic_response
 import pymongo
 from pymongo import MongoClient
@@ -30,13 +29,6 @@ def register_provider(broker_info):
         lon = adv.find('providerLocation').find('lon').text
         location = adv.find('providerLocation').find('location').text
     try:    # aqui eh feita a insercao do provider no banco
-        con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-        c = con.cursor() # TODO tratar caso do Provider ja existir e ter de ser atualizado
-        c.execute("INSERT INTO providers(name, url, version, location, location_desc) VALUES (%s, %s, %s, %s, %s)",
-                  (nameProv, urlRoot, version, lat+";"+lon, location))
-        c.close()
-        con.commit()
-        con.close()
 ###########################MONGODB
         provider = {'name': nameProv, 'version': version, 'url': urlRoot,
                     'location': lat+';'+lon, 'location_desc': location}
@@ -45,11 +37,8 @@ def register_provider(broker_info):
         providers_collection = db.providers
         provider_el_id = providers_collection.insert_one(provider).inserted_id
 ###########################MONGODB
-    except MySQLdb.Error, e:
-        c.close()
-        con.commit()
-        con.close()
-        error_message = "Erro no registro do Provider %s [%d]: %s" % (nameProv, e.args[0], e.args[1])
+    except Exception as e:
+        error_message = "Erro no registro do Provider: %s" % (sys.exc_info()[0])
         return generic_response.generate_response('ERROR','400',error_message,'advertisement',nameProv,version,'','','')
     # a partir daqui sao inseridos os scopes, na tabela de scopes
     for scope in adv.find('scopes').findall('scopeDef'):
@@ -61,30 +50,17 @@ def register_provider(broker_info):
             input_name = inputEl.get('name')
             input_type = inputEl.get('type')
             inputs.append(input_name+";"+input_type)
-        con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-        c = con.cursor()
-        c.execute("SELECT provider_id FROM providers WHERE name = '%s'" % nameProv)
-        provider_id = c.fetchone()[0]
-        c.close()
         try:
-            con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-            c = con.cursor()
-            c.execute("INSERT INTO scopes (provider_id, name, urlPath, entityTypes, inputs )"
-                      "          VALUES (%s, %s, %s, %s, %s)",
-                      (provider_id, name_scope, url_path, entity_types, str(inputs)))
-            c.close()
-            con.commit()
-            con.close()
 ###########################MONGODB
-            scope_element = {'name': name_scope, 'urlPath': url_path,
-                             'entityTypes': entity_types, 'inputs': inputs, 'provider_id': provider_el_id}
+            scope_element = {'name': name_scope, 'url_path': url_path,
+                             'entity_types': entity_types, 'inputs': inputs, 'provider_id': provider_el_id}
             scopes_collection = db.scopes
             scopes_collection.insert_one(scope_element)
 ###########################MONGODB
-        except MySQLdb.Error, e:
-            con.commit()
-            con.close()
-            error_message = "<p>Erro no registro do Scope %s [%d]: %s</p>" % (name_scope, e.args[0], e.args[1])
-            return generic_response.generate_response('ERROR','400','','',nameProv,version,'','','')
+        except Exception as e:
+            error_message = "Erro no registro do Scope: %s" % (sys.exc_info()[0])
+            return generic_response.generate_response('ERROR','500',error_message,
+                                                  'getProviders','','','','','')
+
     return generic_response.generate_response('OK','200','Advertisement succeeded','advertisement',nameProv,version,'','','')
 

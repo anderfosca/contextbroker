@@ -8,7 +8,6 @@ import modules.subscription as subscription
 import modules.update as update
 import modules.contextml_validator as contextml_validator
 import modules.generic_response as generic_response
-import MySQLdb
 import logging
 from logging.handlers import RotatingFileHandler
 import os
@@ -132,65 +131,33 @@ def index():
 #index
 @broker.route('/providers')
 def providers():
-    con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-    cursor = con.cursor()
-    # select de todos os Providers cadastrados no Broker
-    sql = "SELECT name, url, version, location, location_desc" \
-          " FROM providers"
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    cursor.close()
-    con.commit()
-    con.close()
     ##################MONGODB
     client = MongoClient()
     db = client.broker
     answ = db.providers.find()
     ##################MONGODB
-    return render_template("providers.html", results=results)
+    return render_template("providers.html", answ=answ)
 
 #subscriptions
 @broker.route('/subscriptions')
 def subscriptions():
-    con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-    cursor = con.cursor()
-    # select de todos os Providers cadastrados no Broker
-    sql = "SELECT callbackUrl, minutes" \
-          " FROM subscriptions"
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    cursor.close()
-    con.commit()
-    con.close()
     ###############MONGODB
     client = MongoClient()
     db = client.broker
     answ = db.subscriptions.find()
     ###############MONGODB
-    return render_template("subscriptions.html", results=results)
+    return render_template("subscriptions.html", answ=answ)
 
 #registrytable
 @broker.route('/registers')
 def registers():
-    con = MySQLdb.connect(host=config.db_host, user=config.db_user, passwd=config.db_password, db=config.db_name)
-    cursor = con.cursor()
-    # select de todos os Providers cadastrados no Broker
-    sql = "SELECT providers.name, scopes.name, entities.type, entities.name, registryTable.dataPart" \
-          " FROM registryTable, scopes, entities,providers " \
-          "WHERE providers.provider_id=registryTable.provider_id AND scopes.scope_id=registryTable.scope_id " \
-          "AND entities.entity_id=registryTable.entity_id"
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    cursor.close()
-    con.commit()
-    con.close()
     ###############MONGODB
     client = MongoClient()
     db = client.broker
     answ = db.registries.find()
     ###############MONGODB
 
-    return render_template("registers.html", results=results)
+    return render_template("registers.html", answ=answ)
 
 
 #subscriptions
