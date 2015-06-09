@@ -26,15 +26,24 @@ def advertise():
 
 @app.route('/update')
 def update():
-    xml_string= request.args.get('xml_string')
+    xml_string = request.args.get('xml_string')
     broker_url = request.args.get('broker_url')
     result = update_f(xml_string,broker_url)
     return result
 
 @app.route('/getContext', methods=['GET'])
-def getContext(url, xml):
-    r = requests.post(url, xml)
-    return r.json()
+def get_context():
+    scope_list = request.args.get('scope_list')
+    entities = request.args.get('entities')
+    r = '<contextML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ContextML/1.6c" ' \
+        'xsi:schemaLocation="http://ContextML/1.7http://cark3.cselt.it/schemas/ContextML-1.6.c.xsd">' \
+        '<ctxEls><ctxEl><contextProvider id="testProv" v="1.0.0" />' \
+        '<entity id="username" type="anderson" /><scope>test2</scope>' \
+        '<timestamp>2013-09-10T14:57:18+02:00</timestamp><expires>2013-09-10T14:57:48+02:00</expires>' \
+        '<dataPart><par n="lat">49.424978</par>                ' \
+        '<par n="lon">7.750602</par>            ' \
+        '</dataPart></ctxEl></ctxEls></contextML>'
+    return r
 
 @app.route('/')
 def index():

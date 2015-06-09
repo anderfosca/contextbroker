@@ -1,6 +1,5 @@
 #!flask/bin/python
 from flask import Flask, jsonify, request, render_template
-import modules.config as config
 import modules.getProviders as getProviders
 import modules.advertisement as adv
 import modules.getContext as getContext
@@ -39,7 +38,7 @@ logger.addHandler(file_handler)
 def get_providers():
     scope = request.args.get('scope')
     entity_type = request.args.get('entity')
-    logger.info('getProviders - scope: '+scope+' entity_type: '+entity_type+';')
+    logger.info('getProviders - scope: '+scope+' entity_type: '+entity_type)
     result = getProviders.get_providers(scope, entity_type)
     return result
 
@@ -54,13 +53,12 @@ def get_providers():
 # retorna: mensagem de sucesso ou erro
 @broker.route('/advertisement', methods=['POST'])
 def advertisement():
-    broker_info = request.data
-    if contextml_validator.validate_contextml(broker_info):
-        result = adv.register_provider(broker_info)
+    xml_string = request.data
+    if contextml_validator.validate_contextml(xml_string):
+        result = adv.register_provider(xml_string)
     else:
+        logger.warn('advertisement - XML not accepted by ContextML Schema')
         result = generic_response.generate_response('ERROR','400','Bad XML','advertisement')
-    print result
-    # return codigo de erro, sucesso, etc
     return result
     #return jsonify({'result': result})
 
@@ -163,9 +161,14 @@ def registers():
 #subscriptions
 @broker.route('/log')
 def log_page():
-        with open(os.path.dirname(os.path.abspath(__file__)) + '/log/broker', 'r') as f:
-            log_string= f.read()
-        return render_template("log.html", log_string=log_string)
+    with open(os.path.dirname(os.path.abspath(__file__)) + '/log/broker', 'r') as f:
+        log_string= f.read()
+    return render_template("log.html", log_string=log_string)
+
+#subscriptions
+@broker.route('/heartbeat')
+def heartbeat():
+    return "OK"
 
 # before_request
 # descricao: realiza o que estiver aqui antes de qualquer request, seja GET ou POST, tanto faz
@@ -179,6 +182,15 @@ def before_request():
 # TODO telas para visualizar a tabela de Registros e a de Providers
 # TODO docstring
 if __name__ == '__main__':
+    logger.info('Started')
+    client = MongoClient()
+    db = client.broker
+    db.providers.remove()
+    db.scopes.remove()
+    db.entities.remove()
+    db.registries.remove()
+    db.subscriptions.remove()
+
     broker.run(debug=True, use_reloader=True)
     # broker.run(threaded=True)
 

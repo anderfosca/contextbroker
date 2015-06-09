@@ -12,4 +12,9 @@ def configure_database():
     db.entities.create_index([('name', ASCENDING), ('type', ASCENDING)], unique=True)
     db.registries.create_index([('provider_id', ASCENDING), ('scope_id', ASCENDING), ('entity_id', ASCENDING)],
                                unique=True)
+    db.providers.remove()
+    db.scopes.remove()
+    db.entities.remove()
+    db.registries.remove()
+    db.subscriptions.remove()
 

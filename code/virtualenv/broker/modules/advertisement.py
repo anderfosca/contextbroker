@@ -6,6 +6,7 @@ import sys
 import generic_response
 import pymongo
 from pymongo import MongoClient
+import logging
 
 # register_provider
 # dados esperados: xml com informacoes do Provider
@@ -13,12 +14,15 @@ from pymongo import MongoClient
 # os dados
 # retorna: mensagem de sucesso ou erro
 # TODO checar comportamento de conexao com o MySQL, con, cursor, close(), etc
-def register_provider(broker_info):
-    broker_info = re.sub(' xmlns="[^"]+"', '', broker_info, count=1)
-    broker_info = re.sub(' xmlns:xsi="[^"]+"', '', broker_info, count=1)
-    broker_info = re.sub(' xsi:schemaLocation="[^"]+"', '', broker_info, count=1)
+def register_provider(xml_string):
+    logger = logging.getLogger('broker')
+    logger.info('advertisement - Initiating')
 
-    root = ET.fromstring(broker_info)
+    xml_string = re.sub(' xmlns="[^"]+"', '', xml_string, count=1)
+    xml_string = re.sub(' xmlns:xsi="[^"]+"', '', xml_string, count=1)
+    xml_string = re.sub(' xsi:schemaLocation="[^"]+"', '', xml_string, count=1)
+
+    root = ET.fromstring(xml_string)
     adv = root.find('ctxAdvs').find('ctxAdv')
     nameProv = adv.find('contextProvider').get('id')
     version = adv.find('contextProvider').get('v')
@@ -30,16 +34,23 @@ def register_provider(broker_info):
         location = adv.find('providerLocation').find('location').text
     try:    # aqui eh feita a insercao do provider no banco
 ###########################MONGODB
-        provider = {'name': nameProv, 'version': version, 'url': urlRoot,
-                    'location': lat+';'+lon, 'location_desc': location}
+        logger.info('advertisement - Registering Provider: %s %s', nameProv, urlRoot)
         client = MongoClient()
         db = client.broker
-        providers_collection = db.providers
-        provider_el_id = providers_collection.insert_one(provider).inserted_id
+        on_insert = {'name': nameProv, 'url': urlRoot}
+        on_update = {'version': version, 'location': lat+';'+lon, 'location_desc': location}
+        if db.providers.update_one(on_insert, {'$setOnInsert': on_insert, '$set': on_update}, upsert=True).upserted_id:
+            logger.info('advertisement - Registered Provider: %s %s', nameProv, urlRoot)
+        else:
+            logger.info('advertisement - Updated Provider: %s %s', nameProv, urlRoot)
+        provider_el = db.providers.find_one({'name': nameProv, 'url': urlRoot})
 ###########################MONGODB
     except Exception as e:
-        error_message = "Erro no registro do Provider: %s" % (sys.exc_info()[0])
-        return generic_response.generate_response('ERROR','400',error_message,'advertisement',nameProv,version,'','','')
+        logger.error('advertisement - Internal Error on Registering Provider: %s %s: %s',
+                     nameProv, urlRoot,sys.exc_info()[0])
+        error_message = "Internal Error"
+        return generic_response.generate_response('ERROR','400',error_message,
+                                                  'advertisement',nameProv,version,'','','')
     # a partir daqui sao inseridos os scopes, na tabela de scopes
     for scope in adv.find('scopes').findall('scopeDef'):
         name_scope = scope.get('n')
@@ -52,15 +63,22 @@ def register_provider(broker_info):
             inputs.append(input_name+";"+input_type)
         try:
 ###########################MONGODB
-            scope_element = {'name': name_scope, 'url_path': url_path,
-                             'entity_types': entity_types, 'inputs': inputs, 'provider_id': provider_el_id}
-            scopes_collection = db.scopes
-            scopes_collection.insert_one(scope_element)
+            logger.info('advertisement - Inserting Scope: %s %s', name_scope, url_path)
+            on_insert = {'name': name_scope, 'url_path': url_path, 'provider_id': provider_el['_id']}
+            on_update = {'entity_types': entity_types, 'inputs': inputs}
+            if db.scopes.update_one(on_insert, {'$setOnInsert': on_insert, '$set': on_update}, upsert=True).upserted_id:
+                logger.info('advertisement - Inserted Scope: %s %s, From Provider: %s',
+                            name_scope, url_path, provider_el['name'])
+            else:
+                logger.info('advertisement - Updated Scope: %s %s, From Provider: %s',
+                            name_scope, url_path, provider_el['name'])
 ###########################MONGODB
         except Exception as e:
-            error_message = "Erro no registro do Scope: %s" % (sys.exc_info()[0])
+            logger.error('advertisement - Internal Error on Registering Scope: %s %s: %s',
+                         name_scope, url_path, sys.exc_info()[0])
+            error_message = "Internal Error"
             return generic_response.generate_response('ERROR','500',error_message,
                                                   'getProviders','','','','','')
 
-    return generic_response.generate_response('OK','200','Advertisement succeeded','advertisement',nameProv,version,'','','')
-
+    return generic_response.generate_response('OK','200','Advertisement Success',
+                                              'advertisement',nameProv,version,'','','')
