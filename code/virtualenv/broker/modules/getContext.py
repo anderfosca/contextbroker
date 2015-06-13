@@ -48,7 +48,7 @@ def get_context(scope_list, entities):
             except Exception as e:
                 logger.error('getContext - Internal Error: %s %s: %s', scopeName, entity, sys.exc_info()[0])
                 error_message = "Internal Error"
-                return generic_response.generate_response('ERROR','400',error_message,'getContext','','','','','')
+                return generic_response.generate_response('ERROR','500',error_message,'getContext','','','','','')
     if found:
         logger.info('getContext - Success')
         return ET.tostring(root).replace('&lt;', '<').replace('&gt;', '>').replace('\n', '')

@@ -43,7 +43,7 @@ def context_update(xml_string_original):
         expires = ctxEl.find('expires').text
         if parse(timestamp) > parse(expires):
             logger.warn('update - Timestamp after Expires')
-            return generic_response.generate_response('ERROR','500','Timestamp after Expires',
+            return generic_response.generate_response('ERROR','400','Bad Parameters: Timestamp after Expires',
                                                           'update',nameProv,version,entityId,entityType,scope)
         parList=[]
         for par in list(ctxEl.find('dataPart')):
@@ -56,7 +56,7 @@ def context_update(xml_string_original):
             provider_el = db.providers.find_one({'name': nameProv})
             scope_el = db.scopes.find_one({'name': scope, 'provider_id': provider_el['_id']})
             if provider_el is None or scope_el is None:  # se provider ou scope inexistente, ja descarta
-                return generic_response.generate_response('ERROR','500','Bad Paramenters',
+                return generic_response.generate_response('ERROR','400','Bad Paramenters',
                                                           'update',nameProv,version,entityId,entityType,scope)
             ##################################MONGODB
             #########################MONGODB

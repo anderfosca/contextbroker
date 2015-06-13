@@ -49,7 +49,7 @@ def register_provider(xml_string):
         logger.error('advertisement - Internal Error on Registering Provider: %s %s: %s',
                      nameProv, urlRoot,sys.exc_info()[0])
         error_message = "Internal Error"
-        return generic_response.generate_response('ERROR','400',error_message,
+        return generic_response.generate_response('ERROR','500',error_message,
                                                   'advertisement',nameProv,version,'','','')
     # a partir daqui sao inseridos os scopes, na tabela de scopes
     for scope in adv.find('scopes').findall('scopeDef'):

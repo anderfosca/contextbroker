@@ -19,7 +19,7 @@ def list_scopes(provider_name):
         scopes = db.scopes.find(
             {'provider_id': provider["_id"]})
         if scopes.count() == 0:  # Retorna erro, nao achou nenhum Provider que satisfaz a requisicao
-            return generic_response.generate_response('ERROR','400','No scopes found',
+            return generic_response.generate_response('ERROR','404','No scopes found',
                                                       'getScopes',provider_name)
     #####################MONGODB
 

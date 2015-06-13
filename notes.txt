@@ -14,8 +14,6 @@ a cada X tempo, que é quando o Broker pede um sinal de vida ao Provider, se ele
 vira inativo
 
 
-##conferir maneira de validar o xml como sendo ContextML
-
 ##explicar a escolha do Google Protocol-Buffers, citar sites falando que ele é uma boa escolha para criar protocolos
 
 ##high-availability system, definir, heartbeat

@@ -35,7 +35,7 @@ def subscribe(callback_url, entity_name, entity_type, scope_list, minutes):
                                                       'subscription','','',entity_name,entity_type,scope_list)
         else:
             logger.warn('subscription - Bad Parameters - callbackUrl: %s; entity: %s; scope_list: %s; minutes: %s')
-            return generic_response.generate_response('ERROR','500','Bad Parameters',
+            return generic_response.generate_response('ERROR','400','Bad Parameters',
                                                       'subscription','','',entity_name,entity_type,scope_list)
         #####################MONGODB
 

@@ -31,7 +31,7 @@ def get_providers(scope, entity_type):
         ########################MONGODB
         if providers.count() == 0:  # Retorna erro, nao achou nenhum Provider que satisfaz a requisicao
             logger.warn('get_providers - No Providers for Scope: %s', scope)
-            return generic_response.generate_response('ERROR','400','No results found',
+            return generic_response.generate_response('ERROR','404','No results found',
                                                       'getProviders','','','',entity_type,scope)
         root = ET.Element("contextML")  # Inicio da construcao do XML
         ctxPrvEls = ET.SubElement(root, "ctxPrvEls")
@@ -55,7 +55,7 @@ def get_providers(scope, entity_type):
                     ET.SubElement(par_Sproviders, "par", n="url").text = provider['url']
             if not found:
                 logger.warn('get_providers - No Results Found for Scope: %s; EntityType: %s', scope, entity_type)
-                return generic_response.generate_response('ERROR','400','No results found',
+                return generic_response.generate_response('ERROR','404','No results found',
                                                           'getProviders','','','',entity_type,scope)
         logger.info('get_providers - Success - Scope: %s; EntityType: %s', scope, entity_type)
         return ET.tostring(root)  # Arvore xml resultante transformada numa str
