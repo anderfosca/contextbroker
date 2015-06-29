@@ -26,7 +26,12 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 
+def print_response(sender, response, **extra):
+    print ('Request context is about to close down.  '
+                        'Response: %s', response.data)
 
+from flask import request_finished
+request_finished.connect(print_response, broker)
 # Broker Interfaces
 
 # getProviders
@@ -180,14 +185,17 @@ def before_request():
     args = request.args
     data = request.data
     print "before_request "
-    print args, data
+    #print args, data
+    #request.remote_addr
+    print request.environ['REMOTE_ADDR']
+
     # enviar info do request para os brothers
 
 @broker.after_request
 def per_request_callbacks(response):
     print "after_request"
-    print request.args
-    print response.data
+    #print request.args
+    #print response.data
 
     # avisar os brothers que finalizou o request
     return response
@@ -200,6 +208,10 @@ def tf_message():
     #   ela nao interessa mais, entao quando ele manda outra ja pode guardar por cima, assim nao ocupa muito espaco
     # nao precisa recuperar estado porque eh stateless
     return 'bla'
+
+@broker.teardown_request
+def teardown_request(exception=None):
+    print 'this runs after request'
 
 # --------background function
 # ----funcao que faz a TF

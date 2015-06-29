@@ -1,0 +1,1168 @@
+notas de Tolerancia a Falhas
+
+fato de ser stateless faz com que nao haja estado errado, inconsistente, quando o Broker volta ele só olha pra frente
+
+
+-------------------------------------------
+slides Taisy
+high availability
+alta disponibilidade
+• transações financeiras e comerciais
+• sistemas de reservas internacionais
+• aplicações na Internet (e-comerce)
+
+Tratamento de Falhas:
+Reconfiguração
+• reconfiguração
+• chaveia para componentes redundantes em espera ou
+• redistribui tarefas para componentes não defeituosos
+Reinicialização
+• reinicialização
+• verifica, atualiza e guarda a nova configuração
+• atualiza informações de configuração do sistema
+
+
+Disponibilidade
+• probabilidade do sistema estar operacional no
+instante t (disponível para o trabalho útil)
+• alternância entre funcionamento e reparo
+A(t) = R(t) quando reparo tende a zero
+• lembrar que MTBF = MTTF + MTTR
+• intuitivamente
+A(t) = t op / (t op + t reparo )
+A(t):availability
+t op: tempo de operacao normal
+
+Disponibilidade
+• MTBF = MTTF + MTTR
+• A(t) = t op / (t op + t reparo )
+• genericamente
+A(t) = MTTF / (MTTF + MTTR)
+nessa relação, o significado de alta
+disponibilidade fica mais claro
+diminuindo o tempo médio de
+reparo, aumenta a disponibilidade
+
+Replicação de dados
+- dados replicados em vários nodos
+	-a queda de um ou mais nodos não impede
+	acesso aos dados
+- novos problemas
+cópias diferentes de um objeto devem ser
+mutuamente consistentes entre si
+-serializabilidade
+critério de correção
+execução concorrente nas réplicas deve ser equivalente a execução correta nos dados lógicos
+	9 (como se fosse cópia única)
+9replicação deve ser transparente ao usuário
+
+Estratégias
+9 protocolo de controle de réplicas
+otimista
+esperança de que operações em
+partições diferentes não vão conflitar
+9sem restrição
+9 réplicas podem divergir e usuários podem ver
+inconsistência
+9 pessimista
+9garantia de consistência forte
+9 réplicas nunca divergem
+9tipos de abordagem pessimista
+9 cópia primária
+9 réplicas ativas
+9 votação
+--ver diagramas pagina4 TFgrad13 de abordagem pessimista
+backups não
+cooperam nas
+operações de
+leitura
+antes de realizar a
+atualização, o primário
+envia requisição aos
+seus backups
+todos os pedidos
+chegam sempre
+antes ao primário
+
+Réplicas ativas
+uma requisição de
+cliente é enviada para
+todas as réplicas
+todas as réplicas
+são equivalentes e
+executam as
+mesmas
+operações
+qualquer
+réplica pode
+enviar o
+resultado da
+operação ao
+cliente
+é essencial que as réplicas sirvam as requisições no
+mesmo estado para preservar a serializabilidade
+assumido
+9se as réplicas estão no mesmo estado e recebem
+as requisições na mesma ordem, então vão
+produzir os mesmos resultados
+9 devem ser satisfeitas propriedades de:
+9consenso
+todas as réplicas operacionais devem
+receber todas as requisições
+9ordem
+todas as réplicas
+operacionais executam as
+requisições na mesma
+ordem
+multicast atômico garante
+consenso (confiabilidade)
+e ordem
+
+
+
+HA-Cluster
+• alta disponibilidade
+	• tempo de inicialização após falha (failover)
+pode variar de poucos minutos até uma hora
+	• aplicações em sistemas de missão crítica
+	• servidores primário e backups
+• disponibilidade contínua
+	• tempo de failover na ordem de 10 segundos
+• sistemas de armazenamento não
+compartilhado:
+• cada nodo é independente
+• toda a interação é por troca de mensagens
+primário e backup executam mesmos
+processos (warm backup)
+
+Sinal de vida (heartbeat)
+• mensagem periódica enviada de um processo a
+outro para indicar que continua operacional
+• detecção de falhas: ausência de heartbeats
+heartbeats são esperados a cada poucos segundos
+• modelo fail-stop
+assume que se um nodo pára de enviar
+sinais, ele efetivamente não envia
+mensagens, nem altera dados no
+armazenamento estável
+• técnica antiga
+• muito usada antes mesmo dos primeiros clusters
+(Tandem,...)
+
+Disponibilidade em HA-clusters
+• como avaliar?
+• experimentalmente por injeção de falhas
+• analiticamente através de modelos
+• ou durante operação levantando registros de
+falha (em logs por exemplo) e analisando
+
+Problemas
+• split-brain
+• um computador detecta o outro como
+defeituoso e assume as funções de primário
+• modelo fail
+fail-stop
+stop
+• assumido pelos fabricantes mas raramente
+implementado
+• particionamento
+ver figurinha pagina3 TFgrad14cluster
+
+
+-----------------------------------------------------------------------
+microsoft HA clusters
+
+
+1
+Introduction
+A cluster is a collection of computer nodes that work
+in concert to provide a much more powerful system. To be
+effective, the cluster must be as easy to program and man-
+age as a single large computer. Clusters have the advan-
+tage that they can grow much larger than the largest single
+node, they can tolerate node failures and continue to offer
+service, and they can be built from inexpensive compo-
+nents.
+The connections between cluster-style computing and
+prior work on reliable group management and communi-
+cation (atomic multicast) are of interest. Tracking the ac-
+tive set of nodes in a cluster corresponds to the group
+membership problem [1].
+Avoiding the “split brain syn-
+drome” (whereby a cluster splits into two disjoint parts
+that both claim to own some critical resource) is analo-
+gous to the primary component network partitioning
+problem. Linking clusters into a geographically distrib-
+uted wide-area system is similar to the wide-area process-
+group problem [1]. Maintaining a checkpoint and log for
+use during restart is an instance of the more general
+transaction processing techniques of logging and com-
+mit/abort to perform atomic state transformations on all
+the replicas [3].
+A cluster can thus be viewed as a way to
+package powerful fault-tolerance primitives in a way that
+is natural and convenient for a very large class of users for
+whom application availability is a key objective.
+
+2Cluster design goals
+A cluster managed by the Microsoft Cluster Service is
+a set of loosely coupled, independent computer nodes,
+
+The first phase of MSCS, released in late 1997 had the
+following general goals:
+• Commodity. The cluster runs on a collection of off-
+the-shelf computer nodes interconnected by a generic
+network. The operating system is a standard commer-
+cial version of Windows NT server, the network com-
+munication is through the standard Internet protocols.
+• Scalability. Adding applications, nodes, peripherals,
+and network interconnects is possible without inter-
+rupting the availability of the services at the cluster.
+• Transparency. The cluster, which is built out of a
+group of loosely coupled, independent computer nodes,
+presents itself as a single system to clients outside the
+cluster. Client applications interact with the cluster as if
+it were a single high-performance, highly reliable
+server. The clients as such, are not affected by interac-
+tion with the cluster and do not need modification.
+
+System management tools access and manage the
+services at the cluster as if it is one single server. Serv-
+ice and system execution information is available in
+single image, cluster wide logs.
+• Reliability. The Cluster Service is able to detect fail-
+ures of the hardware and software resources it man-
+ages. In case of failure the Cluster Service can restart
+failed applications on other nodes in the cluster. The re-
+start policy is part of the cluster configuration. It can
+specify the availability requirements for that applica-
+tion. A failure can also cause ownership of other re-
+sources (shared disks, network names, etc.) to migrate
+to other nodes in the system. Hardware and software
+can be upgraded in a phased manner without interrupt-
+ing the availability of the services in the cluster.
+Several issues were explicitly not part of the first
+phase of the design: MSCS proves no development sup-
+port for fault-tolerant applications (process pair, primary-
+backup, active replication), no facilities for the migration
+of running applications, and no support for the recovery of
+the shared state between client and server. However, all of
+these are viewed as options for futures design phases
+
+interessante dividir assim o Broker também:
+3Cluster Abstractions
+MSCS is designed around the abstractions of nodes,
+resources, resources dependencies, and resource groups.
+3.1
+Node
+A node is a self-contained Windows NTTM system that
+can run an instance of the Cluster Service. Groups of
+nodes implement a cluster. Nodes in a cluster
+communicate via messages over network interconnects.
+They use communication timeouts to detect node failures.
+There are two types of nodes in the cluster: (1) defined
+nodes are all possible nodes that can be cluster members,
+and (2) active nodes are the current cluster members. A
+node is in one of three states: Offline, Online, or Paused
+(see sections 4.1 and 5.1 for details on this).
+
+3.2
+Resource
+A resource represents certain functionality offered at a
+node. It may be physical, for example a printer, or logical
+for example an IP address. Resources are the basic man-
+agement units. Resources may, under control of the Clus-
+ter Service, migrate to another node.
+MSCS implements several resource types: physical
+hardware such as shared SCSI disks and logical items
+such as disk volumes, IP addresses, NetBios names and
+SMB server shares. Applications extend this set by im-
+plementing logical resources such as web server roots,
+transaction mangers, Lotus or Exchange mail databases,
+SQL databases, or SAP applications.
+Resources can fail. The Cluster Service uses resource
+monitors (section 4.2) to track the status of the resources.
+The cluster service restarts resources when they fail or
+when one of the resources they depend on fails.
+A resource has an associated type, which describes the
+resource, its generic attributes, and the resource’s behavior
+as observed by the Cluster Service. One of these attributes
+is a resource control library that is used by the resource
+monitors to implement the specific monitoring for the
+type of resource.
+
+4 -- ver figura do diagrama de estados no artigo
+Cluster Operation
+There are four areas of particular interest in an MSCS
+cluster: (1) cluster membership activities, (2) resource
+management and resource failure handling, (3) application
+state failover, and (4) cluster management.
+4.1Cluster Membership Operation
+When a cluster node restarts, it can take one of two
+distinct paths: (1) If there are already active nodes in the
+cluster, the new node will synchronize with these nodes
+and join the cluster (i.e. become active). (2) If the node
+cannot discover any other active cluster nodes, it will try
+to form a cluster by itself. It will assume it is the first node
+to start and that other nodes will join later.
+The next sections describe the different phases of the
+membership operation. Section 5 has more details on the
+membership protocols.
+
+Starting a Node
+When the node starts, as part of its reboot process it
+will bring all its local devices online, except for those
+device that are shared with other nodes. Shared devices
+may already be controlled by other nodes, so they are only
+be brought online after the node has joined or formed a
+cluster. Then the active node negotiates with the other
+nodes in cluster for device ownership.
+The operating system starts the Cluster Service proc-
+ess at node startup. The Cluster Service first enters a dis-
+covery phase. The node uses information from its local
+copy of the cluster configuration database to find the
+names of the defined nodes (potential cluster members).
+The node’s Cluster Service tries (in parallel) to contact
+any other Cluster Service at a defined node. If it succeeds
+in finding an active node, the new node will join the ex-
+isting cluster. If all the connection attempts time out, the
+node will try to form a cluster.
+Joining a Cluster
+If the starting node is able to find an active cluster
+node, the applicant engages in a startup negotiate with the
+active node (sponsor). First the sponsor validates the
+authentication credentials of the joining node and checks
+whether the applicant has a right to join the cluster. If the
+applicant is a defined member of the cluster the sponsor
+moves to the second phase.
+Next the sponsor sends version information of the con-
+figuration database and possibly sends database log in-
+formation to the applicant if changes were made while the
+applicant was offline. The sponsor then atomically broad-
+casts information about the applicant to all active nodes
+members. The active nodes update their local membership
+information.
+Once the applicant is a full member of the cluster and
+is guaranteed to have access to the correct configuration
+information, the applicant brings any resources online that
+it is responsible for and that are not online elsewhere in
+the cluster.
+Forming a Cluster
+A node attempts to form its own cluster if it cannot
+find an active node during the discovery phase. The node
+uses the local cluster database (registry) to find the ad-
+dress of the quorum resource. The quorum resource holds
+the master copy of the configuration database and the
+change logs. The node attempts to attach to the quorum
+resource. The quorum resource supports an arbitration
+protocol that assures that at most one node can own the
+resource. If the node is able to acquire ownership of the
+quorum resource, the node synchronizes the local cluster
+database instance with the master copy. When the data in
+the local database is updated, the node has formed a new
+instance of the cluster and has become an (the) active
+member. It can now start bringing shared resources on-
+line. Other defined members can now join the newly
+formed cluster.
+Leaving a Cluster
+When leaving a cluster, a cluster member sends a
+ClusterExit message to all other members in the cluster,
+notifying them of its intent to leave the cluster. The exit-
+ing cluster member does not wait for any responses but
+instead immediately proceeds to shutdown all resources
+and close all connections managed by the cluster software.
+Node Failure
+To track the availability of the active members in the
+cluster, all members send periodic heartbeat messages to
+others and all monitor the network for heartbeat messages
+(see section 6.1). The communication manager signals a
+failure suspicion to the Cluster Service when two succes-
+sive heartbeats have not been received from a particular
+node. In this case, the Cluster Service starts the regroup
+membership algorithm to determine the current member-
+ship in the cluster (see section 5.1). After the new mem-
+bership has been established, resources that were online at
+any failed member are brought online at the active nodes,
+based on the cluster configuration.
+Node States
+Defined but inactive nodes are offline. Active mem-
+bers may be in one of two states: online or paused. Active
+members, even paused ones, honor cluster database up-
+dates, contribute votes to the quorum algorithm and
+maintain heartbeats. However, when the node is in paused
+state it cannot take ownership of any resource groups.
+
+-----importante falar que membership management não é tratado, pois o trabalho não cobre adições e saídas de Brokers, porém isso é indicado como trabalho futuro
+
+
+5.2Global Update Manager
+Many components of the NT Cluster Service need to
+share volatile global state among nodes. The algorithm
+used by the Global Update Manager is a variant of the
+Tandem GLUP protocol [2]. It is an atomic multicast
+protocol guaranteeing that if one surviving member in the
+cluster receives an update, all surviving members eventu-
+ally receive the update, even if the original sender fails. It
+also guarantees that updates are applied in a serial order.
+Locker Node
+One cluster node, dubbed the locker node, is assigned
+a central role in the Global Update Protocol. Any node
+that wants to start a global update first contacts the locker.
+The locker node promises that if the sender fails during
+the update, the locker (or it’s successor) will take over the
+role of sender and update the remaining nodes. Once the
+sender is finished updating all the members in the cluster
+it sends the locker node an unlock request to indicate the
+protocol terminated successfully.
+Node Updates
+Once a sender knows that the locker has accepted the
+update, the sender RPCs to each active node (including
+itself) to install the update. The nodes are updated one-at-
+a-time in a node-ID order starting with the node immedi-
+ately following the locker node, and wrapping around the
+ID’s up to the node with ID preceding the locker’s. Once
+the update has been installed at all nodes, the locker is
+notified of the completion.
+Failures
+The protocol assumes that if all nodes that received the
+update fail, it is as if the update never occurred. The re-
+maining nodes do not need to recover such updates. Ex-
+amples of such failures are (1) sender fails before locker
+accepts update, or (2) sender installs the update at the
+locker, but both sender and locker node fail after that.
+If the sender fails during the update process, the locker
+reconstructs the update and sends it to each active node.
+Nodes that already received the update detect this through
+a duplicate sequence number and ignore the duplicate
+update.
+If the sender and locker nodes both fail after the
+sender managed to install the update at any node beyond
+the locker node, a new locker node will be assigned. This
+new locker node will always be the next node in the up-
+date list. Given the way the updates are ordered, this node
+must have already received the update. If the sender man-
+aged to install the update past the locker node, it did
+starting at the node immediately following the locker no-
+de. The new locker will complete any update that was in
+progress using the saved update information. To make this
+work, the locker allows at most one update at a time. This
+gives a total ordering property to the protocol -- updates
+are applied in a serial order.
+6
+Support Components.
+The Cluster Service uses several support components
+unique to MSCS: the cluster network component, the
+cluster disk driver, the event logger, and the time service.
+6.1
+Cluster Network
+The Cluster Network component provides the cluster
+service with:
+1. A uniform interface to communicate with other nodes,
+independent of the network infrastructure.
+2. Predictable processing of I’m-Alive heartbeat messages
+3. Node failures detection based on heartbeats.
+4. Network and interface failure detection.
+Heartbeat Management
+The cluster network keeps an active-node connectivity
+vector. For each active node, the network manager keeps a
+list of interfaces that can reach that node. Each node peri-
+odically sends a heartbeat message to each other active
+node over each of these interfaces. When a heartbeat ar-
+rives from an active node, the sender’s local timeout
+counter for that node is reset, and its heartbeat sequence
+number is recorded. Duplicates arriving over alternate
+interfaces are ignored for the node’s alive count, but do
+test the network for latent failures. If, after a certain pe-
+riod (currently 2 heartbeat periods), no messages have
+arrived over a certain interface or from a particular host,
+failure suspicions are generated.
+6.3
+Cluster Wide Event Logging
+Event logs are an important tool for NT server admin-
+istrators. Logs track the execution state and potential
+problems of NT devices, services, and the applications
+running on the node. The administrator uses an event
+viewer to display the logs. In a cluster there is no longer a
+clear association between node and the applications and
+services running on the node, as such it is complex for to
+track nodes and services using the traditional mechanisms.
+The Cluster Service extends the event log mechanism
+by enabling administrators to view a single event log
+containing all the events in the cluster, even if the node
+that reported the event is currently down.
+To implement this global event log, the local event log
+mechanism forwards local events to the local Cluster
+Services. Events reported to the Cluster Service are sent
+via RPC to all other nodes in the cluster, where they are
+appended to the local event log files.
+6.4
+Time Service
+The Cluster Service ensures that the clocks at the
+nodes in the cluster never drift apart more than the short-
+est time it takes to failover a resource. This ensures that
+resources that failover between nodes see a monotonically
+increasing local clock. The Cluster Service uses the stan-
+dard NT Time System Service, but uses its resource con-
+trol library to dynamically update the registry information
+to match the primary time source within the cluster. This
+allows all clocks to be synchronized with universal time.
+
+
+
+------------------------------------------
+highly available cluster: a case study
+
+A Highly
+Available Cluster consists of multiple machines intercon-
+nected by a common bus. Data is replicated at a primary
+and one or more backup machines. Data is accessed at the
+primary, using a location independent mechanism that
+ensures data integrity. If the primary COPY of the data fails,
+access is recovered by switching to a backup copy. Switch-
+over is transparent to the application, hence called seamless
+switchover. The fault model is fail-stop. The entire cluster
+is resilient to at least single failures.
+An experimental proto-
+type was implemented using IBMt AS/400f machines and
+a high-speed bus with fiber-optic links.
+
+
+1 Introduction
+The system presented in this paper provides highly available
+data through replication in a cluster of machines. The
+project has three main goals: (a) to demonstrate the feasibil-
+ity of highly available data on interconnected machines with
+minimal hardware requirements; (b) to develop cost-effec-
+tive methodologies and mechanisms for high availability of
+data; and (c) to implement a prototype as a vehicle for per-
+formance measurements.
+
+A Highly Available (HA) CItLFter consists of two or more
+machines interconnected by a high speed bus.Each
+machine has its own private disks. Workstations are con-
+nected to the cluster through a local area network (LAN).
+The failure of a machine causes both it and its disks to
+become unavailable. Thus, to achieve high availability we
+use data and process redundancy. The fault model for
+both data and processes is the fail-stop model. The design
+ensures that the entire cluster is resilient to (at least) single
+failures.
+Data replication ensures that no committed
+transactions are lost and therefore only the last non-com-
+mitted transaction needs to be re-entered. Applications that
+are suitable for this approach are generally classified as
+on-line transaction processing.
+
+Our design provides high availability with selective scope.
+The user (or administrator) explicitly designates which
+libraries are highly available, by including them in a resil-
+ient group. The performance overhead of replication and
+recovery mechanisms is incurred only by applications that
+access resilient groups. Other applications are not affected.
+
+The intention from the outset has been to build a small
+cluster (at most tens of machines) with a specific communi-
+cation architecture. Scaling up the design for a larger
+number of machines or for a more general distributed envi-
+ronment was not contemplated.
+
+We have implemented the mechanisms described in this
+paper in an experimental prototype cluster of IBM AS1400
+machines [13]. The hardware configuration consists of two
+AS/400 model D60 machines connected by a high speed
+bus with fiber-optic l i s . Performance measurements have
+been conducted, using a variant of the TPC-B
+benchmark[10].
+
+-------fazer diagrama da arquitetura dos brokers e seus bancos, conexões entre eles, e a conexão dos Brokers com clientes (Providers, Consumers)
+
+3 Replication and Remote Data Access
+3.1 Database Characteristics
+The database has the following characteristics.
+Access to the database is through a well-defined set of
+interfaces.
+The database management system allows a hybrid
+transactionaljnon-transactional mode of operation.
+Some applications may access the database in a mode
+that guarantees atomicity, consistency, isolation and
+durability (the ACID property), while other applica-
+tions may read dirty data (non-committed modifica-
+tions) and perform single updates.
+The transactional mode of operation uses locking.
+While executing a transaction, an application will lock
+any items it attempts to read or write (there are several
+levels of locking). Thus, an attempt to commit a trans-
+action will not fail because of conflict with another
+application. It is assumed, generally, that applications
+will not provide a recovery action from a commit
+failure, since this is considered an extremely rare case.
+Most database opkations return some non-trivial feed-
+back information, e.g., for record update, the record's
+length, ordinal number, format name, key information.
+etc.
+Modifications to the database are logged in a journal.
+The journal has a major role in providing the transac-
+'tional behavior of the database. Access to the journal
+is serialized by means of an exclusive lock, and journal
+entries are guaranteed to reach stable storage before
+the corresponding database modifications do. The
+journal may also be used for recovery purposes. An
+old copy of a database may be brought up to date by
+applying the modifications logged in the journal.
+Journal entries are idempotent, i.e., re-application of
+the same entry does not further modify the database.
+Journal entries are assigned a monotonic ascending
+sequence number.
+
+3.2 Accessing Resilient Data
+The flow of control for a typical operation that modifies a
+resilient database (e.g., an update of an existing record, or a
+write of a new record) is illustrated in Figure 3.---ver figura no artigo
+
+The following protocol is performed.
+1. The stub intercepts the execution of the operation at
+the application machine.
+2. The stub ships the operation request to an agent at the
+(current) primary machine of the database.
+3. The primary agent executes the operation. Any
+journal entries inserted into the journal are broad-
+casted to all the backup receivers.
+4. The backup receivers acknowledge receipt of the
+journal entries. Notice that journal entries arrive at the
+backups in the correct order, as the communication
+layer guarantees that messages are delivered in the
+order they were sent.
+5. The primary agent returns the operation feedback to
+the application stub.
+6. The stub returns control to the application.
+
+The backup applier asynchronously applies the joumal
+entries of the backup joumal onto the backup replica.
+When multiple backups exist, the agent may retum to the
+application stub (step 5 ) as soon as the fmt acknowledge-
+ment is received, without affecting the resilience to single
+failures.
+Operations that do not modify the data are not journaled
+and do not affect the backups. However, modifications to
+the cursor and locks (if any) are returned to the application
+as feedback, to be used during recovery from data failure.
+
+---usar essa ideia de eventos, no meu caso na ha Monitor, mas ha a interface de heartbeat do Broker, que detecta quando outro Broker some
+5 Cluster Management
+Cluster management is performed distributively by a set of
+cluster monitors, one on each machine.
+Cluster management is event driven. Events may be caused
+by failures or initiated explicitly by the system administra-
+tor. Events are created by arrival of messages at the moni-
+tors. Such messages come from other monitors. agents,
+application stubs, backup receivers, and the communication
+layer.
+Following are some of the events that require action by the
+monitor.
+Machine failure.
+Group failure (including library, database or journal
+failure).
+Application failure.
+Communication failure.
+User or system administrator initiated events. such as:
+joining a machine to the cluster, detaching a machine
+from the cluster, and creation or deletion of group
+objects.
+
+5.3 Heartbeat
+During normal operations of the cluster, every monitor
+needs to be able to communicate with all other monitors.
+A Heartbear mechanism [2] detects any disconnection
+among the monitors in the cluster. Monitors broadcast a
+special heartbeat signal at predetermined intervals (rounds),
+and acknowledge every arriving heartbeat signal. Not
+receiving a timely acknowledgement form some monitor
+indicates that there is a disconnection, entailing recovery
+action in the cluster.
+If there are no assumptions on connectivity among the
+machines, a distributed heartbeat mechanism (i.e. no desig-
+nated central authority) may require up to q n Z ) messages
+per round, where n is the number of machines in the
+cluster. This is since every machine may have to send
+signals to all other machines in each round. This adds sig-
+nificant overhead to the communication layer, and message
+delivery within a short period of time cannot be guaranteed.
+
+The O(nZ) message bound can be improved to O(n) if the
+communication medium connecting the machines has the
+following property, called connection transitivity and symme-
+try (CTS): for any three machines i, j . and k,
+if i is connected to j , and j is connected to k, then i is
+connected to k.
+Connections are bidirectional.
+Assume there is a disconnection between machines j and k.
+By the CTS property, every machine in the cluster is dis-
+connected from either j or k. In other words, in the heart-
+beat algorithm, every machine will detect a disconnection.
+Thus, it suffices that in each round only one machine will
+issue the heartbeat signals, requiring only q n ) messages.
+In a realistic distributed environment, an O(n) bound can
+be achieved by setting the time of the next heartbeat at each
+machine randomly within a certain window around the
+exact time. This minimizes the probability of two machines
+simultaneously initiating heartbeat signals.
+
+A different heartbeat protocol, also requiring only O(n)
+messages, can be based on the approach in [6]. There, pro-
+cesses are arranged in a virtual ring, and messages are
+exchanged among neighbors on the ring.
+
+
+
+----------------------------------
+esse artigo é mais sobre membership, nao ta no escopo do meu trabalho lidar com isso
+reaching agreement on processor group membership
+When designing a computing service that must remain available despite component failures,
+a key idea is to replicate service state information at several servers running on distinct pro-
+cessors. The service state typically consists of the server-group membership, that is, the set
+of all correctly functioning servers that cooperate to provide the service, and service speci c
+state information, such as the queue of service requests accepted and not yet completed,
+the current assignment of work to various active servers, and the state of the physical re-
+sources used to provide the service. Server replication lets a service be highly available
+despite processor or server failures. Indeed, once the surviving servers detect the failure of
+
+some of their peers, they have enough state information to redistribute among themselves
+the workload handled by the failed servers. However, replication creates problems that do
+not exist in non-redundant systems. Perhaps the most difficult new problem is achieving
+agreement among replicated servers on a global service state despite random information
+propagation delays, component failures, and server joins. Such agreement is necessary if
+the goal is to make a replicated server-group behave as a single logical server rather than
+as a group of autonomous processes.
+
+
+------------------------------------------------------------------------------------
+NONBLOCKING COMMIT PROTOCOLS*
+Dale Skeen
+Protocols
+that allow operational
+sites
+to continue
+transac-
+tion
+processing
+even though site failures
+have occurred
+are
+called
+nonblocking
+Crash recovery
+algorithms
+are
+based on the notion
+that certain
+basic
+operations
+on the data are logically
+indi-
+operations
+These
+called
+visible.
+are
+transactions.
+ Preserving
+transaction
+atomicity
+in
+the single
+site
+case is a well understood
+problem
+[LIND79, GRAY791.
+The Qrocessing
+of a single
+transaction
+is viewed as fol-
+its execution,
+lows.
+At some time during
+a commit point
+is reached-where
+the site
+decidesto
+commit
+or to abort the transac-
+A commit
+is
+an unconditional
+tion.
+guarantee
+to execute
+the transaction
+to
+even in the event of multiple
+completion,
+Similarly,
+an abort
+is
+an
+failures.
+unconditional
+guarantee
+to "back out" the
+transaction
+so that none of its results
+If a failure
+occurs before
+the
+persist.
+commit point is reached,
+then immediately
+upon recovering
+the site will
+abort the
+are
+irreversible.
+
+A protocol
+that never requires
+opera-
+tional
+sites
+to block until
+a failed
+site
+has recovered
+is called
+a nonblocking
+pro-
+toco1.
+The Decentralized
+Model
+In a fully
+decentralized
+approach,
+each site participates
+as an equal ,in the
+protocol
+and executes the same protocol.
+Every site communicates with every other
+site.
+Decentralized
+protocols
+are charac-
+terized
+by successive rounds of message
+in a
+We are interested
+interchanges.
+rather stylized
+approach to decentralized
+during
+a round of message
+protocols:
+send the
+will
+each site
+interchange,
+identical
+message to every other site.
+A
+site then waits until
+it has received mes-
+sages from all its cohorts before begin-
+ning the next round of message inter-
+To simplify
+the subsequent dis-
+change.
+cussion, during a message interchange
+we
+to
+will
+speak as if sites send messages
+themselves.
+
+canonical
+nonblocking
+protocol.*****************
+
+
+--------- mobile naoseioq: inutil
+
+--------------------------------------------------
+Non-Blocking commit protocol: A number of commit
+protocols have been designed to attack the fundamental
+blocking problem. Three-phase commit (3PC) [4,7,8] was
+among the first no blocking protocols. 3PC introduces a
+new “buffered phase” between the voting phase and the
+decision phase. In the buffered phase, a preliminary
+decision is reached about the result of a transaction.
+Cohorts can reach a global decision from this preliminary
+decision even in face of a subsequent master failure.
+However, 3PC achieves the non-blocking property at the
+expense of increased communication overhead by an extra
+round of message exchanges. Moreover, both master and
+cohorts must perform forced writes of additional log
+records in the buffered phase.
+
+Figure 1-Transaction database****ideia interessantissima, manter um registro em memoria
+das operacoes sendo feitas, com estado (espera pela resposta dos outros por ex), e só faz o 
+commit no banco quando todos estiverem com um OK
+
+Missing Vote from any participant: If the
+coordinator and pmb are waiting for a response
+from a participant which might be lost in the
+network due to communication failure, they wait
+for the time stamp to expire and then they will
+send a Waiting message to all participants again,
+indicating that response from one or more
+participants’ pmb is still not yet received.
+Participants vote again after receiving a Waiting
+message just like a second prepare request. It’s
+up to the participant to keep its prepared state or
+send abort decision
+
+-----------------------------------------------------------------------
+Non-Blocking Atomic Commit in Asynchronous
+Distributed Systems with Failure Detectors
+Rachid Guerraoui
+
+1
+Introduction
+To ensure the atomicity of a distributed transaction, an agreement problem must
+be solved among the set of the processes participating in the transaction (e.g., the
+transaction manager and the database servers). This problem, called the Atomic
+Commit problem (AC) [10], requires the processes to agree on a common out-
+come for the transaction: commit or abort.
+When every correct process (i.e., pro-
+cesses that do not crash) should eventually reach an outcome despite the failure of
+other processes, the problem is called Non-Blocking Atomic Commit (NB-AC) [14].
+Solving this problem enables correct processes to relinquish resources (e.g., locks)
+without waiting for crashed processes to recover.
+More precisely, the NB-AC problem consists for a set of processes to reach a
+common decision, commit or abort, according to some initial votes, yes or no, such
+that the following properties are satisfied:
+• Agreement: No two processes decide differently.
+• Termination: Every correct process eventually decides.
+• Abort-Validity: Abort is the only possible decision if some process votes no.
+• Commit-Validity: Commit is the only possible decision if every process is
+correct and votes yes.
+
+This paper addresses this problem in asynchronous message passing distributed
+systems where channels are reliable, processes can only fail by crashing, and process
+failures can be suspected using failure detectors [2].
+
+1.1
+Consensus vs NB-AC
+NB-AC resembles the well-known (binary) Consensus problem [5]. Both problems
+require the processes to reach one common decision, out of two possible ones,
+despite the crash of some of the processes. In Consensus, the processes need to
+decide on one out of two values, 0 or 1, based on proposed values, 0 or 1, such
+that the following properties are satisfied:
+• Agreement: No two processes decide differently;
+• Termination: Every correct process eventually decides.
+• Validity: The value decided must be a value proposed.
+• In NB-AC, a process can only decide commit if all processes have voted yes.
+In Consensus, commit decision does not require that all votes be yes. This
+intuitively means that Consensus is not a special form of NB-AC.
+• In NB-AC, the processes can all propose yes and yet decide abort. In Consen-
+sus, the processes would in this case have to decide commit. This intuitively
+means that NB-AC is not a special form of Consensus.
+
+The Three-Phase Commit (3PC) algo-
+rithms of Skeen [14] solve NB-AC with the failure detector P (Perfect). This failure
+detector ensures Strong Completeness (recalled above) and Strong Accuracy, i.e.,
+no process is suspected before it crashes [2]. Failure detector P does never make
+any mistake and obviously provides more knowledge about failures than ✸S. A
+natural question then comes to mind: Can we circumvent the impossibility of
+solving NB-AC using ✸S?
+We show in this paper that the answer to this question is “no”. Failure de-
+tector ✸S cannot solve NB-AC, even if only one process may crash.
+We exhibit a failure detector B (“Stillborn” detector) that
+solves NB-AC and we show that B cannot be transformed into ✸S
+Informally, failure detector B is defined as follows: in runs of the system
+where no process initially crashes (i.e., no process crashes at time 0), B guarantees
+Strong Completeness and Strong Accuracy (i.e., B behaves like P);in runs where
+some process initially crashes (i.e., some process is “stillborn”), B detects the ini-
+tial crash by permanently outputting, at every process p i , the process p i itself.
+Hence, processes accurately know if some process has initially crashed: they do
+not necessarily know which one, nor do they know how many of such processes
+have crashed. In these runs (with at least one “stillborn” process), the processes
+can safely decide abort: NB-AC becomes trivial and there is no need for ✸S. An
+interesting consequence of the existence of B is that Consensus and NB-AC are
+incomparable (if we assume that at least two processes can crash in a system with
+a majority of correct processes).
+
+1.4
+The Anonymously Perfect Failure Detector
+We introduce the Anony-
+mously Perfect failure detector ?P, which we show is necessary for NB-AC. This
+failure detector satisfies the two following properties: Anonymous Accuracy, i.e.,
+no crash is detected unless some process crashes; and Anonymous Completeness,
+i.e., if a crash occurs then, eventually, every correct process permanently detects
+that some crash occurs.
+Intuitively, the Commit-Validity property
+of NB-AC is related to ?P and the Termination property is related to ✸S. This
+observation suggests the use of two time-out values for a practical failure detection
+implementation. The first time-out value (underlying ?P) should be large enough
+to reduce the risk of aborting transactions because of false suspicions, whereas the
+second time-out value (underlying ✸S) should be small enough to decrease the
+fail-over time.
+
+We consider a distributed system composed of a finite set of n processes Ω =
+{p 1 , p 2 , . . . , p n }. A process p i is said to crash at time t if p i does not perform any
+action after time t (the notion of action is recalled below). Failures are permanent,
+i.e., no process recovers after a crash. A correct process is a process that does not
+crash.
+
+
+4
+The Anonymously Perfect Failure Detector
+As we pointed out in the introduction, NB-AC can be solved with the Perfect
+failure detector P, which can indeed be implemented in a synchronous system.
+
+We define the Anonymously Perfect failure detector ?P, which is weaker than
+P. We show that, to solve NB-AC, (1) ?P is necessary (for any environment); (2)
+?P + ✸S is sufficient for any environment with a majority of correct processes.
+We then show that (3) P is strictly stronger than ?P + ✸S for any environment
+where at least two processes can crash in a system of at least three processes.
+
+• Anonymous Completeness: If some process crashes, then there is a time after
+which every correct process permanently detects a crash.
+• Anonymous Accuracy: No crash is detected unless some process crashes.
+
+/* Algorithm executed by every process p i */
+1 k := 1;
+2 output(?P) i = ∅;
+3 while (nbac(k, yes) = commit) do
+4 k := k + 1;
+5 output(?P) i = {⊤};
+We assume the existence of a function nbac(). Different instances of this func-
+tion are distinguished with an integer k. Each process p i has a local copy of
+output(?P), denoted by output(?P) i , which provides the information that should
+be given by the local failure detector module of ?P at process p i .
+The basic idea of our algorithm is the following. The value of output(?P) i is
+initially set to ∅. Every process p i performs a sequence of rounds 1, ..k, ... Within
+each round k, p i invokes nbac(k, yes) and waits until a decision is returned. If p i
+decides commit, then p i directly moves to the next round. Otherwise, p i puts ⊤
+into output(?P) i .
+The basic idea of our NB-AC algorithm of Figure 2 is the following. Every
+process sends its vote to all participants (including itself). A process that either
+receives a vote no or detects a crash, invokes consensus() with abort, and decides
+the outcome returned by consensus(). A process that receives yes votes from all
+processes, invokes consensus() with commit, and decides the outcome returned by
+consensus().
+
+We assume that every process p i , either crashes, or invokes nbac() in Figure 2.
+The vote of participant p i is denoted vote i . We assume that, at every process
+p i , vote j is initialised to nil. Function nbac() terminates by the execution of a
+“return outcome” statement, where outcome is either commit or abort: when p i
+executes return outcome, we consider that p i decides outcome.
+function nbac(vote i ) /* Algorithm executed by every process p i */
+1
+send (p i , vote i ) to all
+wait until [(for j = 1 to n: received (p j , vote j )) or ⊤ ∈ ?P i ] ;
+2
+if (⊤ ∈ ?P i or ∃j ∈ [1, n] s.t.: vote j = no) then
+3
+4
+outcome i := consensus(abort) ;
+5
+else
+6
+7
+outcome i := consensus(commit) ;
+return outcome i ;
+
+********ver no artigo paginas 21 e 22 e 23, tem o algoritmo explicado e justificado
+
+In practice, failure detectors are typically approximated using time-outs. To
+implement a failure detector that approximates P, one needs to choose a large
+time-out value in order to avoid false failure suspicions.
+The drawback with using a large time-out value is
+the slow fail-over time.
+
+Interestingly, the inherent nature of ?P + ✸S helps deconstruct NB-AC as sug-
+gested in Figure 2: a preparation phase where an outcome value for the transaction
+is chosen (using ?P), and an agreement phase where the processes must decide on a
+common outcome (using ✸S - underlying Consensus). Hence, two time-out values
+could be used, one for each phase of the algorithm (i.e., for each failure detector
+implementation): the first time-out value to approximate ?P and a second time-
+out value to approximate ✸S. The first time-out value should be large, in order
+to avoid false detection and, in the context of NB-AC, avoid to abort transac-
+tions that should otherwise be committed. The second time-out value could be
+relatively short in order to fastly react to failures during agreement: false suspi-
+cions might lead to delay decisions but have no impact on the actual outcome of
+the transaction.
+
+This paper also introduces the Anonymously Perfect failure detector ?P, and
+shows that: (1) ?P is necessary to solve NB-AC, and (2) ?P + ✸S is sufficient
+to solve NB-AC when a majority of the processes are correct.
+
+
+
+--------------------------------------------------------------
+avizienis GOD OF FAULT TOLERANCE
+
+A system in our taxonomy is an entity that interacts with other entities, i.e., other systems, including hardware,
+software, humans, and the physical world with its natural phenomena. These other systems are the environment of
+the given system. The system boundary is the common frontier between the system and its environment.
+
+Correct service is delivered when the service implements the system function. A service failure, often
+abbreviated here to failure, is an event that occurs when the delivered service deviates from correct service.
+A service failure is a transition from correct service to incorrect
+service, i.e., to not implementing the system function. The period of delivery of incorrect service is a service
+outage. The transition from incorrect service to correct service is a service restoration.
+The deviation is called an error. The adjudged
+or hypothesized cause of an error is called a fault. Faults can be internal or external to system.
+
+For this reason the definition of an error is: the part of the total state of the system that may lead to its
+subsequent service failure. It is important to note that many errors do not reach the system’s external state and
+cause a failure. A fault is active when it causes an error, otherwise it is dormant.
+the dependability of a system is the ability to avoid service failures that
+are more frequent and more severe than is acceptable.
+
+As developed over the past three decades, dependability is an integrating concept that encompasses the
+following attributes:
+• availability: readiness for correct service;
+• reliability: continuity of correct service;
+• safety: absence of catastrophic consequences on the user(s) and the environment;
+• integrity: absence of improper system alterations;
+• maintainability: ability to undergo modifications, and repairs.
+2.4.
+The Means to Attain Dependability and Security
+Over the course of the past fifty years many means have been developed to attain the various attributes of
+dependability and security. Those means can be grouped into four major categories:
+• fault prevention: means to prevent the occurrence or introduction of faults;
+**• fault tolerance: means to avoid service failures in the presence of faults;
+• fault removal: means to reduce the number and severity of faults;
+• fault forecasting: means to estimate the present number, the future incidence, and the likely consequences of
+faults.
+Fault prevention and fault tolerance aim to provide the ability to deliver a service that can be trusted
+
+•
+halt failure, or simply halt, when the service is halted (the external state becomes constant, i.e., system
+activity, if there is any, is no longer perceptible to the users); a special case of halt is silent failure, or simply
+silence, when no service at all is delivered at the service interface (e.g., no messages are sent in a distributed
+system);
+The consistency of failures leads us to distinguish, when a system has two or more users:
+•
+consistent failures: the incorrect service is perceived identically by all system users;
+13•
+inconsistent failures: some or all system users perceive differently incorrect service (some users may actually
+perceive correct service); inconsistent failures are usually called, after [Lamport et al. 1982], Byzantine
+failures.
+
+5.2.
+Fault Tolerance
+5.2.1. Fault Tolerance Techniques
+Fault tolerance [Avizienis 1967], which is aimed at failure avoidance, is carried out via error detection and
+system recovery. Figure 5.1 gives the techniques involved in fault tolerance.
+
+
+
+
+
+
+
+
+
+
+
+
+

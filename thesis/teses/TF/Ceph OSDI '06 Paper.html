@@ -1,0 +1,1973 @@
+
+<!-- saved from url=(0085)https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><script type="text/javascript" src="./Ceph OSDI '06 Paper_files/d823139095"></script><script src="./Ceph OSDI '06 Paper_files/nr-632.min.js"></script><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o?o:n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({QJf3ax:[function(e,n){function t(e){function n(n,t,a){e&&e(n,t,a),a||(a={});for(var u=c(n),f=u.length,s=i(a,o,r),p=0;f>p;p++)u[p].apply(s,t);return s}function a(e,n){f[e]=c(e).concat(n)}function c(e){return f[e]||[]}function u(){return t(n)}var f={};return{on:a,emit:n,create:u,listeners:c,_events:f}}function r(){return{}}var o="nr@context",i=e("gos");n.exports=t()},{gos:"7eSDFh"}],ee:[function(e,n){n.exports=e("QJf3ax")},{}],3:[function(e,n){function t(e){return function(){r(e,[(new Date).getTime()].concat(i(arguments)))}}var r=e("handle"),o=e(1),i=e(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(e,n){window.NREUM[n]=t("api-"+n)}),n.exports=window.NREUM},{1:12,2:13,handle:"D5DuLP"}],"7eSDFh":[function(e,n){function t(e,n,t){if(r.call(e,n))return e[n];var o=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return e[n]=o,o}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],gos:[function(e,n){n.exports=e("7eSDFh")},{}],handle:[function(e,n){n.exports=e("D5DuLP")},{}],D5DuLP:[function(e,n){function t(e,n,t){return r.listeners(e).length?r.emit(e,n,t):(o[e]||(o[e]=[]),void o[e].push(n))}var r=e("ee").create(),o={};n.exports=t,t.ee=r,r.q=o},{ee:"QJf3ax"}],id:[function(e,n){n.exports=e("XL7HBI")},{}],XL7HBI:[function(e,n){function t(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:i(e,o,function(){return r++})}var r=1,o="nr@id",i=e("gos");n.exports=t},{gos:"7eSDFh"}],G9z0Bl:[function(e,n){function t(){var e=d.info=NREUM.info,n=f.getElementsByTagName("script")[0];if(e&&e.licenseKey&&e.applicationID&&n){c(p,function(n,t){n in e||(e[n]=t)});var t="https"===s.split(":")[0]||e.sslForHttp;d.proto=t?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=d.proto+e.agent,n.parentNode.insertBefore(r,n)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=e("handle"),c=e(1),u=(e(2),window),f=u.document,s=(""+location).split("?")[0],p={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-632.min.js"},d=n.exports={offset:i(),origin:s,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),u.addEventListener("load",t,!1)):(f.attachEvent("onreadystatechange",r),u.attachEvent("onload",t)),a("mark",["firstbyte",i()])},{1:12,2:3,handle:"D5DuLP"}],loader:[function(e,n){n.exports=e("G9z0Bl")},{}],12:[function(e,n){function t(e,n){var t=[],o="",i=0;for(o in e)r.call(e,o)&&(t[i]=n(o,e[o]),i+=1);return t}var r=Object.prototype.hasOwnProperty;n.exports=t},{}],13:[function(e,n){function t(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(0>o?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=t},{}]},{},["G9z0Bl"]);</script><title>OSDI '06 Paper</title>
+<script language="Javascript" src="./Ceph OSDI '06 Paper_files/page.js"><!-- // PAGE 1.0
+iover() { ; } iout() { ; }
+// -->
+</script>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" link="#990000" alink="#666666" vlink="#666666" topmargin="0" leftmargin="0" rightmargin="0" marginheight="0"><a href="http://www.usenix.org/"><img src="./Ceph OSDI '06 Paper_files/new_usenix.jpg" width="288" height="232" alt="Check out the new USENIX Web site." align="right"></a>
+
+<!-- IE understands topmargin, leftmargin, rightmargin, NS understands marginheight -->
+
+<!-- Banner --><center><div>
+<table border="0" cellpadding="0" cellspacing="0" width="750">
+<!-- space at top -->
+<tbody><tr><td colspan="13"><img src="./Ceph OSDI '06 Paper_files/dot_clear.gif" width="1" height="5" alt=""><br><img src="./Ceph OSDI '06 Paper_files/dot_clear.gif" width="1" height="5" alt=""><br></td></tr>
+ <tr><!-- row 1 -->
+  <td>
+
+<!--begin banner-->
+
+<table width="750" border="0" cellpadding="0" cellspacing="0">
+	<tbody><tr>
+		<td rowspan="2">
+			<a href="http://www.usenix.org/" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/home.gif" width="175" height="66" border="0" alt="USENIX, The Advanced Computing Systems Association"></a></td>
+		<td>
+			<a href="http://www.usenix.org/events/" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/conf.gif" width="93" height="33" border="0" alt=""></a></td>
+		<td>
+			<a href="http://www.usenix.org/membership/" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/join.gif" width="93" height="33" border="0" alt=""></a></td>
+		<td>
+			<a href="http://www.usenix.org/about/" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/who.gif" width="94" height="33" border="0" alt=""></a></td>
+		<td>
+			<a href="http://www.usenix.org/about/contacts.html" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/contact.gif" width="95" height="33" border="0" alt=""></a></td>
+		<td>
+			<a href="http://www.usenix.org/publications/login/" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/login.gif" width="94" height="33" border="0" alt=""></a></td>
+		<td>
+			<a href="http://www.usenix.org/site_map.html" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/site_map.gif" width="94" height="33" border="0" alt=""></a></td>
+		<td rowspan="2">
+			<img src="./Ceph OSDI '06 Paper_files/usenix_sub_buttons_08.gif" width="12" height="66" alt=""></td>
+	</tr>
+	<tr>
+		<td colspan="6">
+			<a href="http://www.usenix.org/" target="other">
+				<img src="./Ceph OSDI '06 Paper_files/lower.gif" width="563" height="33" border="0" alt=""></a></td>
+	</tr>
+</tbody></table>
+
+<!--end banner-->
+
+  </td>
+  </tr>
+
+</tbody></table>
+<!-- End of Banner -->
+
+<!--Main Table 2/135/2/472/2/135/2 -->
+<table border="0" cellspacing="0" cellpadding="0" width="750">
+<tbody><tr>
+
+<!--Left Border-->
+<td width="2" valign="top" bgcolor="#CCCCCC"><img src="./Ceph OSDI '06 Paper_files/dot_clear.gif" width="2" height="1" alt=""></td>
+
+<!--Links Column-->
+<td width="596" valign="top" bgcolor="#FFFFFF">
+<table width="100%" border="0" cellspacing="0" cellpadding="8"><tbody><tr><td>
+<!-- START OF PAGE CONTENTS -->
+<img src="./Ceph OSDI '06 Paper_files/dot_clear.gif" width="1" height="20" alt=""><br>
+
+
+
+
+<font size="+1" color="#990000" face="verdana, arial, helvetica, sans-serif"><b><!-- CHANGE -->OSDI '06 Paper</b></font>
+<p>
+<b>Pp. <!-- CHANGE -->307–320 of the <i>Proceedings</i></b>
+</p><p>
+<font size="-1" face="verdana, arial, helvetica, sans-serif">
+
+<!-- START OF PAGE CONTENTS -->
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+</font></p><p><font size="-1" face="verdana, arial, helvetica, sans-serif">
+
+
+
+
+<font size="-1"></font> 
+</font></p><p><font size="-1" face="verdana, arial, helvetica, sans-serif">
+
+<title>   Ceph: A Scalable, High-Performance Distributed File System</title>
+    
+</font></p><h1 align="center"><font size="-1" face="verdana, arial, helvetica, sans-serif"><font size="+2"><b>Ceph: A Scalable, High-Performance Distributed File System</b></font> </font></h1><font size="-1" face="verdana, arial, helvetica, sans-serif">
+
+<p>
+
+</p><h3 align="center">
+<span class="roman">Sage A.&nbsp;Weil</span>,
+<span class="roman">Scott A.&nbsp;Brandt</span>,
+<span class="roman">Ethan L.&nbsp;Miller</span>,
+<span class="roman">Darrell D. E.&nbsp;Long</span>,
+<span class="roman">Carlos&nbsp;Maltzahn</span>
+<br>
+University of California, Santa Cruz
+<br>
+{sage, scott, elm, darrell, carlosm}@cs.ucsc.edu
+ </h3> 
+<p>
+
+
+
+</p><p>
+
+
+
+</p><p>
+
+</p><h3>Abstract</h3>
+
+<p>
+
+</p><p>
+
+</p><p>
+We have developed Ceph, a distributed file system that provides
+excellent performance, reliability, and scalability.  Ceph maximizes
+the separation between data and metadata management by replacing
+allocation tables with a pseudo-random data distribution function
+(CRUSH) designed for heterogeneous and dynamic clusters of unreliable
+object storage devices (OSDs).  We leverage device intelligence by
+distributing data replication, failure detection and recovery to
+semi-autonomous OSDs running a specialized local object file system.
+A dynamic distributed metadata cluster provides extremely efficient
+metadata management and seamlessly adapts to a wide range of general
+purpose and scientific computing file system workloads.  Performance
+measurements under a variety of workloads show that Ceph has excellent
+I/O performance and scalable metadata management, supporting more than
+250,000 metadata operations per second.
+
+</p><p>
+
+</p><p>
+
+</p><p>
+ </p><h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Introduction</h2>
+
+<p>
+System designers have long sought to improve the performance of file
+systems, which have proved critical to the overall performance of an
+exceedingly broad class of applications.  The scientific and
+high-performance computing communities in particular have driven
+advances in the performance and scalability of distributed storage
+systems, typically predicting more general purpose needs by a few
+years.  Traditional solutions, exemplified by
+NFS&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#pawlowski:usenix94s" name="CITEpawlowski:usenix94s">20</a>], provide a straightforward model in which
+a server exports a file system hierarchy that clients can map into
+their local name space.  Although widely used, the centralization
+inherent in the client/server model has proven a significant obstacle
+to scalable performance.
+
+</p><p>
+More recent distributed file systems have adopted architectures based
+on object-based storage, in which conventional hard disks are replaced
+with intelligent object storage devices (OSDs) which combine a CPU,
+network interface, and local cache with an underlying disk or
+RAID&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#braam:lustre" name="CITEbraam:lustre">4</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#ghemawat:sosp03" name="CITEghemawat:sosp03">7</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#gibson:asplos98" name="CITEgibson:asplos98">8</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#welch:mss04" name="CITEwelch:mss04">32</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wong:tr-kybos" name="CITEwong:tr-kybos">35</a>].
+OSDs replace the traditional block-level interface with one in which
+clients can read or write byte ranges to much larger (and often
+variably sized) named objects, distributing low-level block allocation
+decisions to the devices themselves.  Clients typically interact with
+a metadata server (MDS) to perform metadata operations (<i>open</i>,
+<i>rename</i>), while communicating directly with OSDs to perform file
+I/O (reads and writes), significantly improving overall scalability.
+
+</p><p>
+Systems adopting this model continue to suffer from scalability
+limitations due to little or no distribution of the metadata
+workload.  Continued reliance on traditional file system principles
+like allocation lists and inode tables and a reluctance to delegate
+intelligence to the OSDs have further limited scalability and
+performance, and increased the cost of reliability.  
+
+</p><p>
+We present Ceph, a distributed file system that provides excellent
+performance and reliability while promising unparalleled scalability.  Our
+architecture is based on the assumption that systems at the petabyte
+scale are inherently dynamic: large systems are inevitably
+built incrementally, node failures are the norm rather than the
+exception, and the quality and character of workloads are constantly
+shifting over time.
+
+</p><p>
+Ceph decouples data and metadata operations by eliminating file
+allocation tables and replacing them with generating functions.  This
+allows Ceph to leverage the intelligence present in OSDs to distribute
+the complexity surrounding data access, update serialization,
+replication and reliability, failure detection, and recovery.  Ceph
+utilizes a highly adaptive distributed metadata cluster architecture
+that dramatically improves the scalability of metadata access, and
+with it, the scalability of the entire system.  We discuss the goals
+and workload assumptions motivating our choices in the design of the
+architecture, analyze their impact on system scalability and 
+performance, and relate our experiences in implementing a
+functional system prototype.
+
+</p><p>
+ </p><h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;System Overview</h2>
+
+<p>
+
+</p><p>
+The Ceph file system has three main components: the client, each
+instance of which exposes a near-POSIX file system interface to a host
+or process; a cluster of OSDs, which collectively stores all data and
+metadata; and a metadata server cluster, which manages the
+namespace (file names and directories) while coordinating security,
+consistency and coherence (see Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:overview">1</a>).  We
+say the Ceph interface is near-POSIX because we find it
+appropriate to extend the interface and selectively relax consistency
+semantics in order to better align with the needs of applications
+and to improve system performance.
+
+</p><p>
+
+</p><p>
+<a name="tth_fIg1">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/overview.png" alt="fig/overview.png">
+	
+<center>Figure 1: System architecture.  Clients perform file I/O by
+	  communicating directly with OSDs.  Each process can either link
+	  directly to a client instance or interact with a mounted
+	  file system.</center>
+	<a name="fig:overview">
+</a>
+  </center>
+
+<p>
+The primary goals of the architecture are scalability (to hundreds of
+petabytes and beyond), performance, and reliability.  Scalability is
+considered in a variety of dimensions, including the overall storage
+capacity and throughput of the system, and performance in terms of
+individual clients, directories, or files.  Our target workload may
+include such extreme cases as tens or hundreds of thousands of hosts
+concurrently reading from or writing to the same file or creating
+files in the same directory.  
+Such scenarios, common in scientific
+applications running on supercomputing clusters, are increasingly
+indicative of tomorrow's general purpose workloads.  
+More importantly,
+we recognize that distributed file system workloads are inherently
+dynamic, with significant variation in data and metadata access as
+active applications and data sets change over time.  Ceph directly
+addresses the issue of scalability while simultaneously achieving high
+performance, reliability and availability through three fundamental
+design features: decoupled data and metadata, dynamic
+distributed metadata management, and reliable autonomic distributed object
+storage.
+
+</p><p>
+
+</p><p>
+ <b>Decoupled Data and Metadata</b>-Ceph maximizes the
+separation of file metadata management from the storage of file
+data.  Metadata operations (<i>open</i>, <i>rename</i>, etc.) are
+collectively managed by a metadata server cluster, while clients
+interact directly with OSDs to perform file I/O (reads and writes).
+Object-based storage has long promised to improve the scalability of
+file systems by delegating low-level block allocation decisions to
+individual devices.  However, in contrast to existing object-based
+file
+systems&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#braam:lustre" name="CITEbraam:lustre">4</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#ghemawat:sosp03" name="CITEghemawat:sosp03">7</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#gibson:asplos98" name="CITEgibson:asplos98">8</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#welch:mss04" name="CITEwelch:mss04">32</a>]
+which replace long per-file block lists with shorter object lists,
+Ceph eliminates allocation lists entirely.  Instead, file data is
+striped onto predictably named objects, while a special-purpose
+data distribution function called CRUSH&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:sc06" name="CITEweil:sc06">29</a>]
+assigns objects to storage devices.  This allows any party to
+calculate (rather than look up) the name and location of objects
+comprising a file's contents, eliminating the need to maintain and
+distribute object lists, simplifying the design of the system, and
+reducing the metadata cluster workload.
+
+</p><p>
+ <b>Dynamic Distributed Metadata Management</b>-Because file
+system metadata operations make up as much as half of typical file
+system workloads&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#roselli:usenix00" name="CITEroselli:usenix00">22</a>], effective metadata
+management is critical to overall system performance.  Ceph utilizes a
+novel metadata cluster architecture based on Dynamic Subtree
+Partitioning&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:sc04" name="CITEweil:sc04">30</a>] that adaptively and intelligently
+distributes responsibility for managing the file system directory
+hierarchy among tens or even hundreds of MDSs.  A (dynamic)
+hierarchical partition preserves locality in each MDS's workload,
+facilitating efficient updates and aggressive prefetching to improve
+performance for common workloads.  Significantly, the workload
+distribution among metadata servers is based entirely on current
+access patterns, allowing Ceph to effectively utilize available MDS
+resources under any workload and achieve near-linear scaling in the
+number of MDSs.
+
+</p><p>
+
+</p><p>
+ <b>Reliable Autonomic Distributed Object Storage</b>-Large
+systems composed of many thousands of devices are inherently dynamic:
+they are built incrementally, they grow and contract as new storage is
+deployed and old devices are decommissioned, device failures are
+frequent and expected, and large volumes of data are created, moved,
+and deleted. All of these factors require that the distribution of
+data evolve to effectively utilize available resources and maintain
+the desired level of data replication.  Ceph delegates responsibility
+for data migration, replication, failure detection, and failure
+recovery to the cluster of OSDs that store the data, while at a high
+level, OSDs collectively provide a single logical object store to
+clients and metadata servers.  This approach allows Ceph to more
+effectively leverage the intelligence (CPU and memory) present on each
+OSD to achieve reliable, highly available object storage with linear
+scaling.
+
+</p><p>
+We describe the operation of the Ceph client,
+metadata server cluster, and distributed object store, and how they
+are affected by the critical features of our architecture.  
+We also describe the status of our prototype.
+
+</p><p>
+ </p><h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;Client Operation</h2>
+
+<p>
+We introduce the overall operation of Ceph's components and their
+interaction with applications by describing Ceph's client
+operation. The Ceph client runs on each host executing application
+code and exposes a file system interface to applications. In the Ceph
+prototype, the client code runs entirely in user space and can be
+accessed either by linking to it directly or as a mounted file system
+via FUSE&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#szeredi:fuse2" name="CITEszeredi:fuse2">25</a>] (a user-space file system
+interface). Each client maintains its own file data cache, independent
+of the kernel page or buffer caches, making it accessible to
+applications that link to the client directly.
+
+</p><p>
+
+</p><p>
+      </p><h3><a name="tth_sEc3.1">
+3.1</a>&nbsp;&nbsp;File I/O and Capabilities</h3>
+
+<p>
+When a process opens a file, the client sends a request to the MDS
+cluster.  An MDS traverses the file system hierarchy to translate the
+file name into the <i>file inode</i>, which includes a unique inode
+number, the file owner, mode, size, and other per-file metadata.  If
+the file exists and access is granted, the MDS returns the inode
+number, file size, and information about the striping strategy used to
+map file data into objects.  The MDS may also issue the client a <i>
+capability</i> (if it does not already have one) specifying which
+operations are permitted.  Capabilities currently include four bits
+controlling the client's ability to read, cache reads, write, and
+buffer writes.  In the future, capabilities will include security keys
+allowing clients to prove to OSDs that they are authorized to read or
+write data&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#leung:storagess06" name="CITEleung:storagess06">13</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#olson:storagess05" name="CITEolson:storagess05">19</a>] (the prototype
+currently trusts all clients).  Subsequent MDS involvement in file I/O is limited to managing
+capabilities to preserve file consistency and achieve proper
+semantics.
+
+</p><p>
+Ceph generalizes a range of striping strategies to map file data onto
+a sequence of objects.
+To avoid any need for file allocation metadata, object names simply
+combine the file inode number and the stripe number.  Object replicas
+are then assigned to OSDs using CRUSH, a globally known mapping
+function (described in Section&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#sec:crush">5.1</a>).  For example, if one
+or more clients open a file for read access, an MDS grants them
+the capability to read and cache file content.  Armed with the inode
+number, layout, and file size, the clients can name and locate all
+objects containing file data and read directly from the OSD cluster.
+Any objects or byte ranges that don't exist are defined to be file
+"holes," or zeros.  Similarly, if a client opens a file for writing,
+it is granted the capability to write with buffering, and any data it
+generates at any offset in the file is simply written to the
+appropriate object on the appropriate OSD.  The client relinquishes
+the capability on file close and provides the MDS with the new file
+size (the largest offset written), which redefines the set of objects
+that (may) exist and contain file data.
+
+</p><p>
+      </p><h3><a name="tth_sEc3.2">
+3.2</a>&nbsp;&nbsp;Client Synchronization</h3>
+
+<p>
+POSIX semantics sensibly require that reads reflect any data
+previously written, and that writes are atomic (<em>i.&nbsp;e.</em>, the result of
+overlapping, concurrent writes will reflect a particular order of
+occurrence).  When a file is opened by multiple clients with either
+multiple writers or a mix of readers and writers, the MDS will revoke
+any previously issued read caching and write buffering capabilities,
+forcing client I/O for that file to be synchronous.  That is, each
+application read or write operation will block until it is
+acknowledged by the OSD, effectively placing the burden of update
+serialization and synchronization with the OSD storing each object.
+When writes span object boundaries, clients acquire exclusive locks on
+the affected objects (granted by their respective OSDs), and 
+immediately submit the write and unlock operations to achieve the
+desired serialization.  Object locks are similarly used to mask
+latency for large writes by acquiring locks and flushing data
+asynchronously.
+
+</p><p>
+Not surprisingly, synchronous I/O can be a performance killer for
+applications, particularly those doing small reads or writes, due to
+the latency penalty-at least one round-trip to the OSD.  Although
+read-write sharing is relatively rare in general-purpose
+workloads&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#roselli:usenix00" name="CITEroselli:usenix00">22</a>], it is more common in scientific
+computing applications&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wang:mss04" name="CITEwang:mss04">27</a>], where performance is often
+critical.  For this reason, it is often desirable to relax consistency
+at the expense of strict standards conformance in situations where
+applications do not rely on it.  Although Ceph supports such
+relaxation via a global switch, and many other distributed file
+systems punt on this issue&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#pawlowski:usenix94s" name="CITEpawlowski:usenix94s">20</a>], this is an
+imprecise and unsatisfying solution: either performance suffers, or
+consistency is lost system-wide.
+
+</p><p>
+For precisely this reason, a set of high performance computing
+extensions to the POSIX I/O interface have been proposed by the
+high-performance computing (HPC)
+community&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#welch:fast05wip" name="CITEwelch:fast05wip">31</a>], a subset of which are implemented by Ceph.  Most
+notably, these include an <tt>O_LAZY</tt> flag for <i>open</i> that
+allows applications to explicitly relax the usual coherency
+requirements for a shared-write
+file.  Performance-conscious applications which
+manage their own consistency (<em>e.&nbsp;g.</em>, by writing to different parts of the
+same file, a common pattern in HPC workloads&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wang:mss04" name="CITEwang:mss04">27</a>]) are
+then allowed to buffer writes or cache reads when I/O would otherwise
+be performed synchronously.  If desired, applications can then
+explicitly synchronize with two additional calls: <i>
+lazyio_&nbsp;propagate</i> will flush a given byte range to the object
+store, while <i>lazyio_&nbsp;synchronize</i> will ensure that the effects of
+previous propagations are reflected in any subsequent reads.  
+The Ceph
+synchronization model thus retains its simplicity by providing correct
+read-write and shared-write semantics between clients via synchronous
+I/O, and extending the application interface to relax consistency for
+performance conscious distributed applications.
+
+</p><p>
+      </p><h3><a name="tth_sEc3.3">
+3.3</a>&nbsp;&nbsp;Namespace Operations</h3>
+
+<p>
+
+</p><p>
+Client interaction with the file system namespace is managed by the
+metadata server cluster.  Both read operations (<em>e.&nbsp;g.</em>, <i>readdir</i>,
+<i>stat</i>) and updates (<em>e.&nbsp;g.</em>, <i>unlink</i>, <i>chmod</i>) are
+synchronously applied by the MDS to ensure serialization, consistency,
+correct security, and safety.  For simplicity, no metadata locks or
+leases are issued to clients.  For HPC workloads in particular, callbacks
+offer minimal upside at a high potential cost in complexity.
+
+</p><p>
+Instead, Ceph optimizes for the most common metadata access scenarios.
+A <i>readdir</i> followed by a <i>stat</i> of each file (<em>e.&nbsp;g.</em>, <tt>ls
+-l</tt>) is an extremely common access pattern and notorious performance
+killer in large directories.  A <i>readdir</i> in Ceph requires only a
+single MDS request, which fetches the entire directory, including
+inode contents.  By default, if a <i>readdir</i> is immediately
+followed by one or more <i>stat</i>s, the briefly cached information
+is returned; otherwise it is discarded.  Although this relaxes
+coherence slightly in that an intervening inode modification may go
+unnoticed, we gladly make this trade for vastly improved performance.
+This behavior is explicitly captured by the <i>
+readdirplus</i>&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#welch:fast05wip" name="CITEwelch:fast05wip">31</a>] extension, which returns <i>lstat</i> results
+with directory entries (as some OS-specific implementations
+of <i>getdir</i> already do).
+
+</p><p>
+Ceph could allow consistency to be further relaxed by caching metadata
+longer, much like earlier versions of NFS, which typically cache for
+30 seconds.  However, this approach breaks coherency in a way that is
+often critical to applications, such as those using <i>stat</i> to
+determine if a file has been updated-they either behave incorrectly,
+or end up waiting for old cached values to time out.
+
+</p><p>
+We opt instead to again provide correct behavior and extend the
+interface in instances where it adversely affects performance.  This
+choice is most clearly illustrated by a <i>stat</i> operation on a file
+currently opened by multiple clients for writing.  In order to return
+a correct file size and modification time, the MDS revokes any write
+capabilities to momentarily stop updates and collect up-to-date size
+and mtime values from all writers.  The highest values are returned
+with the <i>stat</i> reply, and capabilities are reissued to allow
+further progress.  Although stopping multiple writers may seem
+drastic, it is necessary to ensure proper serializability.  (For a
+single writer, a correct value can be retrieved from the writing
+client without interrupting progress.)  Applications for which
+coherent behavior is unnecesssary-victims of a POSIX interface that
+doesn't align with their needs-can use <i>
+statlite</i>&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#welch:fast05wip" name="CITEwelch:fast05wip">31</a>], which takes a bit mask specifying
+which inode fields are not required to be coherent.
+
+</p><p>
+
+</p><p>
+ </p><h2><a name="tth_sEc4">
+4</a>&nbsp;&nbsp;Dynamically Distributed Metadata</h2>
+
+<p>
+
+</p><p>
+Metadata operations often make up as much as half of file system
+workloads&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#roselli:usenix00" name="CITEroselli:usenix00">22</a>] and lie in the critical path, making
+the MDS cluster critical to overall performance.  Metadata
+management also presents a critical scaling challenge in distributed
+file systems: although capacity and aggregate I/O rates can scale
+almost arbitrarily with the addition of more storage devices, metadata
+operations involve a greater degree of interdependence that makes
+scalable consistency and coherence management more difficult.
+
+</p><p>
+File and directory metadata in Ceph is very small, consisting almost
+entirely of directory entries (file names) and inodes (80 bytes).
+Unlike conventional file systems, no file allocation metadata is
+necessary-object names are constructed using the inode number, and
+distributed to OSDs using CRUSH.  This simplifies the metadata
+workload and allows our MDS to efficiently manage a very large working
+set of files, independent of file sizes.  Our design further
+seeks to minimize metadata related disk I/O through the use of a
+two-tiered storage strategy, and to maximize locality and cache
+efficiency with Dynamic Subtree Partitioning&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:sc04" name="CITEweil:sc04">30</a>].
+
+</p><p>
+      </p><h3><a name="tth_sEc4.1">
+4.1</a>&nbsp;&nbsp;Metadata Storage</h3>
+
+<p>
+Although the MDS cluster aims to satisfy most requests from
+its in-memory cache, metadata updates must be committed to
+disk for safety.  A set of large, bounded, lazily flushed journals
+allows each MDS to quickly stream its updated metadata to the OSD cluster in an
+efficient and distributed manner.  The per-MDS journals, each
+many hundreds of megabytes, also absorb repetitive metadata
+updates (common to most workloads) such that when old journal entries
+are eventually flushed to long-term storage, many are already
+rendered obsolete.
+Although MDS recovery is not yet implemented
+by our prototype, the journals are designed such that in the event of
+an MDS failure, another node can quickly rescan the journal to 
+recover the critical contents of the failed node's in-memory
+cache (for quick startup) and in doing so recover the file
+system state.
+
+</p><p>
+
+</p><p>
+This strategy provides the best of both worlds: streaming updates to
+disk in an efficient (sequential) fashion, and a vastly reduced
+re-write workload, allowing the long-term on-disk storage layout to be
+optimized for future read access.  In particular, inodes are embedded
+directly within directories, allowing the MDS to prefetch entire
+directories with a single OSD read request and exploit the high degree
+of directory locality present in most
+workloads&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#roselli:usenix00" name="CITEroselli:usenix00">22</a>].  Each directory's content is
+written to the OSD cluster using the same striping and distribution
+strategy as metadata journals and file data.  Inode numbers are
+allocated in ranges to metadata servers and considered
+immutable in our prototype, although in the future they could be
+trivially reclaimed on file deletion.  An auxiliary <em>anchor
+table</em>&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:tr-ucsc-metacp04" name="CITEweil:tr-ucsc-metacp04">28</a>] keeps the rare inode with multiple
+hard links globally addressable by inode number-all without
+encumbering the overwhelmingly common case of singly-linked files with
+an enormous, sparsely populated and cumbersome
+inode table.
+
+</p><p>
+      </p><h3><a name="tth_sEc4.2">
+4.2</a>&nbsp;&nbsp;Dynamic Subtree Partitioning</h3>
+
+<p>
+Our primary-copy caching strategy makes a single
+authoritative MDS responsible for managing cache coherence and
+serializing updates for any given piece of metadata.
+While most existing distributed file systems employ some form of
+static subtree-based partitioning to delegate this authority (usually
+forcing an administrator to carve the dataset into smaller static
+"volumes"), some recent and experimental file systems have used
+hash functions to distribute directory and file
+metadata&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#braam:lustre" name="CITEbraam:lustre">4</a>], effectively sacrificing locality for
+load distribution.  Both approaches have critical limitations: static
+subtree partitioning fails to cope with dynamic workloads and data
+sets, while hashing destroys metadata locality and critical
+opportunities for efficient metadata prefetching and storage.
+
+</p><p>
+
+</p><p>
+<a name="tth_fIg2">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/dsp.png" alt="fig/dsp.png">
+	
+<center>Figure 2: Ceph dynamically maps subtrees of the directory hierarchy
+	  to metadata servers based on the current workload.  Individual
+	  directories are hashed across multiple nodes only when
+	  they become hot spots.</center>
+	<a name="fig:dsp">
+</a>
+  </center>
+
+<p>
+Ceph's MDS cluster is based on a dynamic subtree partitioning
+strategy&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:sc04" name="CITEweil:sc04">30</a>] that adaptively distributes cached metadata
+hierarchically across a set of nodes, as illustrated in
+Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:dsp">2</a>.  Each MDS measures the popularity of metadata
+within the directory hierarchy using counters with an exponential time
+decay.  Any operation increments the counter on the affected inode and
+all of its ancestors up to the root directory, providing each MDS with
+a weighted tree describing the recent load distribution.  MDS load
+values are periodically compared, and appropriately-sized subtrees of
+the directory hierarchy are migrated to keep the workload evenly
+distributed.  The combination of shared long-term storage and
+carefully constructed namespace locks allows such migrations to
+proceed by transferring the appropriate contents of the in-memory
+cache to the new authority, with minimal impact on coherence locks or
+client capabilities.  Imported metadata is written to the new MDS's
+journal for safety, while additional journal entries on both ends
+ensure that the transfer of authority is invulnerable to intervening
+failures (similar to a two-phase commit).  The resulting subtree-based
+partition is kept coarse to minimize prefix replication overhead and
+to preserve locality.
+
+</p><p>
+When metadata is replicated across multiple MDS nodes, inode contents
+are separated into three groups, each with different consistency
+semantics: security (owner, mode), file (size, mtime), and immutable
+(inode number, ctime, layout).  While immutable fields never change,
+security and file locks are governed by independent finite state
+machines, each with a different set of states and transitions designed
+to accommodate different access and update patterns while minimizing
+lock contention.  For example, owner and mode are required for the
+security check during path traversal but rarely change, requiring very
+few states, while the file lock reflects a wider range of client
+access modes as it controls an MDS's ability to issue client
+capabilities.
+
+</p><p>
+      </p><h3><a name="tth_sEc4.3">
+4.3</a>&nbsp;&nbsp;Traffic Control</h3>
+
+<p>
+Partitioning the directory hierarchy across multiple nodes can balance
+a broad range of workloads, but cannot always cope with hot spots or
+flash crowds, where many clients access the same directory or file.
+Ceph uses its knowledge of metadata popularity to provide a wide
+distribution for hot spots only when needed and without incurring the
+associated overhead and loss of directory locality in the general
+case.  The contents of heavily read directories (<em>e.&nbsp;g.</em>, many opens) are
+selectively replicated across multiple nodes to distribute load.
+Directories that are particularly large or experiencing a heavy write
+workload (<em>e.&nbsp;g.</em>, many file creations) have their contents hashed by file
+name across the cluster, achieving a balanced distribution at the
+expense of directory locality.  This adaptive approach allows Ceph to
+encompass a broad spectrum of partition granularities, capturing the
+benefits of both coarse and fine partitions in the specific
+circumstances and portions of the file system where those strategies
+are most effective.
+
+</p><p>
+
+</p><p>
+Every MDS response provides the client with updated information about the
+authority and any replication of the relevant inode and its ancestors,
+allowing clients to learn the metadata partition for the parts of the
+file system with which they interact.  Future metadata operations are
+directed at the authority (for updates) or a random replica
+(for reads) based on the deepest known prefix of a given path.
+Normally clients learn the locations of unpopular
+(unreplicated) metadata and are able to contact the appropriate MDS
+directly.  Clients accessing popular metadata, however, are
+told the metadata reside either on different or multiple MDS nodes,
+effectively bounding the number of clients believing any particular
+piece of metadata resides on any particular MDS, dispersing potential
+hot spots and flash crowds before they occur.
+
+</p><p>
+
+</p><p>
+ </p><h2><a name="tth_sEc5">
+5</a>&nbsp;&nbsp;Distributed Object Storage</h2>
+
+<p>
+From a high level, Ceph clients and metadata servers view the object
+storage cluster (possibly tens or hundreds of thousands of OSDs) as a
+single logical object store and namespace.  Ceph's
+Reliable Autonomic Distributed Object Store (RADOS) achieves linear
+scaling in both capacity and aggregate performance by delegating
+management of object replication, cluster expansion, failure detection
+and recovery to OSDs in a distributed fashion.
+
+</p><p>
+      </p><h3><a name="tth_sEc5.1">
+5.1</a>&nbsp;&nbsp;Data Distribution with CRUSH</h3>
+ <a name="sec:crush">
+</a>
+
+<p>
+
+</p><p>
+Ceph must distribute petabytes of data among an evolving cluster of
+thousands of storage devices such that device storage and bandwidth
+resources are effectively utilized.  In order to avoid imbalance
+(<em>e.&nbsp;g.</em>, recently deployed devices mostly idle or empty) or load
+asymmetries (<em>e.&nbsp;g.</em>, new, hot data on new devices only), we adopt a
+strategy that distributes new data randomly, migrates a
+random subsample of existing data to new devices, and uniformly
+redistributes data from removed devices.  This stochastic approach is
+robust in that it performs equally well under any potential workload.
+
+</p><p>
+
+</p><p>
+<a name="tth_fIg3">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/dist.png" alt="fig/dist.png">
+	
+<center>Figure 3: Files are striped across many objects, grouped into <i>
+	  placement groups</i> (PGs), and distributed to OSDs via CRUSH, a
+	  specialized replica placement function.</center>
+	<a name="fig:dist">
+</a>
+  </center>
+
+<p>
+Ceph first maps objects into <i>placement groups</i> (PGs) using a
+simple hash function, with an adjustable bit mask to control the
+number of PGs.  We choose a value that gives each OSD on the
+order of 100 PGs to balance variance in OSD utilizations with the
+amount of replication-related metadata maintained by each OSD.
+Placement groups are then assigned to OSDs using CRUSH (Controlled
+Replication Under Scalable Hashing)&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:sc06" name="CITEweil:sc06">29</a>], a pseudo-random
+data distribution function that efficiently maps each PG to an ordered
+list of OSDs upon which to store object replicas.  This differs from
+conventional approaches (including other object-based file systems) in
+that data placement does not rely on any block or object list
+metadata.  To locate any object, CRUSH requires only the placement
+group and an <i>OSD cluster map</i>: a compact, hierarchical
+description of the devices comprising the storage cluster.  This
+approach has two key advantages: first, it is completely distributed
+such that any party (client, OSD, or MDS) can independently calculate
+the location of any object; and second, the map is infrequently
+updated, virtually eliminating any exchange of distribution-related
+metadata.  In doing so, CRUSH simultaneously solves both the data
+distribution problem ("where should I store data") and the data
+location problem ("where did I store data").  By design, small
+changes to the storage cluster have little impact on existing PG
+mappings, minimizing data migration due to device failures or cluster
+expansion.
+
+</p><p>
+The cluster map hierarchy is structured to align with the clusters
+physical or logical composition and potential sources of failure.  For
+instance, one might form a four-level hierarchy for an installation
+consisting of shelves full of OSDs, rack cabinets full of shelves, and
+rows of cabinets.  Each OSD also has a weight value to control the
+relative amount of data it is assigned.  CRUSH maps PGs onto OSDs
+based on <i>placement rules</i>, which define the level of replication
+and any constraints on placement.  For example, one might replicate
+each PG on three OSDs, all situated in the same row (to limit
+inter-row replication traffic) but separated into different cabinets
+(to minimize exposure to a power circuit or edge switch failure).  The
+cluster map also includes a list of down or inactive devices and an
+epoch number, which is incremented each time the map changes.  All OSD
+requests are tagged with the client's map epoch, such that all parties
+can agree on the current distribution of data.  Incremental map
+updates are shared between cooperating OSDs, and piggyback on OSD
+replies if the client's map is out of date.
+
+</p><p>
+      </p><h3><a name="tth_sEc5.2">
+5.2</a>&nbsp;&nbsp;Replication</h3>
+
+<p>
+In contrast to systems like Lustre&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#braam:lustre" name="CITEbraam:lustre">4</a>], which assume
+one can construct sufficiently reliable OSDs using mechanisms like
+RAID or fail-over on a SAN, we assume that in a petabyte or exabyte
+system failure will be the norm rather than the exception, and at any
+point in time several OSDs are likely to be inoperable.  To maintain
+system availability and ensure data safety in a scalable fashion,
+RADOS manages its own replication of data using a variant of
+primary-copy replication&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#alsberg:icse76" name="CITEalsberg:icse76">2</a>], while taking steps to
+minimize the impact on performance.
+
+</p><p>
+Data is replicated in terms of placement groups, each of which is
+mapped to an ordered list of n OSDs (for n-way replication).
+Clients send all writes to the first non-failed OSD in an object's PG
+(the <i>primary</i>), which assigns a new version number for the object
+and PG and forwards the write to any additional <i>replica</i> OSDs.
+After each replica has applied the update and responded to the
+primary, the primary applies the update locally and the write is
+acknowledged to the client.  Reads are directed at the primary.  This
+approach spares the client of any of the complexity surrounding
+synchronization or serialization between replicas, which can be
+onerous in the presence of other writers or failure recovery.  It also
+shifts the bandwidth consumed by replication from the client to the
+OSD cluster's internal network, where we expect greater resources to
+be available.  Intervening replica OSD failures are ignored, as any
+subsequent recovery (see Section&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#sec:recovery">5.5</a>) will reliably
+restore replica consistency.
+
+</p><p>
+      </p><h3><a name="tth_sEc5.3">
+5.3</a>&nbsp;&nbsp;Data Safety</h3>
+
+<p>
+In distributed storage systems, there are essentially two reasons why
+data is written to shared storage.  First, clients are interested in
+making their updates visible to other clients.  This should be quick:
+writes should be visible as soon as possible, particularly when
+multiple writers or mixed readers and writers force clients to operate
+synchronously.  Second, clients are interested in knowing definitively
+that the data they've written is safely replicated, on disk, and will
+survive power or other failures.  RADOS disassociates synchronization
+from safety when acknowledging updates, allowing Ceph to realize both
+low-latency updates for efficient application synchronization and
+well-defined data safety semantics.
+
+</p><p>
+Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:osd_acks">4</a> illustrates the messages sent during an
+object write.  The primary forwards the update to replicas, and
+replies with an <i>ack</i> after it is applied to all OSDs' in-memory
+buffer caches, allowing synchronous POSIX calls on the client to
+return.  A final <i>commit</i> is sent (perhaps many seconds later)
+when data is safely committed to disk.  We send the <i>ack</i> to the
+client only after the update is fully replicated to seamlessly
+tolerate the failure of any single OSD, even though this increases
+client latency.  By default, clients also buffer writes until they
+commit to avoid data loss in the event of a simultaneous power loss to
+all OSDs in the placement group.  When recovering in such cases, RADOS allows the replay
+of previously acknowledged (and thus ordered) updates for a fixed
+interval before new updates are accepted.
+
+</p><p>
+
+</p><p>
+<a name="tth_fIg4">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/acks2.png" alt="fig/acks2.png">
+	
+<center>Figure 4: RADOS responds with an <i>ack</i> after the
+	  write has been applied to the buffer caches on all OSDs
+	  replicating the object.  Only after it has been safely committed
+	  to disk is a final <i>commit</i> notification sent to the client.</center>
+	<a name="fig:osd_acks">
+</a>
+  </center>
+
+<p>
+      </p><h3><a name="tth_sEc5.4">
+5.4</a>&nbsp;&nbsp;Failure Detection</h3>
+
+<p>
+Timely failure detection is critical to maintaining data safety, but
+can become difficult as a cluster scales to many thousands of devices.
+For certain failures, such as disk errors or corrupted data, OSDs can
+self-report.  Failures that make an OSD unreachable on the network,
+however, require active monitoring, which RADOS distributes by having
+each OSD monitor those peers with which it shares PGs.  In most cases,
+existing replication traffic serves as a passive confirmation of
+liveness, with no additional communication overhead.  If an OSD has
+not heard from a peer recently, an explicit ping is sent.
+
+</p><p>
+RADOS considers two dimensions of OSD liveness: whether the OSD is
+reachable, and whether it is assigned data by CRUSH.  An unresponsive
+OSD is initially marked <i>down</i>, and any primary responsibilities
+(update serialization, replication) temporarily pass to the next
+OSD in each of its placement groups.  If the OSD does not quickly
+recover, it is marked <i>out</i> of the data distribution, and
+another OSD joins each PG to re-replicate its contents.  Clients which
+have pending operations with a failed OSD simply resubmit to the new
+primary.
+
+</p><p>
+Because a wide variety of network anomalies may cause intermittent
+lapses in OSD connectivity, a small cluster of monitors collects
+failure reports and filters out transient or systemic problems (like a
+network partition) centrally.  Monitors (which are only partially
+implemented) use elections, active peer monitoring, short-term leases,
+and two-phase commits to collectively provide consistent and available
+access to the cluster map.  When the map is updated to reflect any
+failures or recoveries, affected OSDs are provided incremental map
+updates, which then spread throughout the cluster by piggybacking on
+existing inter-OSD communication.  Distributed detection allows fast
+detection without unduly burdening monitors, while resolving the
+occurrence of inconsistency with centralized arbitration.  Most
+importantly, RADOS avoids initiating widespread data re-replication
+due to systemic problems by marking OSDs <i>down</i> but not <i>out</i>
+(<em>e.&nbsp;g.</em>, after a power loss to half of all OSDs).
+
+</p><p>
+      </p><h3><a name="tth_sEc5.5">
+5.5</a>&nbsp;&nbsp;Recovery and Cluster Updates</h3>
+<a name="sec:recovery">
+</a>
+
+<p>
+The OSD cluster map will change due to OSD failures, recoveries, and
+explicit cluster changes such as the deployment of new storage.  Ceph
+handles all such changes in the same way.  To facilitate fast recovery,
+OSDs maintain a version number for each object and a log of recent
+changes (names and versions of updated or deleted objects) for each
+PG (similar to the replication logs in Harp&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#liskov:sosp91" name="CITEliskov:sosp91">14</a>]) .
+
+</p><p>
+When an active OSD receives an updated cluster map, it iterates over
+all locally stored placement groups and calculates the CRUSH
+mapping to determine which ones it is responsible for, either as a
+primary or replica.  If a PG's membership has changed, or if the OSD has
+just booted, the OSD must <i>peer</i> with the PG's other OSDs.  For
+replicated PGs, the OSD provides the primary with its current PG version
+number.  If the OSD is the primary for the PG, it collects current
+(and former) replicas' PG versions.  If the primary lacks the most
+recent PG state, it retrieves the log of recent PG changes (or a
+complete content summary, if needed) from current or prior OSDs in the
+PG in order to determine the correct (most recent) PG contents.  The
+primary then sends each replica an incremental log update (or complete
+content summary, if needed), such that all parties know what the PG
+contents <i>should</i> be, even if their locally stored object set may
+not match.  Only after the primary determines the correct PG state and
+shares it with any replicas is I/O to objects in the PG permitted.
+OSDs are then independently responsible for retrieving missing or
+outdated objects from their peers.  If an OSD receives a request for a
+stale or missing object, it delays processing and moves that object to
+the front of the recovery queue.
+
+</p><p>
+For example, suppose <tt>osd1</tt> crashes and is marked <i>down</i>, and
+<tt>osd2</tt> takes over as primary for <tt>pgA</tt>.  If <tt>osd1</tt>
+recovers, it will request the latest map on boot, and a monitor will
+mark it as <i>up</i>.  When <tt>osd2</tt> receives the resulting map
+update, it will realize it is no longer primary for <tt>pgA</tt> and send
+the <tt>pgA</tt> version number to <tt>osd1</tt>.  <tt>osd1</tt> will retrieve
+recent <tt>pgA</tt> log entries from <tt>osd2</tt>, tell <tt>osd2</tt> its
+contents are current, and then begin processing requests while any
+updated objects are recovered in the background.
+
+</p><p>
+Because failure recovery is driven entirely by individual OSDs, each
+PG affected by a failed OSD will recover in parallel to (very likely)
+different replacement OSDs.  This approach, based on the Fast Recovery
+Mechanism (FaRM)&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#xin:hpdc04" name="CITExin:hpdc04">37</a>], decreases recovery times
+and improves overall data safety.
+
+</p><p>
+      </p><h3><a name="tth_sEc5.6">
+5.6</a>&nbsp;&nbsp;Object Storage with EBOFS</h3>
+
+<p>
+
+</p><p>
+Although a variety of distributed file systems use local file systems
+like ext3 to manage low-level
+storage&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#braam:lustre" name="CITEbraam:lustre">4</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#latham:linuxworld04" name="CITElatham:linuxworld04">12</a>], we found their
+interface and performance to be poorly suited for object
+workloads&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wang:mss04" name="CITEwang:mss04">27</a>].  The existing kernel interface limits our
+ability to understand when object updates are safely committed on
+disk.  Synchronous writes or journaling provide the desired
+safety, but only with a heavy latency and performance penalty.  More
+importantly, the POSIX interface fails to support atomic data and
+metadata (<em>e.&nbsp;g.</em>, attribute) update transactions, which are important for
+maintaining RADOS consistency.
+
+</p><p>
+Instead, each Ceph OSD manages its local object storage with EBOFS, an
+Extent and B-tree based Object File System.  Implementing EBOFS
+entirely in user space and interacting directly with a raw block
+device allows us to define our own low-level object storage interface
+and update semantics, which separate update serialization (for
+synchronization) from on-disk commits (for safety).  EBOFS supports
+atomic transactions (<em>e.&nbsp;g.</em>, writes and attribute updates on
+multiple objects), and update 
+functions return when the in-memory caches are updated, while
+providing asynchronous notification of commits.
+
+</p><p>
+A user space approach, aside from providing greater flexibility and
+easier implementation, also avoids cumbersome interaction with the
+Linux VFS and page cache, both of which were designed for a different
+interface and workload.  While most kernel file systems lazily flush
+updates to disk after some time interval, EBOFS aggressively schedules
+disk writes, and opts instead to cancel pending I/O operations when
+subsequent updates render them superfluous.  This provides our
+low-level disk scheduler with longer I/O queues and a corresponding
+increase in scheduling efficiency.  A user-space scheduler also makes
+it easier to eventually prioritize workloads (<em>e.&nbsp;g.</em>, client I/O versus
+recovery) or provide quality of service guarantees&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wu:msst06" name="CITEwu:msst06">36</a>].
+
+</p><p>
+Central to the EBOFS design is a robust, flexible, and fully integrated
+B-tree service that is used to locate objects on disk, manage block
+allocation, and index collections (placement groups).  
+Block allocation is conducted in terms of extents-start and length
+pairs-instead of block lists, keeping metadata compact.  Free block
+extents on disk are binned by size and sorted by location, allowing
+EBOFS to quickly locate free space near the write position or related
+data on disk, while also limiting long-term fragmentation.  With the
+exception of per-object block allocation information, all metadata is
+kept in memory for performance and simplicity (it is quite small, even for large volumes).
+Finally, EBOFS aggressively performs copy-on-write: with the exception
+of superblock updates, data is always written to unallocated regions
+of disk.
+
+</p><p>
+
+</p><p>
+ </p><h2><a name="tth_sEc6">
+6</a>&nbsp;&nbsp;Performance and Scalability Evaluation</h2>
+
+<p>
+We evaluate our prototype under a range of microbenchmarks to
+demonstrate its performance, reliability, and scalability.
+In all tests, clients, OSDs, and MDSs are user processes
+running on a dual-processor Linux cluster with SCSI disks and
+communicating using TCP.  In general, each OSD or MDS runs on its own
+host, while tens or hundreds of client instances may share the same
+host while generating workload.
+
+</p><p>
+      </p><h3><a name="tth_sEc6.1">
+6.1</a>&nbsp;&nbsp;Data Performance</h3>
+
+<p>
+EBOFS provides superior performance and safety semantics, while the
+balanced distribution of data generated by CRUSH and the delegation of
+replication and failure recovery allow aggregate I/O performance to
+scale with the size of the OSD cluster.
+
+</p><p>
+        </p><h4><a name="tth_sEc6.1.1">
+6.1.1</a>&nbsp;&nbsp;OSD Throughput</h4>
+
+<p>
+
+</p><p>
+<a name="tth_fIg5">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/wr-sizes2.png" alt="wr-sizes2.png">
+	
+<center>Figure 5: Per-OSD write performance.  The horizontal line indicates the upper
+	  limit imposed by the physical disk.  Replication has minimal
+	  impact on OSD throughput, although if the number of OSDs is fixed,
+	  n-way replication reduces total <i>effective</i> throughput by a factor
+	  of n because replicated data must be written to n OSDs.</center>
+	<a name="fig:wr-sizes">
+</a>
+  </center>
+
+<p>
+We begin by measuring the I/O performance of a 14-node cluster of
+OSDs.  Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:wr-sizes">5</a> shows per-OSD throughput (y) with varying
+write sizes (x) and replication.  Workload is generated by 400
+clients on 20 additional nodes.  Performance is ultimately limited by
+the raw disk bandwidth (around 58&nbsp;MB/sec), shown by the horizontal
+line.  
+Replication doubles or triples disk I/O, reducing client data rates
+accordingly when the number of OSDs is fixed.
+
+</p><p>
+
+</p><p>
+<a name="tth_fIg6">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/fs.png" alt="fs.png">
+	
+<center>Figure 6: Performance of EBOFS compared to general-purpose file
+      systems.  Although small writes suffer from coarse locking in our
+      prototype, EBOFS nearly saturates the disk for writes larger
+      than 32&nbsp;KB.  Since EBOFS lays out data in large extents when it is
+      written in large increments, it has significantly better read
+      performance.</center>
+	<a name="fig:ebofs-perf">
+</a>
+  </center>
+
+<p>
+Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:ebofs-perf">6</a> compares the performance of EBOFS to that
+of general-purpose file systems (ext3, ReiserFS, XFS) in handling a
+Ceph workload.  Clients synchronously write out large files, striped over
+16&nbsp;MB objects, and read them back again.  Although small read and write performance in EBOFS
+suffers from coarse threading and locking, EBOFS very nearly saturates
+the available disk bandwidth for writes sizes larger than 32&nbsp;KB, and
+significantly outperforms the others for read workloads because data
+is laid out in extents on disk that match the write sizes-even when
+they are very large.  Performance was measured using a fresh file system.
+Experience with an earlier EBOFS design suggests it will experience
+significantly lower fragmentation than ext3, but we have not yet
+evaluated the current implementation on an aged file system.  In any
+case, we expect the performance of EBOFS after aging to be no worse than the
+others.
+
+</p><p>
+        </p><h4><a name="tth_sEc6.1.2">
+6.1.2</a>&nbsp;&nbsp;Write Latency</h4>
+
+<p>
+
+</p><p>
+<a name="tth_fIg7">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/wr_lat3.png" alt="wr_lat3.png">
+	
+<center>Figure 7: Write latency for varying write sizes and replication.
+	  More than two replicas incurs minimal additional cost for small
+	  writes because replicated updates occur concurrently.  For large
+	  synchronous writes, transmission times dominate.  Clients partially
+	  mask that latency for writes over 128&nbsp;KB by acquiring exclusive
+	  locks and asynchronously flushing the data.</center>
+	<a name="fig:wr-lat">
+</a>
+  </center>
+
+<p>
+Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:wr-lat">7</a> shows the synchronous write latency (y) for
+a single writer with varying write sizes (x) and replication.
+Because the primary OSD simultaneously retransmits updates to all
+replicas, small writes incur a minimal latency increase for more than
+two replicas.  For larger writes, the cost of retransmission
+dominates; 1&nbsp;MB writes (not shown) take 13&nbsp;ms for one replica, and
+2.5 times longer (33&nbsp;ms) for three.  Ceph clients partially mask this
+latency for synchronous writes over 128&nbsp;KB by acquiring exclusive 
+locks and then asynchronously flushing the data to disk.
+Alternatively, write-sharing applications can opt to use <tt>
+O_LAZY</tt>.  With consistency thus relaxed, clients can buffer
+small writes and submit only large, asynchronous writes to OSDs; the
+only latency seen by applications will be due to clients which fill
+their caches waiting for data to flush to disk.  
+
+</p><p>
+        </p><h4><a name="tth_sEc6.1.3">
+6.1.3</a>&nbsp;&nbsp;Data Distribution and Scalability</h4>
+
+<p>
+
+</p><p>
+<a name="tth_fIg8">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/stripe-scale2.png" alt="stripe-scale2.png">
+	
+<center>Figure 8: OSD write performance scales linearly with the size of the
+	  OSD cluster until the switch is saturated at 24 OSDs.  CRUSH and
+	  hash performance improves when more PGs lower variance in OSD
+	  utilization.</center>
+	<a name="fig:stripe-scale">
+</a>
+  </center>
+
+<p>
+Ceph's data performance scales nearly linearly in the number of
+OSDs. CRUSH distributes data pseudo-randomly such that OSD
+utilizations can be accurately modeled by a binomial or normal
+distribution-what one expects from a perfectly random
+process&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:sc06" name="CITEweil:sc06">29</a>].  Variance in utilizations decreases as the
+number of groups increases: for 100 placement groups per OSD the
+standard deviation is 10%; for 1000 groups it is 3%.
+Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:stripe-scale">8</a> shows per-OSD write throughput as the
+cluster scales using CRUSH, a simple hash function, and a linear
+striping strategy to distribute data in 4096 or 32768 PGs among
+available OSDs.  Linear striping balances load perfectly for maximum
+throughput to provide a benchmark for comparison, but like a simple
+hash function, it fails to cope with device failures or other OSD
+cluster changes.  Because data placement with CRUSH or a hash is
+stochastic, throughputs are lower with fewer PGs: greater variance in
+OSD utilizations causes request queue lengths to drift apart under our
+entangled client workload.  Because devices can become overfilled or
+overutilized with small probability, dragging down performance, CRUSH
+can correct such situations by offloading any fraction of the
+allocation for OSDs specially marked in the cluster map.  Unlike the
+hash and linear strategies, CRUSH also minimizes data migration under
+cluster expansion while maintaining a balanced distribution.  CRUSH
+calculations are O(logn) (for a cluster of n OSDs) and take only
+tens of microseconds, allowing clusters to grow to hundreds of
+thousands of OSDs.
+
+</p><p>
+      </p><h3><a name="tth_sEc6.2">
+6.2</a>&nbsp;&nbsp;Metadata Performance</h3>
+
+<p>
+Ceph's MDS cluster offers enhanced POSIX semantics with excellent
+scalability.  We measure performance via a partial workload lacking
+any data I/O; OSDs in these experiments are used solely for metadata
+storage.
+
+</p><p>
+        </p><h4><a name="tth_sEc6.2.1">
+6.2.1</a>&nbsp;&nbsp;Metadata Update Latency</h4>
+
+<p>
+We first consider the latency associated with metadata updates (<em>e.&nbsp;g.</em>, 
+<i>mknod</i> or <i>mkdir</i>).  A single client creates a series of
+files and directories which the MDS must synchronously journal to a
+cluster of OSDs for safety.  We consider both a diskless MDS, where
+all metadata is stored in a shared OSD cluster, and one which also has
+a local disk serving as the primary OSD for its journal.
+Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:makedirs-lat">9(a)</a> shows the latency (y) associated with
+metadata updates in both cases with varying metadata replication (x)
+(where zero corresponds to no journaling at all).  Journal entries are
+first written to the primary OSD and then replicated to any additional
+OSDs.  With a local disk, the initial hop from the MDS to the (local)
+primary OSD takes minimal time, allowing update latencies for 2×
+replication similar to 1× in the diskless model.  In both cases, more
+than two replicas incurs little additional latency because replicas
+update in parallel.
+
+</p><p>
+
+</p><p>
+<a name="tth_fIg9">
+</a>   &nbsp;
+  
+  
+
+</p><center>
+<table align="center" width="60%">
+<tbody><tr>
+<td width="200">
+ <img src="./Ceph OSDI '06 Paper_files/makedirs-lat.png"><br>
+ (a) Metadata update latency for an MDS with and without a local
+ disk.  Zero corresponds to no journaling.
+</td>
+<td width="200">
+ <img src="./Ceph OSDI '06 Paper_files/walkdirs4.png"><br>
+ (b) Cumulative time consumed during a file system walk.
+</td>
+</tr>
+</tbody></table>
+<br>
+Figure 9:
+ Using a local disk lowers the write latency by avoiding the
+    initial network round-trip.  Reads benefit from caching, while
+    <i>readdirplus</i> or relaxed consistency eliminate MDS
+    interaction for <i>stat</i>s following <i>readdir</i>.</center>
+
+<p>
+        </p><h4><a name="tth_sEc6.2.2">
+6.2.2</a>&nbsp;&nbsp;Metadata Read Latency</h4>
+
+<p>
+The behavior of metadata reads (<em>e.&nbsp;g.</em>, <i>readdir</i>, <i>stat</i>, <i>
+open</i>) is more complex.  Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:walkdirs">9(b)</a> shows cumulative
+time (y) consumed by a client walking 10,000 nested directories with
+a <i>readdir</i> in each directory and a <i>stat</i> on each file.  A
+primed MDS cache reduces <i>readdir</i> times.  Subsequent <i>stat</i>s
+are not affected, because inode contents are embedded in directories,
+allowing the full directory contents to be fetched into the MDS cache
+with a single OSD access.  Ordinarily, cumulative <i>stat</i> times
+would dominate for larger directories.  Subsequent MDS interaction can
+be eliminated by using <i>readdirplus</i>, which explicitly bundles
+<i>stat</i> and <i>readdir</i> results in a single operation, or by
+relaxing
+POSIX to allow <i>stat</i>s immediately following a
+<i>readdir</i> to be served from client caches (the default).
+
+</p><p>
+
+</p><p>
+        </p><h4><a name="tth_sEc6.2.3">
+6.2.3</a>&nbsp;&nbsp;Metadata Scaling</h4>
+
+<p>
+
+</p><p>
+<a name="tth_fIg10">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/mds-scale.png" alt="mds-scale.png">
+	
+<center>Figure 10: Per-MDS throughput under a variety of workloads and cluster
+	  sizes.  As the cluster grows to 128 nodes, efficiency drops no more
+	  than 50% below perfect linear (horizontal) scaling for most
+	  workloads, allowing vastly improved performance over existing
+	  systems.</center>
+	<a name="fig:mds-scale">
+</a>
+  </center>
+
+<p>
+We evaluate metadata scalability using a 430&nbsp;node partition of the
+<tt>alc</tt> Linux cluster at Lawrence Livermore National Laboratory
+(LLNL).  Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:mds-scale">10</a> shows per-MDS throughput (y) as
+a function of MDS cluster size (x), such that a horizontal line
+represents perfect linear scaling.  In the <i>makedirs</i> workload,
+each client creates a tree of nested directories four levels deep,
+with ten files and subdirectories in each directory.  Average MDS
+throughput drops from 2000 ops per MDS per second with a small cluster, to
+about 1000 ops per MDS per second (50% efficiency) with 128 MDSs
+(over 100,000 ops/sec total).  In the <i>makefiles</i> workload, each
+client creates thousands of files in the same directory.  When the
+high write levels are detected, Ceph hashes the shared directory and
+relaxes the directory's <i>mtime</i> coherence to distribute the
+workload across all MDS nodes.  The <i>openshared</i> workload
+demonstrates read sharing by having each client repeatedly open and
+close ten shared files.  In the <i>openssh</i> workloads, each client
+replays a captured file system trace of a compilation in a private
+directory.  One variant uses a shared <tt>/lib</tt> for moderate sharing,
+while the other shares <tt>/usr/include</tt>, which is very heavily read.
+The <i>openshared</i> and <i>openssh+include</i> workloads have the
+heaviest read sharing and show the worst scaling behavior, we believe
+due to poor replica selection by clients.  <i>openssh+lib</i> scales
+better than the trivially separable <i>makedirs</i> because it contains
+relatively few metadata modifications and little sharing.  Although we
+believe that contention in the network or threading in our messaging
+layer further lowered performance for larger MDS clusters, our limited
+time with dedicated access to the large cluster prevented a more
+thorough investigation.
+
+</p><p>
+
+</p><p>
+
+</p><p>
+Figure&nbsp;<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#fig:makedirs-tput">11</a> plots latency (y) versus per-MDS
+throughput (x)
+for a 4-, 16-, and 64-node MDS cluster under the <i>makedirs</i>
+workload.  Larger clusters have imperfect load distributions,
+resulting in lower average per-MDS throughput (but, of course, much
+higher total throughput) and slightly higher latencies.
+
+</p><p>
+
+</p><p>
+<a name="tth_fIg11">
+</a>   
+</p><center>	<img src="./Ceph OSDI '06 Paper_files/makedirs-tput.png" alt="makedirs-tput.png">
+	
+<center>Figure 11: Average latency versus per-MDS throughput for
+	  different cluster sizes (<i>makedirs</i> workload).
+	  	</center>
+	<a name="fig:makedirs-tput">
+</a>
+  </center>
+
+<p>
+Despite imperfect linear scaling, a 128-node MDS cluster running our
+prototype can service more than a quarter million metadata operations
+per second (128 nodes at 2000 ops/sec).  Because metadata transactions
+are independent of data I/O and metadata size is independent of file
+size, this corresponds to installations with potentially many hundreds
+of petabytes of storage or more, depending on average file size.  For
+example, scientific applications creating checkpoints on LLNL's
+Bluegene/L might involve 64 thousand nodes with two processors each
+writing to separate files in the same directory (as in the <i>
+makefiles</i> workload).  While the current storage system peaks at 6,000
+metadata ops/sec and would take minutes to complete each checkpoint, a
+128-node Ceph MDS cluster could finish in two seconds.  If each file
+were only 10&nbsp;MB (quite small by HPC standards) and OSDs sustain
+50&nbsp;MB/sec, such a cluster could write 1.25&nbsp;TB/sec, saturating at
+least 25,000 OSDs (50,000 with replication).  250&nbsp;GB OSDs would put
+such a system at more than six petabytes.  More importantly, Ceph's
+dynamic metadata distribution allows an MDS cluster (of any
+size) to reallocate resources based on the current workload, even when
+all clients access metadata previously assigned to a single MDS,
+making it significantly more versatile and adaptable than any static
+partitioning strategy.
+
+</p><p>
+ </p><h2><a name="tth_sEc7">
+7</a>&nbsp;&nbsp;Experiences</h2>
+
+<p>
+
+</p><p>
+We were pleasantly surprised by the extent to which replacing file
+allocation metadata with a distribution function became a simplifying
+force in our design.  Although this placed greater demands on the
+function itself, once we realized exactly what those requirements
+were, CRUSH was able to deliver the necessary scalability,
+flexibility, and reliability.  This vastly simplified our metadata
+workload while providing both clients and OSDs with complete and
+independent knowledge of the data distribution.  The latter enabled us
+to delegate responsibility for data replication, migration, failure
+detection, and recovery to OSDs, distributing these mechanisms in
+a way that effectively leveraged their bundled CPU and memory.  RADOS
+has also opened the door to a range of future enhancements that
+elegantly map onto our OSD model, such as bit error detection (as in
+the Google File System&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#ghemawat:sosp03" name="CITEghemawat:sosp03">7</a>]) and dynamic replication
+of data based on workload (similar to AutoRAID&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wilkes:sosp95" name="CITEwilkes:sosp95">34</a>]).
+
+</p><p>
+
+</p><p>
+Although it was tempting to use existing kernel file systems for local
+object storage (as many other systems have
+done&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#braam:lustre" name="CITEbraam:lustre">4</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#ghemawat:sosp03" name="CITEghemawat:sosp03">7</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#hildebrand:citi-05-1" name="CITEhildebrand:citi-05-1">9</a>]), we
+recognized early on that a file system tailored for object workloads
+could offer better performance&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wang:mss04" name="CITEwang:mss04">27</a>].  What we did not
+anticipate was the disparity between the existing file system
+interface and our requirements, which became evident while developing
+the RADOS replication and reliability mechanisms.  EBOFS was
+surprisingly quick to develop in user-space, offered very satisfying
+performance, and exposed an interface perfectly suited to our
+requirements.
+
+</p><p>
+
+</p><p>
+One of the largest lessons in Ceph was the importance of the MDS load
+balancer to overall scalability, and the complexity of 
+choosing what metadata to migrate where and when.  Although in
+principle our design and goals seem quite simple, the reality of
+distributing an evolving workload over a hundred MDSs
+highlighted additional subtleties.  Most notably, 
+MDS performance has a wide range of
+performance bounds, including CPU, memory (and cache
+efficiency), and network or I/O limitations, any of which may
+limit performance at any point in time.  Furthermore, it is
+difficult to quantitatively capture the balance between total
+throughput and fairness; under certain circumstances unbalanced
+metadata distributions can increase overall
+throughput&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:sc04" name="CITEweil:sc04">30</a>].
+
+</p><p>
+
+</p><p>
+
+</p><p>
+Implementation of the client interface posed a greater challenge than
+anticipated.  Although the use of FUSE vastly simplified
+implementation by avoiding the kernel, it introduced its own
+set of idiosyncrasies.  <tt>DIRECT_IO</tt> bypassed kernel page cache
+but didn't support <i>mmap</i>, forcing us to modify FUSE to
+invalidate clean pages as a workaround.  FUSE's
+insistence on performing its own security checks 
+results in copious <i>getattr</i>s (<i>stat</i>s) for even simple
+application calls.  Finally, page-based I/O between kernel and user
+space limits overall I/O rates.  Although linking directly to the client
+avoids FUSE issues, overloading system calls in user space introduces
+a new set of issues (most of which we have yet to fully examine),
+making an in-kernel client module inevitable.
+
+</p><p>
+ </p><h2><a name="tth_sEc8">
+8</a>&nbsp;&nbsp;Related Work</h2>
+
+<p>
+High-performance scalable file systems have long been a goal of the
+HPC community, which tends to place a heavy load on the file
+system&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#nieuwejaar:tpds96" name="CITEnieuwejaar:tpds96">18</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wang:mss04" name="CITEwang:mss04">27</a>].  Although many file
+systems attempt to meet this need, they do not provide the same level
+of scalability that Ceph does.  Large-scale systems like
+OceanStore&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#kubiatowicz:asplos00" name="CITEkubiatowicz:asplos00">11</a>] and Farsite&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#adya:osdi02" name="CITEadya:osdi02">1</a>]
+are designed to provide petabytes of highly reliable storage, and can
+provide simultaneous access to thousands of separate files to
+thousands of clients, but cannot provide high-performance access to a
+small set of files by tens of thousands of cooperating clients due to
+bottlenecks in subsystems such as name lookup.  Conversely,
+parallel file and storage systems such as Vesta&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#corbett:tocs96" name="CITEcorbett:tocs96">6</a>],
+Galley&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#nieuwejaar:ics96" name="CITEnieuwejaar:ics96">17</a>],
+PVFS&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#latham:linuxworld04" name="CITElatham:linuxworld04">12</a>], 
+and Swift&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#cabrera:cstms91" name="CITEcabrera:cstms91">5</a>] have extensive support for striping
+data across multiple disks to achieve very high transfer rates,
+but lack strong support for scalable metadata access or robust
+data distribution for high reliability.  For example, Vesta permits
+applications to lay their data out on disk, and allows independent
+access to file data on each disk without reference to shared metadata.
+However, like many other parallel file systems, Vesta does not
+provide scalable support for metadata lookup.  As a result, these file
+systems typically provide poor performance on workloads that access
+many small files or require many metadata operations.  They also
+typically suffer from block allocation issues: blocks are either
+allocated centrally or
+via a lock-based mechanism, preventing them from scaling well for
+write requests from thousands of clients to thousands of disks.
+GPFS&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#schmuck:fast02" name="CITEschmuck:fast02">24</a>] and StorageTank&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#menon:ibmsj03" name="CITEmenon:ibmsj03">16</a>]
+partially decouple metadata and data management, but are limited by
+their use of block-based disks and their metadata distribution
+architecture.
+
+</p><p>
+Grid-based file systems such as LegionFS&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#white:sc01" name="CITEwhite:sc01">33</a>] are
+designed to coordinate wide-area access and are not optimized for high
+performance in the local file system.  Similarly, the Google File
+System&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#ghemawat:sosp03" name="CITEghemawat:sosp03">7</a>] is optimized for very large files and a
+workload consisting largely of reads and file appends.  Like
+Sorrento&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#tang:sc04" name="CITEtang:sc04">26</a>], it targets a narrow class of applications
+with non-POSIX semantics.
+
+</p><p>
+Recently, many file systems and platforms, including Federated Array
+of Bricks&nbsp;(FAB)&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#saito:asplos04" name="CITEsaito:asplos04">23</a>] and
+pNFS&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#hildebrand:citi-05-1" name="CITEhildebrand:citi-05-1">9</a>] have been designed around network
+attached storage&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#gibson:asplos98" name="CITEgibson:asplos98">8</a>].  Lustre&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#braam:lustre" name="CITEbraam:lustre">4</a>],
+the Panasas file system&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#welch:mss04" name="CITEwelch:mss04">32</a>], zFS&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#rodeh:mss03" name="CITErodeh:mss03">21</a>],
+Sorrento, and Kybos&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#wong:tr-kybos" name="CITEwong:tr-kybos">35</a>] are based on the object-based
+storage paradigm&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#azagury:mss03" name="CITEazagury:mss03">3</a>] and most closely resemble Ceph.
+However, none of these systems has the combination of scalable and
+adaptable metadata management, reliability and fault tolerance that
+Ceph provides.  Lustre and Panasas in particular fail to delegate
+responsibility to OSDs, and have limited support for efficient
+distributed metadata management, limiting their scalability and
+performance.  Further, with the exception of Sorrento's use of
+consistent hashing&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#karger:stoc97" name="CITEkarger:stoc97">10</a>], all of these
+systems use explicit allocation maps to specify where objects are
+stored, and have limited support for rebalancing when new storage is
+deployed.  This can lead to load asymmetries and poor resource
+utilization, while Sorrento's hashed distribution lacks CRUSH's
+support for efficient data migration, device weighting, and
+failure domains.
+
+</p><p>
+ </p><h2><a name="tth_sEc9">
+9</a>&nbsp;&nbsp;Future Work</h2>
+
+<p>
+Some core Ceph elements have not yet been implemented, including MDS
+failure recovery and several POSIX calls.  Two security architecture
+and protocol variants are under consideration, but neither have yet
+been implemented&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#leung:storagess06" name="CITEleung:storagess06">13</a>,<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#olson:storagess05" name="CITEolson:storagess05">19</a>].  We also
+plan on investigating the practicality of client callbacks on
+namespace to inode translation metadata.  For static regions of the
+file system, this could allow opens (for read) to occur without MDS
+interaction.  Several other MDS enhancements are planned, including
+the ability to create snapshots of arbitrary subtrees of the directory
+hierarchy&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#weil:tr-ucsc-metacp04" name="CITEweil:tr-ucsc-metacp04">28</a>].
+
+</p><p>
+Although Ceph dynamically replicates metadata when flash crowds
+access single directories or files, the same is not yet true of file
+data.  We plan to allow OSDs to dynamically adjust the level of
+replication for individual objects based on workload, and to
+distribute read traffic across multiple OSDs in the placement group.
+This will allow scalable access to small amounts of data, and may
+facilitate fine-grained OSD load balancing using a mechanism similar to
+D-SPTF&nbsp;[<a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#lumb:asplos04" name="CITElumb:asplos04">15</a>].  
+
+</p><p>
+Finally, we are working on developing a quality of service
+architecture to allow both aggregate class-based traffic
+prioritization and OSD-managed reservation based bandwidth and latency
+guarantees.  In addition to supporting applications with QoS
+requirements, this will help balance RADOS replication and recovery
+operations with regular workload.  A number of other EBOFS
+enhancements are planned, including improved allocation logic, data
+scouring, and checksums or other bit-error detection mechanisms to
+improve data safety.
+
+</p><p>
+  </p><h2><a name="tth_sEc10">
+10</a>&nbsp;&nbsp;Conclusions</h2>
+
+<p>
+Ceph addresses three critical challenges of storage
+systems-scalability, performance, and reliability-by occupying a
+unique point in the design space.  By shedding design assumptions like
+allocation lists found in nearly all existing systems, we maximally
+separate data from metadata management, allowing them to scale
+independently.  This separation relies on CRUSH, a data distribution
+function that generates a pseudo-random distribution, allowing clients
+to calculate object locations instead of looking them up.  CRUSH
+enforces data replica separation across failure domains for improved
+data safety while efficiently coping with the inherently dynamic
+nature of large storage clusters, where devices failures, expansion
+and cluster restructuring are the norm.
+
+</p><p>
+RADOS leverages intelligent OSDs to manage data replication, failure
+detection and recovery, low-level disk allocation, scheduling, and
+data migration without encumbering any central server(s).  Although
+objects can be considered files and stored in a general-purpose file
+system, EBOFS provides more appropriate semantics and superior
+performance by addressing the specific workloads and interface
+requirements present in Ceph.
+
+</p><p>
+Finally, Ceph's metadata management architecture addresses one of the
+most vexing problems in highly scalable storage-how to efficiently
+provide a single uniform directory hierarchy obeying POSIX semantics
+with performance that scales with the number of metadata servers.
+Ceph's dynamic subtree partitioning is a uniquely scalable approach,
+offering both efficiency and the ability to adapt to varying
+workloads.
+
+</p><p>
+Ceph is licensed under the LGPL and is available at
+<tt>http://ceph.sourceforge.net/</tt>.
+
+</p><p>
+
+</p><p>
+
+</p><h2>Acknowledgments</h2>
+
+<p>
+This work was performed under the auspices of the U.S. Department of
+Energy by the University of California, Lawrence Livermore National
+Laboratory under Contract W-7405-Eng-48.  Research was funded in part
+by the Lawrence Livermore, Los Alamos, and Sandia National
+Laboratories.  We would like to thank Bill Loewe, Tyce McLarty, Terry
+Heidelberg, and everyone else at LLNL who talked to us about their
+storage trials and tribulations, and who helped facilitate our two
+days of dedicated access time on <tt>alc</tt>.  We would also like to
+thank IBM for donating the 32-node cluster that aided in much of the
+OSD performance testing, and the National Science Foundation, which paid
+for the switch upgrade.  Chandu Thekkath (our shepherd), the anonymous
+reviewers, and Theodore Wong all provided valuable feedback, and we
+would also like to thank the students, faculty, and sponsors of the
+Storage Systems Research Center for their input and support.
+
+</p><p>
+
+</p><p>
+
+  
+</p><p>
+</p><h2>References</h2>
+
+<dl compact="compact">
+<font size="-1"></font> <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEadya:osdi02" name="adya:osdi02">[1]</a></dt><dd>
+A.&nbsp;Adya, W.&nbsp;J. Bolosky, M.&nbsp;Castro, R.&nbsp;Chaiken, G.&nbsp;Cermak, J.&nbsp;R. Douceur,
+  J.&nbsp;Howell, J.&nbsp;R. Lorch, M.&nbsp;Theimer, and R.&nbsp;Wattenhofer.
+ FARSITE: Federated, available, and reliable storage for an
+  incompletely trusted environment.
+ In <em>Proceedings of the 5th Symposium on Operating Systems Design
+  and Implementation (OSDI)</em>, Boston, MA, Dec. 2002. USENIX.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEalsberg:icse76" name="alsberg:icse76">[2]</a></dt><dd>
+P.&nbsp;A. Alsberg and J.&nbsp;D. Day.
+ A principle for resilient sharing of distributed resources.
+ In <em>Proceedings of the 2nd International Conference on Software
+  Engineering</em>, pages 562-570. IEEE Computer Society Press, 1976.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEazagury:mss03" name="azagury:mss03">[3]</a></dt><dd>
+A.&nbsp;Azagury, V.&nbsp;Dreizin, M.&nbsp;Factor, E.&nbsp;Henis, D.&nbsp;Naor, N.&nbsp;Rinetzky, O.&nbsp;Rodeh,
+  J.&nbsp;Satran, A.&nbsp;Tavory, and L.&nbsp;Yerushalmi.
+ Towards an object store.
+ In <em>Proceedings of the 20th IEEE / 11th NASA Goddard Conference
+  on Mass Storage Systems and Technologies</em>, pages 165-176, Apr. 2003.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEbraam:lustre" name="braam:lustre">[4]</a></dt><dd>
+P.&nbsp;J. Braam.
+ The Lustre storage architecture.
+ http://www.lustre.org/documentation.html, Cluster File Systems, Inc.,
+  Aug. 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEcabrera:cstms91" name="cabrera:cstms91">[5]</a></dt><dd>
+L.-F. Cabrera and D.&nbsp;D.&nbsp;E. Long.
+ Swift: Using distributed disk striping to provide high I/O data
+  rates.
+ <em>Computing Systems</em>, 4(4):405-436, 1991.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEcorbett:tocs96" name="corbett:tocs96">[6]</a></dt><dd>
+P.&nbsp;F. Corbett and D.&nbsp;G. Feitelson.
+ The Vesta parallel file system.
+ <em>ACM Transactions on Computer Systems</em>, 14(3):225-264, 1996.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEghemawat:sosp03" name="ghemawat:sosp03">[7]</a></dt><dd>
+S.&nbsp;Ghemawat, H.&nbsp;Gobioff, and S.-T. Leung.
+ The Google file system.
+ In <em>Proceedings of the 19th ACM Symposium on Operating Systems
+  Principles (SOSP '03)</em>, Bolton Landing, NY, Oct. 2003. ACM.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEgibson:asplos98" name="gibson:asplos98">[8]</a></dt><dd>
+G.&nbsp;A. Gibson, D.&nbsp;F. Nagle, K.&nbsp;Amiri, J.&nbsp;Butler, F.&nbsp;W. Chang, H.&nbsp;Gobioff,
+  C.&nbsp;Hardin, E.&nbsp;Riedel, D.&nbsp;Rochberg, and J.&nbsp;Zelenka.
+ A cost-effective, high-bandwidth storage architecture.
+ In <em>Proceedings of the 8th International Conference on
+  Architectural Support for Programming Languages and Operating Systems
+  (ASPLOS)</em>, pages 92-103, San Jose, CA, Oct. 1998.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEhildebrand:citi-05-1" name="hildebrand:citi-05-1">[9]</a></dt><dd>
+D.&nbsp;Hildebrand and P.&nbsp;Honeyman.
+ Exporting storage systems in a scalable manner with pNFS.
+ Technical Report CITI-05-1, CITI, University of Michigan, Feb. 2005.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEkarger:stoc97" name="karger:stoc97">[10]</a></dt><dd>
+D.&nbsp;Karger, E.&nbsp;Lehman, T.&nbsp;Leighton, M.&nbsp;Levine, D.&nbsp;Lewin, and R.&nbsp;Panigrahy.
+ Consistent hashing and random trees: Distributed caching protocols
+  for relieving hot spots on the World Wide Web.
+ In <em>ACM Symposium on Theory of Computing</em>, pages 654-663, May
+  1997.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEkubiatowicz:asplos00" name="kubiatowicz:asplos00">[11]</a></dt><dd>
+J.&nbsp;Kubiatowicz, D.&nbsp;Bindel, Y.&nbsp;Chen, P.&nbsp;Eaton, D.&nbsp;Geels, R.&nbsp;Gummadi, S.&nbsp;Rhea,
+  H.&nbsp;Weatherspoon, W.&nbsp;Weimer, C.&nbsp;Wells, and B.&nbsp;Zhao.
+ OceanStore: An architecture for global-scale persistent storage.
+ In <em>Proceedings of the 9th International Conference on
+  Architectural Support for Programming Languages and Operating Systems
+  (ASPLOS)</em>, Cambridge, MA, Nov. 2000. ACM.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITElatham:linuxworld04" name="latham:linuxworld04">[12]</a></dt><dd>
+R.&nbsp;Latham, N.&nbsp;Miller, R.&nbsp;Ross, and P.&nbsp;Carns.
+ A next-generation parallel file system for Linux clusters.
+ <em>LinuxWorld</em>, pages 56-59, Jan. 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEleung:storagess06" name="leung:storagess06">[13]</a></dt><dd>
+A.&nbsp;Leung and E.&nbsp;L. Miller.
+ Scalable security for large, high performance storage systems.
+ In <em>Proceedings of the 2006 ACM Workshop on Storage Security and
+  Survivability</em>. ACM, Oct. 2006.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEliskov:sosp91" name="liskov:sosp91">[14]</a></dt><dd>
+B.&nbsp;Liskov, S.&nbsp;Ghemawat, R.&nbsp;Gruber, P.&nbsp;Johnson, L.&nbsp;Shrira, and M.&nbsp;Williams.
+ Replication in the Harp file system.
+ In <em>Proceedings of the 13th ACM Symposium on Operating Systems
+  Principles (SOSP '91)</em>, pages 226-238. ACM, 1991.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITElumb:asplos04" name="lumb:asplos04">[15]</a></dt><dd>
+C.&nbsp;R. Lumb, G.&nbsp;R. Ganger, and R.&nbsp;Golding.
+ D-SPTF: Decentralized request distribution in brick-based storage
+  systems.
+ In <em>Proceedings of the 11th International Conference on
+  Architectural Support for Programming Languages and Operating Systems
+  (ASPLOS)</em>, pages 37-47, Boston, MA, 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEmenon:ibmsj03" name="menon:ibmsj03">[16]</a></dt><dd>
+J.&nbsp;Menon, D.&nbsp;A. Pease, R.&nbsp;Rees, L.&nbsp;Duyanovich, and B.&nbsp;Hillsberg.
+ IBM Storage Tank-a heterogeneous scalable SAN file system.
+ <em>IBM Systems Journal</em>, 42(2):250-267, 2003.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEnieuwejaar:ics96" name="nieuwejaar:ics96">[17]</a></dt><dd>
+N.&nbsp;Nieuwejaar and D.&nbsp;Kotz.
+ The Galley parallel file system.
+ In <em>Proceedings of 10th ACM International Conference on
+  Supercomputing</em>, pages 374-381, Philadelphia, PA, 1996. ACM Press.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEnieuwejaar:tpds96" name="nieuwejaar:tpds96">[18]</a></dt><dd>
+N.&nbsp;Nieuwejaar, D.&nbsp;Kotz, A.&nbsp;Purakayastha, C.&nbsp;S. Ellis, and M.&nbsp;Best.
+ File-access characteristics of parallel scientific workloads.
+ <em>IEEE Transactions on Parallel and Distributed Systems</em>,
+  7(10):1075-1089, Oct. 1996.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEolson:storagess05" name="olson:storagess05">[19]</a></dt><dd>
+C.&nbsp;A. Olson and E.&nbsp;L. Miller.
+ Secure capabilities for a petabyte-scale object-based distributed
+  file system.
+ In <em>Proceedings of the 2005 ACM Workshop on Storage Security and
+  Survivability</em>, Fairfax, VA, Nov. 2005.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEpawlowski:usenix94s" name="pawlowski:usenix94s">[20]</a></dt><dd>
+B.&nbsp;Pawlowski, C.&nbsp;Juszczak, P.&nbsp;Staubach, C.&nbsp;Smith, D.&nbsp;Lebel, and D.&nbsp;Hitz.
+ NFS version 3: Design and implementation.
+ In <em>Proceedings of the Summer 1994 USENIX Technical Conference</em>,
+  pages 137-151, 1994.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITErodeh:mss03" name="rodeh:mss03">[21]</a></dt><dd>
+O.&nbsp;Rodeh and A.&nbsp;Teperman.
+ zFS-a scalable distributed file system using object disks.
+ In <em>Proceedings of the 20th IEEE / 11th NASA Goddard Conference
+  on Mass Storage Systems and Technologies</em>, pages 207-218, Apr. 2003.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEroselli:usenix00" name="roselli:usenix00">[22]</a></dt><dd>
+D.&nbsp;Roselli, J.&nbsp;Lorch, and T.&nbsp;Anderson.
+ A comparison of file system workloads.
+ In <em>Proceedings of the 2000 USENIX Annual Technical Conference</em>,
+  pages 41-54, San Diego, CA, June 2000. USENIX Association.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEsaito:asplos04" name="saito:asplos04">[23]</a></dt><dd>
+Y.&nbsp;Saito, S.&nbsp;Frølund, A.&nbsp;Veitch, A.&nbsp;Merchant, and S.&nbsp;Spence.
+ FAB: Building distributed enterprise disk arrays from commodity
+  components.
+ In <em>Proceedings of the 11th International Conference on
+  Architectural Support for Programming Languages and Operating Systems
+  (ASPLOS)</em>, pages 48-58, 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEschmuck:fast02" name="schmuck:fast02">[24]</a></dt><dd>
+F.&nbsp;Schmuck and R.&nbsp;Haskin.
+ GPFS: A shared-disk file system for large computing clusters.
+ In <em>Proceedings of the 2002 Conference on File and Storage
+  Technologies (FAST)</em>, pages 231-244. USENIX, Jan. 2002.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEszeredi:fuse2" name="szeredi:fuse2">[25]</a></dt><dd>
+M.&nbsp;Szeredi.
+ File System in User Space.
+ http://fuse.sourceforge.net, 2006.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEtang:sc04" name="tang:sc04">[26]</a></dt><dd>
+H.&nbsp;Tang, A.&nbsp;Gulbeden, J.&nbsp;Zhou, W.&nbsp;Strathearn, T.&nbsp;Yang, and L.&nbsp;Chu.
+ A self-organizing storage cluster for parallel data-intensive
+  applications.
+ In <em>Proceedings of the 2004 ACM/IEEE Conference on Supercomputing
+  (SC '04)</em>, Pittsburgh, PA, Nov. 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEwang:mss04" name="wang:mss04">[27]</a></dt><dd>
+F.&nbsp;Wang, Q.&nbsp;Xin, B.&nbsp;Hong, S.&nbsp;A. Brandt, E.&nbsp;L. Miller, D.&nbsp;D.&nbsp;E. Long, and T.&nbsp;T.
+  McLarty.
+ File system workload analysis for large scale scientific computing
+  applications.
+ In <em>Proceedings of the 21st IEEE / 12th NASA Goddard Conference
+  on Mass Storage Systems and Technologies</em>, pages 139-152, College Park, MD,
+  Apr. 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEweil:tr-ucsc-metacp04" name="weil:tr-ucsc-metacp04">[28]</a></dt><dd>
+S.&nbsp;A. Weil.
+ Scalable archival data and metadata management in object-based file
+  systems.
+ Technical Report SSRC-04-01, University of California, Santa Cruz,
+  May 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEweil:sc06" name="weil:sc06">[29]</a></dt><dd>
+S.&nbsp;A. Weil, S.&nbsp;A. Brandt, E.&nbsp;L. Miller, and C.&nbsp;Maltzahn.
+ CRUSH: Controlled, scalable, decentralized placement of replicated
+  data.
+ In <em>Proceedings of the 2006 ACM/IEEE Conference on Supercomputing
+  (SC '06)</em>, Tampa, FL, Nov. 2006. ACM.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEweil:sc04" name="weil:sc04">[30]</a></dt><dd>
+S.&nbsp;A. Weil, K.&nbsp;T. Pollack, S.&nbsp;A. Brandt, and E.&nbsp;L. Miller.
+ Dynamic metadata management for petabyte-scale file systems.
+ In <em>Proceedings of the 2004 ACM/IEEE Conference on Supercomputing
+  (SC '04)</em>. ACM, Nov. 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEwelch:fast05wip" name="welch:fast05wip">[31]</a></dt><dd>
+B.&nbsp;Welch.
+ POSIX IO extensions for HPC.
+ In <em>Proceedings of the 4th USENIX Conference on File and Storage
+  Technologies (FAST)</em>, Dec. 2005.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEwelch:mss04" name="welch:mss04">[32]</a></dt><dd>
+B.&nbsp;Welch and G.&nbsp;Gibson.
+ Managing scalability in object storage systems for HPC Linux
+  clusters.
+ In <em>Proceedings of the 21st IEEE / 12th NASA Goddard Conference
+  on Mass Storage Systems and Technologies</em>, pages 433-445, Apr. 2004.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEwhite:sc01" name="white:sc01">[33]</a></dt><dd>
+B.&nbsp;S. White, M.&nbsp;Walker, M.&nbsp;Humphrey, and A.&nbsp;S. Grimshaw.
+ LegionFS: A secure and scalable file system supporting cross-domain
+  high-performance applications.
+ In <em>Proceedings of the 2001 ACM/IEEE Conference on Supercomputing
+  (SC '01)</em>, Denver, CO, 2001.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEwilkes:sosp95" name="wilkes:sosp95">[34]</a></dt><dd>
+J.&nbsp;Wilkes, R.&nbsp;Golding, C.&nbsp;Staelin, and T.&nbsp;Sullivan.
+ The HP AutoRAID hierarchical storage system.
+ In <em>Proceedings of the 15th ACM Symposium on Operating Systems
+  Principles (SOSP '95)</em>, pages 96-108, Copper Mountain, CO, 1995. ACM Press.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEwong:tr-kybos" name="wong:tr-kybos">[35]</a></dt><dd>
+T.&nbsp;M. Wong, R.&nbsp;A. Golding, J.&nbsp;S. Glider, E.&nbsp;Borowsky, R.&nbsp;A. Becker-Szendy,
+  C.&nbsp;Fleiner, D.&nbsp;R. Kenchammana-Hosekote, and O.&nbsp;A. Zaki.
+ Kybos: self-management for distributed brick-base storage.
+ Research Report RJ 10356, IBM Almaden Research Center, Aug. 2005.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITEwu:msst06" name="wu:msst06">[36]</a></dt><dd>
+J.&nbsp;C. Wu and S.&nbsp;A. Brandt.
+ The design and implementation of AQuA: an adaptive quality of
+  service aware object-based storage device.
+ In <em>Proceedings of the 23rd IEEE / 14th NASA Goddard Conference
+  on Mass Storage Systems and Technologies</em>, pages 209-218, College Park, MD,
+  May 2006.
+
+<p>
+</p></dd>
+ <dt><a href="https://www.usenix.org/legacy/event/osdi06/tech/full_papers/weil/weil_html/index.html#CITExin:hpdc04" name="xin:hpdc04">[37]</a></dt><dd>
+Q.&nbsp;Xin, E.&nbsp;L. Miller, and T.&nbsp;J.&nbsp;E. Schwarz.
+ Evaluation of distributed recovery in large-scale storage systems.
+ In <em>Proceedings of the 13th IEEE International Symposium on High
+  Performance Distributed Computing (HPDC)</em>, pages 172-181, Honolulu, HI, June
+  2004.</dd>
+</dl>
+
+
+<!-- END OF PAGE CONTENTS -->
+</font></td></tr></tbody></table></td>
+
+<!--Right Border-->
+<td width="2" valign="top" bgcolor="#CCCCCC"><img src="./Ceph OSDI '06 Paper_files/dot_clear.gif" width="2" height="1" alt=""></td>
+
+</tr>
+<tr><td colspan="5" bgcolor="#CCCCCC" width="600" height="2"><img src="./Ceph OSDI '06 Paper_files/dot_clear.gif" width="1" height="2" alt=""></td></tr>
+<tr><td colspan="5" width="600" height="5"><img src="./Ceph OSDI '06 Paper_files/dot_clear.gif" width="1" height="5" alt=""></td></tr>
+</tbody></table>
+
+<table border="0" width="750" cellspacing="0" cellpadding="0">
+
+<tbody><tr><td valign="TOP">
+<font size="-1" face="arial, verdana, helvetica, sans-serif">Last changed: <!-- CHANGE -->9 Oct. 2006 ch</font>
+</td></tr></tbody></table>
+</div></center>
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"d823139095","applicationID":"509444","transactionName":"YVJVZksCXkEEVhIMWFgYdlFNCl9cSkAVAFlfT2hAXAdZQABWEhZoWFhDbV8MRVwB","queueTime":0,"applicationTime":206,"ttGuid":"","agentToken":"","atts":"TRVWEAMYTU8=","errorBeacon":"bam.nr-data.net","agent":"js-agent.newrelic.com\/nr-632.min.js"}</script>
+
+</body></html>

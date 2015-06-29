@@ -1,0 +1,320 @@
+A Federated Broker Architecture for Large Scale
+Context Dissemination
+
+
+***why we have Context Brokers
+A context-aware communication system usually comprises
+of several context management functionalities. Most important
+are acquisition and provision of contextual information related
+to an entity (e.g. user, device, environment, network etc).
+Within this simple definition, we can divide the system compo-
+nents involved in the context management into either context
+consumers or context providers or a combination thereof.
+Given this basic role model, a small scale system could work
+with direct communication between context providers and
+consumers but for large scale systems, network boundaries,
+mobility and other factors give rise to the necessity of having
+other communication mechanisms, e.g. broker assisted com-
+munication between the consumers and producers.
+
+
+
+In a broker
+based model, providers of context register their capabilities
+with the broker and consumers can query a central broker
+about the type of context provider they are looking for. For
+example, a location context provider may provide realtime lo-
+cation of users based on radio signal strength and received cell
+identifiers. A context consuming application on a user device
+can use this location context to recommend restaurants to the
+user around lunch time. This context consuming application
+can also use other context providers to aggregate user context 
+and deliver sophisticated context based services, e.g. weather,
+and user calendar context providers can be used to make
+more appropriate restaurant recommendations. Pervasiveness
+of mobile devices makes it evident that users will mostly
+interact with the context aware system through these devices.
+Moreover, modern mobile devices are increasingly being fitted
+with various sensors, e.g. accelerometers, GPS receivers, light
+sensors, magnetometers etc, and can act as providers of context
+information in addition to their traditional role of hosting
+context consuming applications. This increased capability of
+mobile devices allows for the realisation of complex usage sce-
+narios as more user context can be made available by utilizing
+the on-device sensors.  
+
+ Broker architecture in its various forms exists
+as a middleware technology that manages communication and
+data exchange between objects or entities. Chen et. al.[5][6]
+present a Context Broker Architecture (CoBrA), which is an
+agent based architecture for supporting context-aware systems
+in smart spaces. Formal representation of context information
+is an integral part of any context management architecture.
+Our architecture uses an XML based representation, entitled
+ContextML [7] to represent context information. 
+
+-------------------------------------------------------------------------
+tese que usa contextml
+
+***fala sobre vantagem da ContextML, como é bom usar ela com REST, da pra usar em várias arquiteturas diferentes, é prática
+The ContextML [12] is easy to integrate within a Web
+Service or any other SOA technologies like the REST used
+by Telecom Italia, is simple to include security elements
+and is ready to embed into a security suite. The REST
+communication, very similar to the HTTP, consist of two
+only communication request-response (GET and response)
+to retrieve any information or to acknowledge
+(ACK/NACK) a malfunctioning within the response.
+Therefore no additional overheads provided neither to the
+communication network nor to its components, such as
+network equipment, switches and nodes, nor to the
+communicating parts such as server and client. Moreover,
+chosen ContextML over REST communication protocol
+interoperates over a vast range of server platforms and
+mobile devices due to its XML legacy with a durable and 
+successfully proven best-practice employment and vastest
+usage experience.
+
+***Subscription e ACK messages
+Context subscription is a type of message sent from a
+Context Consumer to a Context Broker requiring
+certain context information (scopes) regarding an
+entity.
+Acknowledgement is a type of message sent from a
+Context Provider or from a Context Broker to a
+Context Broker or to a Context Consumer
+respectively on a context information request or on
+a subscription request indicating a correct context
+subscription (when no yet context information is
+available) or a “malformed request” response to a
+Context Provider or to a Context Broker;
+
+***Examples of real-world applications that use ContextML
+Or Graffiti, iTourism based on context-aware
+recommendation content and Point of Interest
+demonstrated in the next picture: 
+
+----------------------------------------------------------
+tese gigante
+
+***Context being transparent to user, he doesn't need to provide the context information, it must be given by the application, it must know what to look for, when dealing with the user's context
+the goal of
+context-aware computing, or applications that use context, as well as computing in general, should be to
+make interacting with computers easier. Forcing users consciously to increase the amount of information
+they have to input would make this interaction more difficult and tedious. Furthermore, it is likely that most
+users will not know which information is potentially relevant and, therefore, will not know what
+information to provide.
+We want to make it easier for users to interact with computers and the environment, not harder, by allowing
+users to not have to think consciously about using the computers. 
+our approach to context-aware application development is to collect implicit contextual information through
+automated means, make it easily available to a computer’s run-time environment and let the application
+designer decide what information is relevant and how to deal with it.
+
+***The need of Context
+With
+computers being used in such a wide variety of situations, interesting new problems arise and the need for
+context is clear: users are trying to obtain different information from the same services in different
+situations. Context can be used to help determine what information or services to make available or to bring
+to the forefront for users.
+Applications that use context, whether on a desktop or in a mobile or ubiquitous computing environment,
+are called context-aware.
+Context-aware applications are becoming more
+prevalent and can be found in the areas of wearable computing, mobile computing, robotics, adaptive and
+intelligent user interfaces, augmented reality, adaptive computing, intelligent environments and context-
+sensitive interfaces. It is not surprising that in most of these areas, the user is mobile and her context is
+changing rapidly.
+
+
+***What is Context?
+Most researchers have a
+general idea about what context is and use that general idea to guide their use of it. However, a vague
+notion of context is not sufficient; in order to use context effectively, we must attain a better understanding
+of what context is.
+
+***Previous General Definitions of Context
+In the work that first introduces the term ‘context-aware,’ Schilit and Theimer (Schilit and Theimer 1994)
+refer to context as location, identities of nearby people and objects, and changes to those objects. In a
+similar definition, Brown et al. (Brown, Bovey et al. 1997) define context as location, identities of the
+people around the user, the time of day, season, temperature, etc. Ryan et al. (Ryan, Pascoe et al. 1998)
+define context as the user’s location, environment, identity and time. In previous work (Dey 1998), we
+enumerated context as the user’s emotional state, focus of attention, location and orientation, date and time,
+objects, and people in the user’s environment.
+
+***Definitions using synonyms
+Other definitions have simply provided synonyms for context, referring, for example, to context as the
+environment or situation. Some consider context to be the user’s environment, while others consider it to be
+the application’s environment. Brown (Brown 1996b) defined context to be the elements of the user’s
+environment that the user’s computer knows about. Franklin and Flaschbart (Franklin and Flaschbart 1998)
+see it as the situation of the user. Ward et al. (Ward, Jones et al. 1997) view context as the state of the
+application’s surroundings and Rodden et al. (Rodden, Cheverst et al. 1998) define it to be the application’s
+setting. Hull et al. (Hull, Neaves et al. 1997) included the entire environment by defining context to be
+aspects of the current situation.
+
+***Definition to be used in my work
+Following is our definition of context.
+Context is any information that can be used to characterize the situation of an entity. An
+entity is a person, place, or object that is considered relevant to the interaction between a
+user and an application, including the user and application themselves.
+
+***How context-aware applications interact with the real world context
+Context-aware applications look at the who’s, where’s, when’s and what’s (that is, what the activities are
+occurring) of entities and use this information to determine why a situation is occurring. An application
+does not actually determine why a situation is occurring, but the designer of the application does. The
+designer uses incoming context to determine why a situation is occurring and uses this to encode some
+action in the application. 
+
+***Example of a context-aware application
+For example, in a context-aware tour guide, a user carrying a handheld computer
+approaches some interesting site resulting in information relevant to the site being displayed on the
+computer (Abowd, Atkeson et al. 1997). In this situation, the designer has encoded the understanding that
+when a user approaches a particular site (the ‘incoming context’), it means that the user is interested in the
+site (the ‘why’) and the application should display some relevant information (the ‘action’).
+Our definition of context includes not only implicit input but also explicit input. For example, the identity
+of a user can be sensed implicitly through face recognition or can be explicitly determined when a user is
+asked to type in her name using a keyboard. From the application’s perspective, both are information about
+the user’s identity and allow it to perform some added functionality.
+
+***What is Context-Awareness?
+***First definition
+The first definition of context-aware applications given by Schilit and Theimer (Schilit and Theimer 1994)
+restricted the definition from applications that are simply informed about context to applications that adapt
+themselves to context. 
+
+***Context-aware as synonymous
+Context-aware has become somewhat synonymous with other terms: adaptive
+(Brown 1996a), reactive (Cooperstock, Tanikoshi et al. 1995), responsive (Elrod, Hall et al. 1993), situated
+(Hull, Neaves et al. 1997), context-sensitive (Rekimoto, Ayatsuka et al. 1998) and environment-directed
+(Fickas, Kortuem et al. 1997). Previous definitions of context-aware computing fall into two categories:
+using context and adapting to context.
+
+***Definition to be used
+Our Definition of Context-Aware
+A system is context-aware if it uses context to provide relevant information and/or
+services to the user, where relevancy depends on the user’s task.
+
+
+---------------------------------------------------------
+a survey on context....
+
+***How to represent Context. I use Markup Scheme model
+Context models
+A context model is needed to define and store context data
+in a machine processable form. To develop flexible and
+useable context ontologies that cover the wide range
+of possible contexts is a challenging task. Strang and
+Linnhoff-Popien (2004) summarised the most relevant
+context modelling approaches, which are based on the data
+structures used for representing and exchanging contextual
+information in the respective system.
+
+•Key-Value models. These models represent the simplest
+data structure for context modelling. They are
+frequently used in various service frameworks, where
+the key-value pairs are used to describe the capabilities
+of a service. Service discovery is then applied by using
+matching algorithms which use these key-value pairs.
+•Markup scheme models. All markup based models use a
+hierarchical data structure consisting of markup tags
+with attributes and content. Profiles represent typical
+markup-scheme models. Typical examples for such
+profiles are the Composite Capabilities/Preference
+Profile (CC/PP) (W3C, 2004a) and User Agent Profile
+(UAProf) (Wapforum, 2001), which are encoded in
+RDF/S. Various other examples can be found in Strang
+and Linnhoff-Popien (2004).
+•Graphical models. The Unified Modelling Language
+(UML) is also suitable for modelling context. Various
+approaches exist where contextual aspects are modelled
+in by using UML, e.g., Sheng and Benatallah (2005).
+Another modelling approach includes an extension to
+the Object-Role Modelling (ORM) by context
+information presented in Hendricksen et al. (2003).
+
+•Object oriented models. Modelling context by using
+object-oriented techniques offers to use the full power
+of object orientation (e.g., encapsulation, reusability,
+inheritance). Existing approaches use various objects to
+represent different context types (such as temperature,
+location, etc.), and encapsulate the details of context
+processing and representation. Access the context and
+the context processing logic is provided by well-defined
+interfaces. Hydrogen (Hofer et al., 2002) uses such an
+object-oriented example. We explain the system in
+more detail in Section 3.
+• Logic based models. Logic-based models have a high
+degree of formality. Typically, facts, expressions and
+rules are used to define a context model. A logic based
+system is then used to manage the aforementioned
+terms and allows to add, update or remove new facts.
+The inference (also called reasoning) process can be
+used to derive new facts based on existing rules in the
+systems. The contextual information needs to be
+represented in a formal way as facts. One of the first
+approaches was published by McCarthy and Buvac
+(1997).
+• Ontology based models. Ontologies represent a
+description of the concepts and relationships.
+Therefore, ontologies are a very promising instrument
+for modelling contextual information due to their high
+and formal expressiveness and the possibilities for
+applying ontology reasoning techniques. Various
+context-aware frameworks use ontologies as underlying
+context models. We describe some of them in
+Section 3.
+
+
+
+------------------------------------------------------------
+contextML thesis
+
+***Basic definition of ContextML
+a light weight XML based context representation schema
+called ContextML in which context information is categorized
+into scopes and related to different types of entities (e.g. user,
+device).
+extendibility and mobility.
+
+***ContextML goals, its objectives, where to use it
+ContextML is
+tailored to be used for REST-based communication between the
+framework components.
+In each context-aware communication system the context
+information needs to be represented and modeled for being
+machine interpretable and exchangeable using well-defined
+interfaces. The goals are to support easy manipulation (low
+overhead in keeping the model up-to-date), easy extension
+(cheap and simple mechanism for adding new types of
+information), efficient search, query access and scalability.
+
+***Definitions of Provider, Consumer and Broker
+A Context Consumer (CxC) is a component that queries for
+and uses context data, e.g. a context-aware application. A CxC
+can retrieve context information by sending a subscription
+request to the Context Broker (CxB) and context information is
+delivered asynchronously once it is available or when it
+changes. A synchronous method of requesting context
+information also exists where a CxC requests the Context
+Broker (CxB) for a particular Context Provider (CxP) and can
+query the CxP directly
+A Context Provider (CxP) is a component whose task is to
+provide context information of a certain type, e.g. weather,
+location, activity, etc. Therefore, a CxP gathers data from a
+collection of sensors, network, services (e.g. web services) or
+other relevant sources. The CxP can use various filtering,
+aggregation and reasoning mechanisms to infer context from
+raw sensors, databases or other source data depending on the
+type of context it provides. A CxP provides context data only
+further to a specific invocation/subscription and is specialized
+on a particular context domain (e.g. location, weather etc).  
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,119 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9 }
+
+\bibitem[Arsanjani 2004]{arsanjani2004service}
+\abntrefinfo{Arsanjani}{ARSANJANI}{2004}
+{ARSANJANI, A. Service-oriented modeling and architecture.
+\textbf{IBM developer works}, p. 1--15, 2004.}
+
+\bibitem[Avi{\v{z}}ienis et al. 2004]{avivzienis2004basic}
+\abntrefinfo{Avi{\v{z}}ienis et al.}{AVI{\v{Z}}IENIS et al.}{2004}
+{AVI{\v{Z}}IENIS, A. et al. Basic concepts and taxonomy of dependable and
+  secure computing.
+\textbf{Dependable and Secure Computing, IEEE Transactions on}, IEEE, v.~1,
+  n.~1, p. 11--33, 2004.}
+
+\bibitem[Baldauf, Dustdar e Rosenberg 2007]{baldauf2007survey}
+\abntrefinfo{Baldauf, Dustdar e Rosenberg}{BALDAUF; DUSTDAR; ROSENBERG}{2007}
+{BALDAUF, M.; DUSTDAR, S.; ROSENBERG, F. A survey on context-aware systems.
+\textbf{International Journal of Ad Hoc and Ubiquitous Computing}, Inderscience
+  Publishers, v.~2, n.~4, p. 263--277, 2007.}
+
+\bibitem[Barrera et al.]{barreradesign}
+\abntrefinfo{Barrera et al.}{BARRERA et al.}{}
+{BARRERA, J. et al. The design and architecture of the microsoft cluster
+  service.}
+
+\bibitem[Brown 1995]{brown1995stick}
+\abntrefinfo{Brown}{BROWN}{1995}
+{BROWN, P.~J. The stick-e document: a framework for creating context-aware
+  applications.
+\textbf{ELECTRONIC PUBLISHING-CHICHESTER-}, Citeseer, v.~8, p. 259--272, 1995.}
+
+\bibitem[Brown, Bovey e Chen 1997]{brown1997context}
+\abntrefinfo{Brown, Bovey e Chen}{BROWN; BOVEY; CHEN}{1997}
+{BROWN, P.~J.; BOVEY, J.~D.; CHEN, X. Context-aware applications: from the
+  laboratory to the marketplace.
+\textbf{Personal Communications, IEEE}, IEEE, v.~4, n.~5, p. 58--64, 1997.}
+
+\bibitem[Cooperstock et al. 1995]{cooperstock1995evolution}
+\abntrefinfo{Cooperstock et al.}{COOPERSTOCK et al.}{1995}
+{COOPERSTOCK, J.~R. et al. Evolution of a reactive environment. In:  ACM
+  PRESS/ADDISON-WESLEY PUBLISHING CO. \textbf{Proceedings of the SIGCHI
+  conference on Human factors in computing systems}. [S.l.], 1995. p.
+  170--177.}
+
+\bibitem[Crippa 2010]{crippa2010}
+\abntrefinfo{Crippa}{CRIPPA}{2010}
+{CRIPPA, M.~R. \textbf{Design and implementation of a broker for a
+  service-oriented context management and distribution architecture}. 2010.}
+
+\bibitem[Dey 2000]{dey2000providing}
+\abntrefinfo{Dey}{DEY}{2000}
+{DEY, A.~K.
+\textbf{Providing architectural support for building context-aware
+  applications}.
+Tese (Doutorado) --- Georgia Institute of Technology, 2000.}
+
+\bibitem[Elrod et al. 1993]{elrod1993responsive}
+\abntrefinfo{Elrod et al.}{ELROD et al.}{1993}
+{ELROD, S. et al. Responsive office environments.
+\textbf{Communications of the ACM}, ACM, v.~36, n.~7, p. 84--85, 1993.}
+
+\bibitem[Fickas, Kortuem e Segall 1997]{fickas1997software}
+\abntrefinfo{Fickas, Kortuem e Segall}{FICKAS; KORTUEM; SEGALL}{1997}
+{FICKAS, S.; KORTUEM, G.; SEGALL, Z. Software organization for dynamic and
+  adaptable wearable systems. In:  IEEE. \textbf{Wearable Computers, 1997.
+  Digest of Papers., First International Symposium on}. [S.l.], 1997. p.
+  56--63.}
+
+\bibitem[Franklin e Flaschbart 1998]{franklin1998all}
+\abntrefinfo{Franklin e Flaschbart}{FRANKLIN; FLASCHBART}{1998}
+{FRANKLIN, D.; FLASCHBART, J. All gadget and no representation makes jack a
+  dull environment. In:  \textbf{Proceedings of the AAAI 1998 Spring Symposium
+  on Intelligent Environments}. [S.l.: s.n.], 1998. p. 155--160.}
+
+\bibitem[Hull, Neaves e Bedford-Roberts 1997]{hull1997towards}
+\abntrefinfo{Hull, Neaves e Bedford-Roberts}{HULL; NEAVES;
+  BEDFORD-ROBERTS}{1997}
+{HULL, R.; NEAVES, P.; BEDFORD-ROBERTS, J. Towards situated computing. In:
+  IEEE. \textbf{Wearable Computers, 1997. Digest of Papers., First
+  International Symposium on}. [S.l.], 1997. p. 146--153.}
+
+\bibitem[Kian et al. 2010]{kian2010federated}
+\abntrefinfo{Kian et al.}{KIAN et al.}{2010}
+{KIAN, S.~L. et al. A federated broker architecture for large scale context
+  dissemination. In:  IEEE. \textbf{Computer and Information Technology (CIT),
+  2010 IEEE 10th International Conference on}. [S.l.], 2010. p. 2964--2969.}
+
+\bibitem[Knappmeyer et al. 2010]{knappmeyer2010contextml}
+\abntrefinfo{Knappmeyer et al.}{KNAPPMEYER et al.}{2010}
+{KNAPPMEYER, M. et al. Contextml: a light-weight context representation and
+  context management schema. In:  IEEE. \textbf{Wireless Pervasive Computing
+  (ISWPC), 2010 5th IEEE International Symposium on}. [S.l.], 2010. p.
+  367--372.}
+
+\bibitem[Rekimoto, Ayatsuka e Hayashi 1998]{rekimoto1998augment}
+\abntrefinfo{Rekimoto, Ayatsuka e Hayashi}{REKIMOTO; AYATSUKA; HAYASHI}{1998}
+{REKIMOTO, J.; AYATSUKA, Y.; HAYASHI, K. Augment-able reality: Situated
+  communication through physical and digital spaces. In:  IEEE.
+  \textbf{Wearable Computers, 1998. Digest of Papers. Second International
+  Symposium on}. [S.l.], 1998. p. 68--75.}
+
+\bibitem[Schilit e Theimer 1994]{schilit1994disseminating}
+\abntrefinfo{Schilit e Theimer}{SCHILIT; THEIMER}{1994}
+{SCHILIT, B.~N.; THEIMER, M.~M. Disseminating active map information to mobile
+  hosts.
+\textbf{Network, IEEE}, IEEE, v.~8, n.~5, p. 22--32, 1994.}
+
+\bibitem[Skeen 1981]{skeen1981nonblocking}
+\abntrefinfo{Skeen}{SKEEN}{1981}
+{SKEEN, D. Nonblocking commit protocols. In:  ACM. \textbf{Proceedings of the
+  1981 ACM SIGMOD international conference on Management of data}. [S.l.],
+  1981. p. 133--142.}
+
+\end{thebibliography}
