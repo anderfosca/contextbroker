@@ -52,7 +52,24 @@ A scope is a set of closely related context parameters. Every context parameter 
 	
 \end{figure}
 
-\subsubsection{Context Messages}
+\subsubsection{ContextML Messages}
+Within the architecture of the system, context is registered, updated and queried following a set of pre-defined ContextML messages, that follow the proposed by \cite{knappmeyer2010contextml}. The possible ContextML messages and their uses are shown below, as well as a simple example of each one.
+
+\begin{description}
+\item[Advertisement Message]\hfill \\
+An Advertisement Message is used by the Context Provider to register its capabilities to the broker. It informs the CxP’s access url (urlRoot), what scopes it supports (scopes), its identifier (name), and optional information about the CxP’s location. An example of a Advertisement Message can be seen in Figure x. 
+
+\item[CxP Lookup Message]\hfill \\
+When a CxC wants to know where it can find a specific scope, it can query the CxB about which of the registered Providers has the desired information. The Broker replies with a ContextML message, describing the Providers that match with the data required by the CxC. An example can be seen in Figure x.
+
+\item[ACK Message]\hfill \\
+Acknowledgement is a control message that confirms the execution of various management actions (e.g. advertisement, context update). Each ACK message contains the status of the operation, the HTTP response code, and the identification of the method it corresponds. It also has optional fields to inform scope and entity information. An example is shown in Figure x.
+
+
+\item[Context Representation Message]\hfill \\
+When a Consumer requests or subscribes to a context scope, it receives a ContextML message with the element \textit{‘ctxEl’}, when the information queried is available. \textit{ctxEl} contains information of the provider that has the context queried (contextProvider), the entity and scope it is related to, and the context data in the \textit{dataPart} element. \textit{par}, \textit{parS} and \textit{parA} are constructors to store name-value pairs and attribute collections (structs and arrays) respectively. Every context information that is exchanged is tagged with a \textit{timestamp} (time of its generation) and an expiration time \textit{expires} (validity of the context information), after which the information is considered invalid. An example of a Context Representation Message is shown in Figure x.
+
+\end{description}
 
 
 \section{Fault Tolerance}
