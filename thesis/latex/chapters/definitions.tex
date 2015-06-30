@@ -1,7 +1,10 @@
 \chapter{Definitions}
+\label{chap:definitions}
 This work proposes the application of a high availability technique to a context broker system. For a better understanding of the system and its development, definitions of Context, Context-Aware System, Context Representation, Fault Tolerance and High Availability related terms are presented.
 
 \section{Context}
+\label{sec:context}
+
 Context has had many definitions throughout the years. The first time Context was defined regarding the human-computer interaction was by \cite{schilit1994disseminating}, where context is defined related to location, identities of nearby people and objects, and the changes happening to those.  Similarly, \cite{brown1997context} define context as location, people around the user, time of day, season, temperature, etc. Many authors have also defined context using synonyms, as \cite{brown1995stick} had the idea of “environment”, i.e., what the computer knows about the user's environment, or \cite{franklin1998all} that see context as user's situation. Thus, a lot of definitions have existed, but they all end up being too specific. Context is about the whole situation of an application and its users, and we can't really.
 
 \cite{dey2000providing} defined context as follows: ''Context is any information that can be used to characterize the situation of an entity. An entity is a person, place, or object that is considered relevant to the interaction between a user and an application, including the user and application themselves.'' This is the definition this work uses.
@@ -14,12 +17,11 @@ The definition used in this work is provided by \cite{dey2000providing}: ''A sys
 \subsection{How to represent Context}
 According to \cite{dey2000providing}, context-aware applications deal with the who's, where's, when's and what's (the activities that are occurring) of entities, and interpret this information to define why a situation is occurring. The designer of the application must decide what to do with the information. Once we have the information available, either through automated sensors or through user's interference, we need to represent it in a way a machine can process and store it.
 
-\cite{baldauf2007survey} presents and defines the most relevant context modeling options: key-value, markup scheme, graphical, object oriented, logic based and ontology based models. As this work is developed over the same base as \cite{crippa2010}, it uses the same context representation model: a markup scheme variation, ContextML \cite{knappmeyer2010contextml}. It is chosen as it provides **ver artigo do marcos pq escolheu cxml
-
+\cite{baldauf2007survey} presents and defines the most relevant context modeling options: key-value, markup scheme, graphical, object oriented, logic based and ontology based models. As this work is developed over the same base as \cite{crippa2010}, it uses the same context representation model: a markup scheme variation, ContextML \cite{knappmeyer2010contextml}. The network nature of the messages (HTTP messages, in this case) facilitates textual, non graphic model. This is the common approach used in SOAs. 
 
 \subsection{ContextML}
 
-ContextML is an XML-based representation schema for context information, where it is categorized into scopes and related to different types of entities. It is designed to be used with REST-based communication between the framework components \cite{knappmeyer2010contextml}. 
+ContextML is an XML-based representation schema for context information, where it is categorized into scopes and related to different types of entities. It is designed to be used with REST-based communication between the framework components \cite{knappmeyer2010contextml}. It was created within a project called C-CAST \cite{ccast}, a collaborative work of many companies, research centers and universities, and its main objective is to evolve mobile multimedia multicasting to exploit the increasing integration of mobile devices with our everyday physical world and environment \cite{crippa2010}. The architecture of the system is based on this project.
 
 The system consists on three core components: Context Provider, Context Consumer and Context Broker. They are briefly described below, based on definitions made by \cite{knappmeyer2010contextml}. 
 
@@ -42,7 +44,7 @@ A Context Broker (CxB) is the central component of the architecture, and is the 
 \subsubsection{Entity and Scope}
 An entity is the subject of interest which context data refers to, and it is composed of two parts: a type and an identifier. The type refers to the category of the entity: username for human users, imei for mobile devices, room for a room with sensors, etc. The identifier specifies a particular item within a set of entities of the same type.
 
-A scope is a set of closely related context parameters. Every context parameter has a name and belongs to only one scope. The parameters of a scope can only be requested, updated, provided and store at the same time, making the data always consistent. For example, a scope ‘position’ has latitude, longitude and accuracy attributes; any operation on this scope is performed on all these attributes: if the latitude is updated, so is the longitude and accuracy, what is correct, because otherwise it would not make sense. Entity-scope association is illustrated in Figure \ref{fig:entityscope}. \par
+A scope is a set of closely related context parameters. Every context parameter has a name and belongs to only one scope. The parameters of a scope can only be requested, updated, provided and store at the same time, making the data always consistent. For example, a scope \textit{position} has latitude, longitude and accuracy attributes; any operation on this scope is performed on all these attributes: if the latitude is updated, so is the longitude and accuracy, what is correct, because otherwise it would not make sense. Entity-scope association is illustrated in Figure \ref{fig:entityscope}. \par
 
 \begin{figure}[H]
 	\centering
@@ -57,22 +59,57 @@ Within the architecture of the system, context is registered, updated and querie
 
 \begin{description}
 \item[Advertisement Message]\hfill \\
-An Advertisement Message is used by the Context Provider to register its capabilities to the broker. It informs the CxP’s access url (urlRoot), what scopes it supports (scopes), its identifier (name), and optional information about the CxP’s location. An example of a Advertisement Message can be seen in Figure x. 
+An Advertisement Message is used by the Context Provider to register its capabilities to the broker. It informs the CxP’s access url (urlRoot), what scopes it supports (scopes), its identifier (name), and optional information about the CxP’s location. An example of a Advertisement Message can be seen in Figure \ref{fig:advertisement}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{advertisement.png}
+	\caption{Provider Advertisement example message}
+	\label{fig:advertisement}
+	
+\end{figure}
 
 \item[CxP Lookup Message]\hfill \\
-When a CxC wants to know where it can find a specific scope, it can query the CxB about which of the registered Providers has the desired information. The Broker replies with a ContextML message, describing the Providers that match with the data required by the CxC. An example can be seen in Figure x.
+When a CxC wants to know where it can find a specific scope, it can query the CxB about which of the registered Providers has the desired information. The Broker replies with a ContextML message, describing the Providers that match with the data required by the CxC. An example can be seen in Figure \ref{fig:providers}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{providers.png}
+	\caption{Providers Lookup example message}
+	\label{fig:providers}
+	
+\end{figure}
 
 \item[ACK Message]\hfill \\
-Acknowledgement is a control message that confirms the execution of various management actions (e.g. advertisement, context update). Each ACK message contains the status of the operation, the HTTP response code, and the identification of the method it corresponds. It also has optional fields to inform scope and entity information. An example is shown in Figure x.
+Acknowledgement is a control message that confirms the execution of various management actions (e.g. advertisement, context update). Each ACK message contains the status of the operation, the HTTP response code, and the identification of the method it corresponds. It also has optional fields to inform scope and entity information. An example is shown in Figure \ref{fig:acknack}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{acknack.png}
+	\caption{ACK and NACK example messages}
+	\label{fig:acknack}
+	
+\end{figure}
 
 
 \item[Context Representation Message]\hfill \\
-When a Consumer requests or subscribes to a context scope, it receives a ContextML message with the element \textit{‘ctxEl’}, when the information queried is available. \textit{ctxEl} contains information of the provider that has the context queried (contextProvider), the entity and scope it is related to, and the context data in the \textit{dataPart} element. \textit{par}, \textit{parS} and \textit{parA} are constructors to store name-value pairs and attribute collections (structs and arrays) respectively. Every context information that is exchanged is tagged with a \textit{timestamp} (time of its generation) and an expiration time \textit{expires} (validity of the context information), after which the information is considered invalid. An example of a Context Representation Message is shown in Figure x.
+When a Consumer requests or subscribes to a context scope, it receives a ContextML message with the element \textit{‘ctxEl’}, when the information queried is available. \textit{ctxEl} contains information of the provider that has the context queried (contextProvider), the entity and scope it is related to, and the context data in the \textit{dataPart} element. \textit{par}, \textit{parS} and \textit{parA} are constructors to store name-value pairs and attribute collections (structs and arrays) respectively. Every context information that is exchanged is tagged with a \textit{timestamp} (time of its generation) and an expiration time \textit{expires} (validity of the context information), after which the information is considered invalid. An example of a Context Representation Message is shown in Figure \ref{fig:ctxels}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{ctxels.png}
+	\caption{Context Element example messages (update)}
+	\label{fig:ctxels}
+	
+\end{figure}
+
 
 \end{description}
 
 
 \section{Fault Tolerance}
+\label{sec:fault_tolerance}
+\cite{arsanjani2004service} \cite{avivzienis2004basic}   \cite{barreradesign}  \cite{skeen1981nonblocking} 
 \subsection{Dependable System}
 \subsection{High Availability}
 \subsubsection{Uses in real world}
