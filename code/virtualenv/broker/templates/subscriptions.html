@@ -19,11 +19,17 @@
 <table class="table table-striped table-bordered table-condensed">
     <tr>
         <th>Callback URL</th>
+        <th>Entity</th>
+        <th>Scopes</th>
         <th>Minutes</th>
     </tr>
     {% for subscription in answ%}
     <tr>
         <td>{{ subscription['callback_url'] }}</td>
+        <td>{{ subscription['entity']['type'] }}|{{ subscription['entity']['name'] }}</td>
+        <td>{% for scope in subscription['scopes']%}
+        {{ scope['name'] }}
+        {% endfor %}</td>
         <td>{{ subscription['minutes'] }}</td>
     </tr>
     {% endfor %}

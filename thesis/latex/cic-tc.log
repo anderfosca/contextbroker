@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2015.6.29)  29 JUN 2015 07:45
+This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2015.6.29)  2 JUL 2015 10:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -736,27 +736,51 @@ Now handling font encoding PU ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-)) (./cic-tc.aux)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count140
+\lst@gtempboxa=\box42
+\lst@token=\toks19
+\lst@length=\count141
+\lst@currlwidth=\dimen148
+\lst@column=\count142
+\lst@pos=\count143
+\lst@lostspace=\dimen149
+\lst@width=\dimen150
+\lst@newlines=\count144
+\lst@lineno=\count145
+\lst@maxwidth=\dimen151
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
+\c@lstnumber=\count146
+\lst@skipnumbers=\count147
+\lst@framebox=\box43
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2013/08/26 1.5b listings configuration
+))
+Package: listings 2013/08/26 1.5b (Carsten Heinz)
+ (./cic-tc.aux)
 \openout1 = `cic-tc.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 118.
-LaTeX Font Info:    ... okay on input line 118.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 118.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 121.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
@@ -766,21 +790,21 @@ Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             or
 (lastpage)             http://www.ctan.org/tex-archive/ 
 (lastpage)             install/macros/latex/contrib/pageslts.tds.zip
-(lastpage)             ! on input line 118.
+(lastpage)             ! on input line 121.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count140
-\scratchdimen=\dimen148
-\scratchbox=\box42
-\nofMPsegments=\count141
-\nofMParguments=\count142
-\everyMPshowfont=\toks19
-\MPscratchCnt=\count143
-\MPscratchDim=\dimen149
-\MPnumerator=\count144
-\makeMPintoPDFobject=\count145
-\everyMPtoPDFconversion=\toks20
+\scratchcounter=\count148
+\scratchdimen=\dimen152
+\scratchbox=\box44
+\nofMPsegments=\count149
+\nofMParguments=\count150
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count151
+\MPscratchDim=\dimen153
+\MPnumerator=\count152
+\makeMPintoPDFobject=\count153
+\everyMPtoPDFconversion=\toks21
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -797,25 +821,25 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 118.
-Package tocstyle Info: prepare \l@part for redefinition on input line 118.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 121.
+Package tocstyle Info: prepare \l@part for redefinition on input line 121.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 118.
-Package tocstyle Info: prepare \l@chapter for redefinition on input line 118.
-Package tocstyle Info: prepare \l@section for redefinition on input line 118.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 121.
+Package tocstyle Info: prepare \l@chapter for redefinition on input line 121.
+Package tocstyle Info: prepare \l@section for redefinition on input line 121.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 118.
+(Font)              <12> on input line 121.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 118.
+(Font)              <8> on input line 121.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 118.
-Package tocstyle Info: prepare \l@subsection for redefinition on input line 118
+(Font)              <6> on input line 121.
+Package tocstyle Info: prepare \l@subsection for redefinition on input line 121
 .
 Package tocstyle Info: prepare \l@subsubsection for redefinition on input line 
-118.
-Package tocstyle Info: prepare \l@table for redefinition on input line 118.
-Package tocstyle Info: prepare \l@figure for redefinition on input line 118.
-\AtBeginShipoutBox=\box43
+121.
+Package tocstyle Info: prepare \l@table for redefinition on input line 121.
+Package tocstyle Info: prepare \l@figure for redefinition on input line 121.
+\AtBeginShipoutBox=\box45
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
@@ -825,7 +849,7 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-Package hyperref Info: Link coloring ON on input line 118.
+Package hyperref Info: Link coloring ON on input line 121.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -833,23 +857,24 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count146
+\c@section@level=\count154
 )
-LaTeX Info: Redefining \ref on input line 118.
-LaTeX Info: Redefining \pageref on input line 118.
-LaTeX Info: Redefining \nameref on input line 118.
+LaTeX Info: Redefining \ref on input line 121.
+LaTeX Info: Redefining \pageref on input line 121.
+LaTeX Info: Redefining \nameref on input line 121.
 
 (./cic-tc.out) (./cic-tc.out)
 \@outlinefile=\write3
 \openout3 = `cic-tc.out'.
 
+\c@lstlisting=\count155
  [1
 
 {/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 144--149
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
 
  []
 
@@ -857,10 +882,101 @@ Underfull \hbox (badness 10000) in paragraph at lines 144--149
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 154.
+(babel)             in language  on input line 153.
  [4
 
 ] (./cic-tc.lof
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
 number indent by \l@... (lof, 1):  18.0pt
 text indent by \l@... (lof, 1):  27.60004pt
 number indent by parent (lof, 1):  18.0pt
@@ -874,13 +990,7 @@ number noindent (lof, 1): 0.0pt
 
  [5
 
-] (./cic-tc.lot)
-\tf@lot=\write5
-\openout5 = `cic-tc.lot'.
-
- [6
-
-] [7
+] [6
 
 ] (./cic-tc.toc
 number indent by \l@... (toc, 0):  0.0pt
@@ -890,27 +1000,6 @@ text indent calculated (toc, 0): 18.0pt
 number indent calculated (toc, 0): 0.0pt
 text noindent (toc, 0): 39.0pt
 number noindent (toc, 0): 0.0pt
-number indent by \l@... (toc, 1):  18.0pt
-text indent by \l@... (toc, 1):  27.60004pt
-number indent by parent (toc, 1):  18.0pt
-text indent calculated (toc, 1): 21.0pt
-number indent calculated (toc, 1): 18.0pt
-text noindent (toc, 1): 39.0pt
-number noindent (toc, 1): 0.0pt
-number indent by \l@... (toc, 1):  18.0pt
-text indent by \l@... (toc, 1):  27.60004pt
-number indent by parent (toc, 1):  18.0pt
-text indent calculated (toc, 1): 21.0pt
-number indent calculated (toc, 1): 18.0pt
-text noindent (toc, 1): 39.0pt
-number noindent (toc, 1): 0.0pt
-number indent by \l@... (toc, 1):  18.0pt
-text indent by \l@... (toc, 1):  27.60004pt
-number indent by parent (toc, 1):  18.0pt
-text indent calculated (toc, 1): 21.0pt
-number indent calculated (toc, 1): 18.0pt
-text noindent (toc, 1): 39.0pt
-number noindent (toc, 1): 0.0pt
 number indent by \l@... (toc, 0):  0.0pt
 text indent by \l@... (toc, 0):  18.0pt
 number indent by parent (toc, 0):  0.0pt
@@ -981,13 +1070,6 @@ text indent calculated (toc, 3): 39.0pt
 number indent calculated (toc, 3): 69.0pt
 text noindent (toc, 3): 39.0pt
 number noindent (toc, 3): 0.0pt
-number indent by \l@... (toc, 3):  84.0pt
-text indent by \l@... (toc, 3):  49.20007pt
-number indent by parent (toc, 3):  69.0pt
-text indent calculated (toc, 3): 39.0pt
-number indent calculated (toc, 3): 69.0pt
-text noindent (toc, 3): 39.0pt
-number noindent (toc, 3): 0.0pt
 number indent by \l@... (toc, 1):  18.0pt
 text indent by \l@... (toc, 1):  27.60004pt
 number indent by parent (toc, 1):  18.0pt
@@ -1016,13 +1098,13 @@ text indent calculated (toc, 3): 39.0pt
 number indent calculated (toc, 3): 69.0pt
 text noindent (toc, 3): 39.0pt
 number noindent (toc, 3): 0.0pt
-number indent by \l@... (toc, 3):  84.0pt
-text indent by \l@... (toc, 3):  49.20007pt
-number indent by parent (toc, 3):  69.0pt
-text indent calculated (toc, 3): 39.0pt
-number indent calculated (toc, 3): 69.0pt
-text noindent (toc, 3): 39.0pt
-number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 1):  18.0pt
+text indent by \l@... (toc, 1):  27.60004pt
+number indent by parent (toc, 1):  18.0pt
+text indent calculated (toc, 1): 21.0pt
+number indent calculated (toc, 1): 18.0pt
+text noindent (toc, 1): 39.0pt
+number noindent (toc, 1): 0.0pt
 number indent by \l@... (toc, 0):  0.0pt
 text indent by \l@... (toc, 0):  18.0pt
 number indent by parent (toc, 0):  0.0pt
@@ -1044,6 +1126,27 @@ text indent calculated (toc, 2): 30.0pt
 number indent calculated (toc, 2): 39.0pt
 text noindent (toc, 2): 39.0pt
 number noindent (toc, 2): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
 number indent by \l@... (toc, 2):  45.60004pt
 text indent by \l@... (toc, 2):  38.39996pt
 number indent by parent (toc, 2):  39.0pt
@@ -1065,6 +1168,55 @@ text indent calculated (toc, 3): 39.0pt
 number indent calculated (toc, 3): 69.0pt
 text noindent (toc, 3): 39.0pt
 number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 1):  18.0pt
+text indent by \l@... (toc, 1):  27.60004pt
+number indent by parent (toc, 1):  18.0pt
+text indent calculated (toc, 1): 21.0pt
+number indent calculated (toc, 1): 18.0pt
+text noindent (toc, 1): 39.0pt
+number noindent (toc, 1): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 3):  84.0pt
 text indent by \l@... (toc, 3):  49.20007pt
 number indent by parent (toc, 3):  69.0pt
@@ -1150,87 +1302,233 @@ number indent calculated (toc, 0): 0.0pt
 text noindent (toc, 0): 39.0pt
 number noindent (toc, 0): 0.0pt
 )
-\tf@toc=\write6
-\openout6 = `cic-tc.toc'.
+\tf@toc=\write5
+\openout5 = `cic-tc.toc'.
 
- (./chapters/introduction.tex [8
+ (./chapters/introduction.tex [7
 
-]
+]) (./chapters/definitions.tex
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 8
+ []
 
-Package hyperref Warning: Suppressing empty link on input line 2.
+[8
 
-) (./chapters/definitions.tex [9
+] [9
 
 ]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 10
  []
 
-[10
-
-] [11] <figures/entityscope.pdf, id=355, 191.87694pt x 103.85728pt>
+[10] <figures/entityscope.pdf, id=388, 191.87694pt x 103.85728pt>
 File: figures/entityscope.pdf Graphic file (type pdf)
 
 <use figures/entityscope.pdf>
-Package pdftex.def Info: figures/entityscope.pdf used on input line 49.
+Package pdftex.def Info: figures/entityscope.pdf used on input line 47.
 (pdftex.def)             Requested size: 191.87646pt x 103.85701pt.
-) (./chapters/development.tex
+ [11]
+<figures/advertisement.png, id=402, 694.595pt x 442.65375pt>
+File: figures/advertisement.png Graphic file (type png)
+
+<use figures/advertisement.png>
+Package pdftex.def Info: figures/advertisement.png used on input line 62.
+(pdftex.def)             Requested size: 347.29665pt x 221.32632pt.
+
+<figures/providers.png, id=405, 732.7375pt x 245.91875pt>
+File: figures/providers.png Graphic file (type png)
+
+<use figures/providers.png>
+Package pdftex.def Info: figures/providers.png used on input line 73.
+(pdftex.def)             Requested size: 366.36786pt x 122.95906pt.
+
+<figures/acknack.png, id=407, 578.16pt x 355.3275pt>
+File: figures/acknack.png Graphic file (type png)
+ <use figures/acknack.png>
+Package pdftex.def Info: figures/acknack.png used on input line 84.
+(pdftex.def)             Requested size: 289.07928pt x 177.6633pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 12
  []
 
-[12] [13]
+[12] <figures/ctxels.png, id=414, 617.30624pt x 302.12875pt>
+File: figures/ctxels.png Graphic file (type png)
+
+<use figures/ctxels.png>
+Package pdftex.def Info: figures/ctxels.png used on input line 96.
+(pdftex.def)             Requested size: 308.65236pt x 151.064pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13]) (./chapters/development.tex
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 14
  []
 
-[14 <./figures/entityscope.pdf>]) (./chapters/tests.tex [15
-
-])
-(./chapters/conclusion.tex
+[14] [15 <./figures/entityscope.pdf> <./figures/advertisement.png> <./figures/p
+roviders.png>]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 16
  []
 
-[16
+[16 <./figures/acknack.png (PNG copy)> <./figures/ctxels.png>]
+<figures/diagram.png, id=488, 493.845pt x 232.87pt>
+File: figures/diagram.png Graphic file (type png)
+ <use figures/diagram.png>
+Package pdftex.def Info: figures/diagram.png used on input line 30.
+(pdftex.def)             Requested size: 246.92189pt x 116.43471pt.
 
-]) (./cic-tc.bbl [17
+[17
 
 ]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 18
  []
 
-[18
+[18 <./figures/diagram.png>] [19]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 20
+ []
 
-]) 
+[20] [21]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 22
+ []
+
+[22] [23]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 24
+ []
+
+[24] [25] <figures/brokersystem.png, id=575, 383.4325pt x 362.35374pt>
+File: figures/brokersystem.png Graphic file (type png)
+
+<use figures/brokersystem.png>
+Package pdftex.def Info: figures/brokersystem.png used on input line 305.
+(pdftex.def)             Requested size: 191.71577pt x 181.17642pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./chapters/tests.tex
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 26
+ []
+
+[26] [27 <./figures/brokersystem.png>]
+<figures/broker.png, id=598, 1351.0475pt x 483.8075pt>
+File: figures/broker.png Graphic file (type png)
+
+<use figures/broker.png>
+Package pdftex.def Info: figures/broker.png used on input line 9.
+(pdftex.def)             Requested size: 270.20471pt x 96.75978pt.
+
+<figures/provider.png, id=599, 1319.93124pt x 763.85374pt>
+File: figures/provider.png Graphic file (type png)
+
+<use figures/provider.png>
+Package pdftex.def Info: figures/provider.png used on input line 17.
+(pdftex.def)             Requested size: 263.98157pt x 152.76804pt.
+
+<figures/consumer.png, id=600, 1319.93124pt x 772.8875pt>
+File: figures/consumer.png Graphic file (type png)
+
+<use figures/consumer.png>
+Package pdftex.def Info: figures/consumer.png used on input line 25.
+(pdftex.def)             Requested size: 263.98157pt x 154.57475pt.
+
+<figures/brokerprovs.png, id=601, 1351.0475pt x 475.7775pt>
+File: figures/brokerprovs.png Graphic file (type png)
+
+<use figures/brokerprovs.png>
+Package pdftex.def Info: figures/brokerprovs.png used on input line 33.
+(pdftex.def)             Requested size: 270.20471pt x 95.15381pt.
+
+<figures/registries.png, id=602, 1371.1225pt x 643.40375pt>
+File: figures/registries.png Graphic file (type png)
+
+<use figures/registries.png>
+Package pdftex.def Info: figures/registries.png used on input line 41.
+(pdftex.def)             Requested size: 274.21964pt x 128.67847pt.
+
+<figures/subscriptions.png, id=603, 1319.93124pt x 394.47375pt>
+File: figures/subscriptions.png Graphic file (type png)
+
+<use figures/subscriptions.png>
+Package pdftex.def Info: figures/subscriptions.png used on input line 49.
+(pdftex.def)             Requested size: 263.98157pt x 78.89334pt.
+
+<figures/log.png, id=604, 1317.92375pt x 669.50125pt>
+File: figures/log.png Graphic file (type png)
+ <use figures/log.png>
+Package pdftex.def Info: figures/log.png used on input line 57.
+(pdftex.def)             Requested size: 263.58008pt x 133.89787pt.
+)
+(./chapters/conclusion.tex
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 28
+ []
+
+[28
+
+] [29 <./figures/broker.png> <./figures/provider.png> <./figures/consumer.png> 
+<./figures/brokerprovs.png>]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 30
+ []
+
+[30 <./figures/registries.png> <./figures/subscriptions.png> <./figures/log.png
+>]) (./cic-tc.bbl [31
+
+]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 32
+ []
+
+[32
+
+]
+Underfull \hbox (badness 1062) in paragraph at lines 117--119
+[]\T1/ptm/m/n/12 JETBRAINS. \T1/ptm/b/n/12 Py-Charm - A Python IDE\T1/ptm/m/n/1
+2 . 2015. Avail-able at: 
+ []
+
+) 
 AED: lastpage setting LastPage
-[19]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 213.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 213.
+[33]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 212.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 212.
  (./cic-tc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 213.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 213.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 212.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 212.
 Package rerunfilecheck Info: File `cic-tc.out' has not changed.
-(rerunfilecheck)             Checksum: 8D727224C1DD0E761138617A7A9E29CF;7324.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 213.
+(rerunfilecheck)             Checksum: 4DEE1062FAE0F92B89DAC53ADA1EA759;8545.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 212.
  ) 
 Here is how much of TeX's memory you used:
- 16448 strings out of 495034
- 270473 string characters out of 6181677
- 328916 words of memory out of 5000000
- 19318 multiletter control sequences out of 15000+600000
- 25404 words of font info for 37 fonts, out of 8000000 for 9000
+ 17977 strings out of 495034
+ 292420 string characters out of 6181677
+ 351382 words of memory out of 5000000
+ 20753 multiletter control sequences out of 15000+600000
+ 22682 words of font info for 35 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 52i,7n,45p,10387b,583s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 52i,7n,45p,10387b,584s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmri8a.pfb>
-Output written on cic-tc.pdf (19 pages, 233474 bytes).
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a
+.pfb>
+Output written on cic-tc.pdf (33 pages, 803107 bytes).
 PDF statistics:
- 455 PDF objects out of 1000 (max. 8388607)
- 415 compressed objects within 5 object streams
- 90 named destinations out of 1000 (max. 500000)
- 358 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 696 PDF objects out of 1000 (max. 8388607)
+ 613 compressed objects within 7 object streams
+ 163 named destinations out of 1000 (max. 500000)
+ 463 words of extra memory for PDF output out of 10000 (max. 10000000)
 

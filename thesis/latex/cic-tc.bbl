@@ -23,10 +23,10 @@
 \textbf{International Journal of Ad Hoc and Ubiquitous Computing}, Inderscience
   Publishers, v.~2, n.~4, p. 263--277, 2007.}
 
-\bibitem[Barrera et al.]{barreradesign}
-\abntrefinfo{Barrera et al.}{BARRERA et al.}{}
+\bibitem[Barrera et al. 1998]{barreradesign}
+\abntrefinfo{Barrera et al.}{BARRERA et al.}{1998}
 {BARRERA, J. et al. The design and architecture of the microsoft cluster
-  service.}
+  service. In:  IEEE. [S.l.], 1998. p. 422--431.}
 
 \bibitem[Brown 1995]{brown1995stick}
 \abntrefinfo{Brown}{BROWN}{1995}
@@ -71,11 +71,34 @@ Tese (Doutorado) --- Georgia Institute of Technology, 2000.}
   Digest of Papers., First International Symposium on}. [S.l.], 1997. p.
   56--63.}
 
+\bibitem[Fielding e Taylor 2002]{fielding2002principled}
+\abntrefinfo{Fielding e Taylor}{FIELDING; TAYLOR}{2002}
+{FIELDING, R.~T.; TAYLOR, R.~N. Principled design of the modern web
+  architecture.
+\textbf{ACM Transactions on Internet Technology (TOIT)}, ACM, v.~2, n.~2, p.
+  115--150, 2002.}
+
+\bibitem[Flask 2015]{flask}
+\abntrefinfo{Flask}{FLASK}{2015}
+{FLASK. \textbf{Flask (A Python Microframework)}. 2015.
+Available at: $<$http://flask.pocoo.org$>$. Visited on July~2015.}
+
 \bibitem[Franklin e Flaschbart 1998]{franklin1998all}
 \abntrefinfo{Franklin e Flaschbart}{FRANKLIN; FLASCHBART}{1998}
 {FRANKLIN, D.; FLASCHBART, J. All gadget and no representation makes jack a
   dull environment. In:  \textbf{Proceedings of the AAAI 1998 Spring Symposium
   on Intelligent Environments}. [S.l.: s.n.], 1998. p. 155--160.}
+
+\bibitem[GitHub 2015]{github}
+\abntrefinfo{GitHub}{GITHUB}{2015}
+{GITHUB. \textbf{GitHub}. 2015.
+Available at: $<$https://github.com$>$. Visited on July~2015.}
+
+\bibitem[Google 2015]{protobuf}
+\abntrefinfo{Google}{GOOGLE}{2015}
+{GOOGLE. \textbf{Protocol Buffers}. 2015.
+Available at: $<$https://developers.google.com/protocol-buffers$>$. Visited on
+  July~2015.}
 
 \bibitem[Hull, Neaves e Bedford-Roberts 1997]{hull1997towards}
 \abntrefinfo{Hull, Neaves e Bedford-Roberts}{HULL; NEAVES;
@@ -84,11 +107,15 @@ Tese (Doutorado) --- Georgia Institute of Technology, 2000.}
   IEEE. \textbf{Wearable Computers, 1997. Digest of Papers., First
   International Symposium on}. [S.l.], 1997. p. 146--153.}
 
-\bibitem[Kian et al. 2010]{kian2010federated}
-\abntrefinfo{Kian et al.}{KIAN et al.}{2010}
-{KIAN, S.~L. et al. A federated broker architecture for large scale context
-  dissemination. In:  IEEE. \textbf{Computer and Information Technology (CIT),
-  2010 IEEE 10th International Conference on}. [S.l.], 2010. p. 2964--2969.}
+\bibitem[ICTGroup 2015]{ccast}
+\abntrefinfo{ICTGroup}{ICTGROUP}{2015}
+{ICTGROUP. \textbf{Project Context Casting}. 2015.
+Available at: $<$http://www.ict-ccast.eu/$>$. Visited on July~2015.}
+
+\bibitem[JetBrains 2015]{pycharm}
+\abntrefinfo{JetBrains}{JETBRAINS}{2015}
+{JETBRAINS. \textbf{PyCharm - A Python IDE}. 2015.
+Available at: $<$https://www.jetbrains.com/pycharm$>$. Visited on July~2015.}
 
 \bibitem[Knappmeyer et al. 2010]{knappmeyer2010contextml}
 \abntrefinfo{Knappmeyer et al.}{KNAPPMEYER et al.}{2010}
@@ -96,6 +123,16 @@ Tese (Doutorado) --- Georgia Institute of Technology, 2000.}
   context management schema. In:  IEEE. \textbf{Wireless Pervasive Computing
   (ISWPC), 2010 5th IEEE International Symposium on}. [S.l.], 2010. p.
   367--372.}
+
+\bibitem[OMG 2015]{uml}
+\abntrefinfo{OMG}{OMG}{2015}
+{OMG. \textbf{UML}. 2015.
+Available at: $<$http://www.uml.org$>$. Visited on July~2015.}
+
+\bibitem[Python 2015]{python}
+\abntrefinfo{Python}{PYTHON}{2015}
+{PYTHON. \textbf{Python Programming Language}. 2015.
+Available at: $<$http://www.python.org$>$. Visited on July~2015.}
 
 \bibitem[Rekimoto, Ayatsuka e Hayashi 1998]{rekimoto1998augment}
 \abntrefinfo{Rekimoto, Ayatsuka e Hayashi}{REKIMOTO; AYATSUKA; HAYASHI}{1998}
@@ -115,5 +152,10 @@ Tese (Doutorado) --- Georgia Institute of Technology, 2000.}
 {SKEEN, D. Nonblocking commit protocols. In:  ACM. \textbf{Proceedings of the
   1981 ACM SIGMOD international conference on Management of data}. [S.l.],
   1981. p. 133--142.}
+
+\bibitem[Twitter 2015]{bootstrap}
+\abntrefinfo{Twitter}{TWITTER}{2015}
+{TWITTER. \textbf{Bootstrap}. 2015.
+Available at: $<$http://getbootstrap.com/$>$. Visited on July~2015.}
 
 \end{thebibliography}
