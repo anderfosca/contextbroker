@@ -10,9 +10,21 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Entity and Scope relationship. Source: \cite {knappmeyer2010contextml}}}{15}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Provider Advertisement example message}}{15}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Providers Lookup example message}}{15}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces ACK and NACK example messages}}{16}{figure.2.4}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Context Element example messages (update)}}{16}{figure.2.5}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Entity and Scope relationship. Source: \cite {knappmeyer2010contextml}}}{14}{figure.2.1}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Architecture diagram}}{18}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Broker System for High Availability}}{27}{figure.3.2}
 \addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Broker Interface}}{29}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Provider Interface}}{29}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Consumer Interface}}{29}{figure.4.3}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Providers Table}}{29}{figure.4.4}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Registry Table - Context Information}}{30}{figure.4.5}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Subscriptions Table}}{30}{figure.4.6}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Broker Log}}{30}{figure.4.7}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

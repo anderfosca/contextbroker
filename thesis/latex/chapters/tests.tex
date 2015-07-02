@@ -1,9 +1,8 @@
 \chapter{Tests}
 \label{chap:tests}
-Bla.
+For this work, the Context Broker was implemented. A Broker management interface was created, it is shown in Figure \ref{fig:broker}. For testing this implementation, both a Provider and a Consumer interfaces were created, respectively illustrated on Figure \ref{fig:provider} and Figure \ref{fig:consumer}.
 
- 
-Figure \ref{fig:broker}. \par
+The Broker management interface allows a system manager to see the Providers registered in the Broker, shown in Figure \ref{fig:providers}, as well as the context information they have updated to it (Figure \ref{fig:registries}). The manager also has access to the Subscriptions made by Consumers and the \textbf{log} of the Broker system, both shown on Figure \ref{fig:subscriptions} and Figure \ref{fig:log}. \par
 
 \begin{figure}[H]
 	\centering
@@ -13,8 +12,6 @@ Figure \ref{fig:broker}. \par
 	
 \end{figure}
 
-Figure \ref{fig:provider}. \par
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{provider.png}
@@ -22,8 +19,6 @@ Figure \ref{fig:provider}. \par
 	\label{fig:provider}
 	
 \end{figure}
-
-Figure \ref{fig:consumer}. \par
 
 \begin{figure}[H]
 	\centering
@@ -33,8 +28,6 @@ Figure \ref{fig:consumer}. \par
 	
 \end{figure}
 
-Figure \ref{fig:brokerprovs}. \par
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{brokerprovs.png}
@@ -42,8 +35,6 @@ Figure \ref{fig:brokerprovs}. \par
 	\label{fig:brokerprovs}
 	
 \end{figure}
-
-Figure \ref{fig:registries}. \par
 
 \begin{figure}[H]
 	\centering
@@ -53,8 +44,6 @@ Figure \ref{fig:registries}. \par
 	
 \end{figure}
 
-Figure \ref{fig:subscriptions}. \par
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{subscriptions.png}
@@ -62,8 +51,6 @@ Figure \ref{fig:subscriptions}. \par
 	\label{fig:subscriptions}
 	
 \end{figure}
-
-Figure \ref{fig:log}. \par
 
 \begin{figure}[H]
 	\centering

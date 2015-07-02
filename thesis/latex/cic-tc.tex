@@ -40,6 +40,7 @@
 % \usepackage{mathptmx}       % p/ usar fonte Adobe Times nas fórmulas
 
 \usepackage[alf,abnt-emphasize=bf]{abntex2cite}	% pacote para usar citações abnt
+\newcommand\todo[1]{\textcolor{red}{#1}}
 
 %
 % Define o caminho (subpasta) onde você colocará os arquivos de imagem a serem incluídos no texto final
@@ -143,18 +144,15 @@
 
 % resumo na língua do documento
 \begin{abstract}
-    Este documento é um exemplo de como formatar documentos para o
-    Instituto de Informática da UFRGS usando as classes \LaTeX\
-    disponibilizadas pelo UTUG\@. Ao mesmo tempo, pode servir de consulta
-    para comandos mais genéricos. \emph{O texto do resumo não deve
-      conter mais do que 500 palavras.}
+    Context-aware computing is a new and broad area of research in Computer Science. Not many efforts are made towards specific solutions, including related to dependability and fault tolerance. This work aims at developing a Context Broker and proposing the addition of resources that give it High Availability characteristics, taking a first step towards a Dependable Broker.
 \end{abstract}
 
 % resumo na outra língua
 % como parametros devem ser passados o titulo e as palavras-chave
 % na outra língua, separadas por vírgulas
-\begin{englishabstract}{Desenvolvimento de Broker de Contexto com Recurso de Alta Disponibilidade}{Alta disponibilidade. Broker de contexto. Computação de context. Tolerância a Falhas}
-    Neste trabalho será definido e desenvolvido um Broker de Contexto, e posteriormente aplicada técnica de Tolerância à Falhas ao mesmo. Serão realizados testes para fins de comparação entre as soluções, e avaliações quando aplicadas a um ambiente crítico, onde a Tolerância à Falhas é fundamental.
+\begin{englishabstract}{Desenvolvimento de Broker de Contexto com Recurso de Alta Disponibilidade}{Alta disponibilidade. broker de contexto. computação de contexto. tolerância a Falhas}
+    Computação sensível a contexto é uma nova e ampla área de pesquisa na Ciência da Computação. Não são muitos os esforços em soluções específicas, inclusive as relacionadas à área de tolerância a falhas e confiabilidade.
+    Este trabalho tem como objetivo desenvolver um Broker de Contexto e propor a adição e recursos que o dêem características de alta disponibilidade, dando um primeiro passo em direção a um Broker Confiável(Dependable).
 \end{englishabstract}
 
 % lista de figuras
