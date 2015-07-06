@@ -1,10 +1,30 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
-\todo{...fill me...}
+This work introduces context and context-awareness concepts, for a better understanding of context-aware computing and how it is used. Concepts of Dependability and High Availability were also presented, to demonstrate how these are important in research and applicability. For the design of the high availability proposal in this work, Cluster-like systems behavior was part of the inspiration to find a design for the highly available Context Broker. The implementation of the Broker was presented, as with its interfaces and UML use cases description, for a better understanding of the functionality of the system. Simple tests were made, only to certify the well operating of the Context Broker. 
+In addition of that, a protocol for integrating high availability to the Context Broker was proposed. This protocol is based on existing nonblocking commit protocols, and given the description of it, is not very difficult to prototype.
+
+The goals of this work were successfully achieved. A Context Broker was developed following a previous definition, but with a different programming language (Python) and data storage mechanism (MongoDB). A different approach from \cite{crippa2010}, but resulting in the same system from the client's (Providers and Consumers) point of view. The proposed protocol was derived from existing solutions, giving it some basis on its viability. A prototype is the natural next step.
+
+
+
 
 \section{Future Work}
-Add security: https protocols, authentication method, types of data: public, provider authenticated, broker authenticated
+This work initiates a study on the development of a Dependable Broker, and naturally some future work is proposed.
 
-Make possible to add new Brokers while the others are running, introducing membership and consensus proble ms.
+\begin{description}
+	\item[Prototype for the proposed solution:] development of a prototype that implements the idea presented in this work and confirms its viability, as well as looking for an optimal time-out value for the messages between Brokers
+	
+	\item[Election of Broker] study of solutions to the election of a Broker to respond the request for another Broker that has failed, using or adapting existing protocols, for a better fit in the Broker system
+	
+	\item[Recovery algorithms] study of recovery algorithms, and how to implement them on the current Broker system
+	
+	\item[Security concerns:] use of HTTPS protocols, authentication method between Provider and Consumer through the Broker, types of data: public and private, requiring some kind of authentication for a Consumer to access this information
+	
+	\item[Scalability:] make possible the addition and removal of Brokers to the Broker system, without the need to stop or restart it, dealing with membership and consensus problems
+	
+	\item[Selective High Availability:] define classes of context data, regarding the need of high availability of those, making some type of data, e.g. location information with small time separation, not always highly available, what can spare some message exchanging, making the system faster
+	
+	\item[Dependability:] try to attend other Dependability characteristics, e.g. safety and correctness of service
 
-Aim for a Dependable Context Broker, adding more characteristics (reliability, safety)
+\end{description}
+

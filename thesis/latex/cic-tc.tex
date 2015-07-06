@@ -127,32 +127,47 @@
 \maketitle
 
 % dedicatoria
-% \clearpage
-% \begin{flushright}
-%     \mbox{}\vfill
-%     {\sffamily\itshape
-%       ``If I have seen farther than others,\\
-%       it is because I stood on the shoulders of giants.''\\}
-%     --- \textsc{Sir~Isaac Newton}
-% \end{flushright}
+ \clearpage
+ \begin{flushright}
+     \mbox{}\vfill
+     {\sffamily\itshape
+       ``The true sign of intelligence is not knowledge,\\ 
+       but imagination.''\\}
+     --- \textsc{Albert Einstein}
+ \end{flushright}
 
 % agradecimentos
-%\chapter*{Agradecimentos}
-%Agradeço ao \LaTeX\ por não ter vírus de macro\ldots
+\chapter*{Acknowledgements}
+I would like to express my very great appreciation to both my advisors, for the patience and kindness on the journey of getting this work done.
 
+Special thanks to my parents, for all the support they gave me throughout the years, always providing the best conditions for my living. I surely know how lucky I am, and I value it every day. I wouldn't be here if it wasn't for you.
 
+I am particularly grateful for the good moments and the assistance given by my brother during the years, both computer and life related, specially in the final days of this work.
+
+I must save a little space to thank all my friends, the old and the new ones, who made the last 7 years of my life very pleasant. A special thanks to those who picked up on me so I would focus and finish this work.
+
+I would like to thank UFRGS and the Informatics Institute, for the excellence on learning and research, being the best computer science course in the country for many years, and having international recognition.. This is where I met great professors from whom I learned not only the theory and application of computer science, but also lessons in life. It was surely a great honor to grow both academically and personally inside this great atmosphere, and if I ever decide to continue my studies, this is a p
+
+And finally thank you, for reading this. I hope you have a good time.
 
 % resumo na língua do documento
 \begin{abstract}
-    Context-aware computing is a new and broad area of research in Computer Science. Not many efforts are made towards specific solutions, including related to dependability and fault tolerance. This work aims at developing a Context Broker and proposing the addition of resources that give it High Availability characteristics, taking a first step towards a Dependable Broker.
+    
+    \emph{Context is everywhere}. From a mobile phone in a person's pocket to a temperature sensor in the middle of a forest. Context data can be used to help determine the importance of information and services on an environment, and decide whether to make them available to users or not, and how to process them. Applications that use context are called context-aware. With today's large offer of sensing technologies, and the presence of various kinds of sensors in every mobile phone, it has become easier and more useful to sense context in several situations. The use of context data has become a very powerful tool of personalizing interaction with users and the behavior of systems. By improving the computer's access to context, the richness of communication in human-computer interaction and the presence of more useful computational services can be increased.
+    
+    Context-aware computing is a new and broad area of research. Although its wide range of applicability, not many efforts are made towards specific solutions, including ones related to dependability and fault tolerance. 
+    
+    This work's main objective is to develop a Context Broker following a previous definition, on a different platform, and to propose a way to add a resource that gives the Broker High Availability characteristics, taking a first step towards the development of a Dependable Context Broker.
 \end{abstract}
 
 % resumo na outra língua
 % como parametros devem ser passados o titulo e as palavras-chave
 % na outra língua, separadas por vírgulas
 \begin{englishabstract}{Desenvolvimento de Broker de Contexto com Recurso de Alta Disponibilidade}{Alta disponibilidade. broker de contexto. computação de contexto. tolerância a Falhas}
-    Computação sensível a contexto é uma nova e ampla área de pesquisa na Ciência da Computação. Não são muitos os esforços em soluções específicas, inclusive as relacionadas à área de tolerância a falhas e confiabilidade.
-    Este trabalho tem como objetivo desenvolver um Broker de Contexto e propor a adição e recursos que o dêem características de alta disponibilidade, dando um primeiro passo em direção a um Broker Confiável(Dependable).
+    \emph{Contexto está em todo lugar}. De um telefone celular no bolso de uma pessoa à um sensor de temperatura no meio de uma floresta. Dados de contexto podem ser usados para auxiliar na definição da importância de informações e serviços em um ambiente, e decidir se as torna disponíveis ao usuário ou não, e como pode processá-las. Aplicações que usam contexto são chamadas sensíveis ao contexto. Com a atual grande oferta de tecnologias sensoriais, e a presença de vários tipos de sensores em cada telefone celular, têm se tornado mais fácil e prático captar contexto em diversas situações. O uso de informações de contexto se tornou uma ferramenta poderosa para personalizar a interação com usuários e o comportamento de sistemas. Ao melhorar-se o acesso de um computador ao contexto, aumenta-se a riqueza das comunicações em interações humano-computador e a presença de serviços computacionais mais úteis.
+    
+    Computação sensível a contexto é uma nova e ampla área de pesquisa. Não são muitos os esforços em soluções específicas, inclusive as relacionadas à área de tolerância a falhas e confiabilidade.
+    Este trabalho tem como objetivo desenvolver um Broker de Contexto e propor a adição e recursos que o dêem características de alta disponibilidade, dando um primeiro passo em direção ao desenvolvimento de um Broker de Contexto  Confiável (Dependable).
 \end{englishabstract}
 
 % lista de figuras
@@ -168,6 +183,10 @@
     \item[CxC] Context Consumer
     \item[CxP] Context Provider
     \item[REST] Representational State Transfer
+    \item[HTTP] Hyper-Text Transfer Protocol
+    \item[UFRGS] Universidade Federal do Rio Grande do Sul
+    \item[TU-KL] Technische Universität Kaiserslautern
+    
 \end{listofabbrv}
 
 % idem para a lista de símbolos

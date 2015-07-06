@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2015.6.29)  2 JUL 2015 10:27
+This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2015.6.29)  6 JUL 2015 04:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -874,18 +874,86 @@ LaTeX Info: Redefining \nameref on input line 121.
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 147--148
+LaTeX Font Info:    Try loading font information for T1+phv on input line 133.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 133.
+ [3
+
+] [4
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
 
  []
 
-[3
+[5
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 153.
- [4
+(babel)             in language  on input line 166.
+ [6
 
 ] (./cic-tc.lof
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
+number indent by \l@... (lof, 1):  18.0pt
+text indent by \l@... (lof, 1):  27.60004pt
+number indent by parent (lof, 1):  18.0pt
+text indent calculated (lof, 1): 21.0pt
+number indent calculated (lof, 1): 18.0pt
+text noindent (lof, 1): 21.0pt
+number noindent (lof, 1): 0.0pt
 number indent by \l@... (lof, 1):  18.0pt
 text indent by \l@... (lof, 1):  27.60004pt
 number indent by parent (lof, 1):  18.0pt
@@ -988,9 +1056,9 @@ number noindent (lof, 1): 0.0pt
 \tf@lof=\write4
 \openout4 = `cic-tc.lof'.
 
- [5
+ [7
 
-] [6
+] [8
 
 ] (./cic-tc.toc
 number indent by \l@... (toc, 0):  0.0pt
@@ -1070,6 +1138,13 @@ text indent calculated (toc, 3): 39.0pt
 number indent calculated (toc, 3): 69.0pt
 text noindent (toc, 3): 39.0pt
 number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 1):  18.0pt
 text indent by \l@... (toc, 1):  27.60004pt
 number indent by parent (toc, 1):  18.0pt
@@ -1077,6 +1152,13 @@ text indent calculated (toc, 1): 21.0pt
 number indent calculated (toc, 1): 18.0pt
 text noindent (toc, 1): 39.0pt
 number noindent (toc, 1): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 2):  45.60004pt
 text indent by \l@... (toc, 2):  38.39996pt
 number indent by parent (toc, 2):  39.0pt
@@ -1098,13 +1180,13 @@ text indent calculated (toc, 3): 39.0pt
 number indent calculated (toc, 3): 69.0pt
 text noindent (toc, 3): 39.0pt
 number noindent (toc, 3): 0.0pt
-number indent by \l@... (toc, 1):  18.0pt
-text indent by \l@... (toc, 1):  27.60004pt
-number indent by parent (toc, 1):  18.0pt
-text indent calculated (toc, 1): 21.0pt
-number indent calculated (toc, 1): 18.0pt
-text noindent (toc, 1): 39.0pt
-number noindent (toc, 1): 0.0pt
+number indent by \l@... (toc, 3):  84.0pt
+text indent by \l@... (toc, 3):  49.20007pt
+number indent by parent (toc, 3):  69.0pt
+text indent calculated (toc, 3): 39.0pt
+number indent calculated (toc, 3): 69.0pt
+text noindent (toc, 3): 39.0pt
+number noindent (toc, 3): 0.0pt
 number indent by \l@... (toc, 0):  0.0pt
 text indent by \l@... (toc, 0):  18.0pt
 number indent by parent (toc, 0):  0.0pt
@@ -1161,6 +1243,13 @@ text indent calculated (toc, 2): 30.0pt
 number indent calculated (toc, 2): 39.0pt
 text noindent (toc, 2): 39.0pt
 number noindent (toc, 2): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 3):  84.0pt
 text indent by \l@... (toc, 3):  49.20007pt
 number indent by parent (toc, 3):  69.0pt
@@ -1245,6 +1334,13 @@ text indent calculated (toc, 3): 39.0pt
 number indent calculated (toc, 3): 69.0pt
 text noindent (toc, 3): 39.0pt
 number noindent (toc, 3): 0.0pt
+number indent by \l@... (toc, 2):  45.60004pt
+text indent by \l@... (toc, 2):  38.39996pt
+number indent by parent (toc, 2):  39.0pt
+text indent calculated (toc, 2): 30.0pt
+number indent calculated (toc, 2): 39.0pt
+text noindent (toc, 2): 39.0pt
+number noindent (toc, 2): 0.0pt
 number indent by \l@... (toc, 1):  18.0pt
 text indent by \l@... (toc, 1):  27.60004pt
 number indent by parent (toc, 1):  18.0pt
@@ -1305,230 +1401,360 @@ number noindent (toc, 0): 0.0pt
 \tf@toc=\write5
 \openout5 = `cic-tc.toc'.
 
- (./chapters/introduction.tex [7
-
-]) (./chapters/definitions.tex
-Underfull \hbox (badness 10000) has occurred while \output is active
-\T1/ptm/m/n/10.95 8
- []
-
-[8
-
-] [9
+ (./chapters/introduction.tex [9
 
 ]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 10
  []
 
-[10] <figures/entityscope.pdf, id=388, 191.87694pt x 103.85728pt>
-File: figures/entityscope.pdf Graphic file (type pdf)
+[10
 
-<use figures/entityscope.pdf>
-Package pdftex.def Info: figures/entityscope.pdf used on input line 47.
-(pdftex.def)             Requested size: 191.87646pt x 103.85701pt.
- [11]
-<figures/advertisement.png, id=402, 694.595pt x 442.65375pt>
-File: figures/advertisement.png Graphic file (type png)
+]
+Overfull \hbox (3.98885pt too wide) in paragraph at lines 22--23
+[]\T1/ptm/m/n/12 This work fol-lows a pre-vi-ous work done at UFRGS in co-op-er
+-a-tion with TU-KL ([][]CRIPPA[][],
+ []
 
-<use figures/advertisement.png>
-Package pdftex.def Info: figures/advertisement.png used on input line 62.
-(pdftex.def)             Requested size: 347.29665pt x 221.32632pt.
-
-<figures/providers.png, id=405, 732.7375pt x 245.91875pt>
-File: figures/providers.png Graphic file (type png)
-
-<use figures/providers.png>
-Package pdftex.def Info: figures/providers.png used on input line 73.
-(pdftex.def)             Requested size: 366.36786pt x 122.95906pt.
-
-<figures/acknack.png, id=407, 578.16pt x 355.3275pt>
-File: figures/acknack.png Graphic file (type png)
- <use figures/acknack.png>
-Package pdftex.def Info: figures/acknack.png used on input line 84.
-(pdftex.def)             Requested size: 289.07928pt x 177.6633pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
+) (./chapters/definitions.tex [11]
+Overfull \hbox (29.27711pt too wide) in paragraph at lines 13--14
+\T1/ptm/m/n/12 MOTO; AY-AT-SUKA; HAYASHI[][], [][]1998[][]) and environment-dir
+ected ([][]FICKAS; KO-RTUEM; SEGALL[][],
+ []
 
 
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 12
  []
 
-[12] <figures/ctxels.png, id=414, 617.30624pt x 302.12875pt>
-File: figures/ctxels.png Graphic file (type png)
+[12
 
-<use figures/ctxels.png>
-Package pdftex.def Info: figures/ctxels.png used on input line 96.
-(pdftex.def)             Requested size: 308.65236pt x 151.064pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[13]) (./chapters/development.tex
+] [13]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 14
  []
 
-[14] [15 <./figures/entityscope.pdf> <./figures/advertisement.png> <./figures/p
-roviders.png>]
+[14] <figures/entityscope.pdf, id=474, 191.87694pt x 103.85728pt>
+File: figures/entityscope.pdf Graphic file (type pdf)
+
+<use figures/entityscope.pdf>
+Package pdftex.def Info: figures/entityscope.pdf used on input line 47.
+(pdftex.def)             Requested size: 191.87646pt x 103.85701pt.
+
+<figures/advertisement.png, id=480, 694.595pt x 442.65375pt>
+File: figures/advertisement.png Graphic file (type png)
+
+<use figures/advertisement.png>
+Package pdftex.def Info: figures/advertisement.png used on input line 63.
+(pdftex.def)             Requested size: 347.29665pt x 221.32632pt.
+
+<figures/providers.png, id=483, 732.7375pt x 245.91875pt>
+File: figures/providers.png Graphic file (type png)
+
+<use figures/providers.png>
+Package pdftex.def Info: figures/providers.png used on input line 74.
+(pdftex.def)             Requested size: 366.36786pt x 122.95906pt.
+ [15 <./figures/entityscope.pdf>]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 16
  []
 
-[16 <./figures/acknack.png (PNG copy)> <./figures/ctxels.png>]
-<figures/diagram.png, id=488, 493.845pt x 232.87pt>
-File: figures/diagram.png Graphic file (type png)
- <use figures/diagram.png>
-Package pdftex.def Info: figures/diagram.png used on input line 30.
-(pdftex.def)             Requested size: 246.92189pt x 116.43471pt.
+[16 <./figures/advertisement.png> <./figures/providers.png>]
+<figures/acknack.png, id=519, 578.16pt x 355.3275pt>
+File: figures/acknack.png Graphic file (type png)
+ <use figures/acknack.png>
+Package pdftex.def Info: figures/acknack.png used on input line 85.
+(pdftex.def)             Requested size: 289.07928pt x 177.6633pt.
 
-[17
+<figures/ctxels.png, id=521, 617.30624pt x 302.12875pt>
+File: figures/ctxels.png Graphic file (type png)
 
-]
+<use figures/ctxels.png>
+Package pdftex.def Info: figures/ctxels.png used on input line 97.
+(pdftex.def)             Requested size: 308.65236pt x 151.064pt.
+ [17 <./figures/acknack.png (PNG copy)>]
+<figures/contextdatadiagram.png, id=527, 437.635pt x 310.15875pt>
+File: figures/contextdatadiagram.png Graphic file (type png)
+
+<use figures/contextdatadiagram.png>
+Package pdftex.def Info: figures/contextdatadiagram.png used on input line 112.
+
+(pdftex.def)             Requested size: 218.81696pt x 155.079pt.
+
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 18
  []
 
-[18 <./figures/diagram.png>] [19]
+[18 <./figures/ctxels.png> <./figures/contextdatadiagram.png>] [19]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 20
  []
 
-[20] [21]
+[20]) (./chapters/development.tex [21]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 22
  []
 
-[22] [23]
+[22
+
+]
+Overfull \hbox (1.51678pt too wide) in paragraph at lines 23--24
+[]\T1/ptm/m/n/12 MongoDB is a document-oriented database, clas-si-fied as NoSQL
+. It uses a key-document
+ []
+
+<figures/diagram.png, id=626, 493.845pt x 232.87pt>
+File: figures/diagram.png Graphic file (type png)
+ <use figures/diagram.png>
+Package pdftex.def Info: figures/diagram.png used on input line 31.
+(pdftex.def)             Requested size: 246.92189pt x 116.43471pt.
+
+<figures/collectionsdiagram.png, id=628, 611.28375pt x 352.31625pt>
+File: figures/collectionsdiagram.png Graphic file (type png)
+
+<use figures/collectionsdiagram.png>
+Package pdftex.def Info: figures/collectionsdiagram.png used on input line 43.
+(pdftex.def)             Requested size: 305.64113pt x 176.15768pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[23 <./figures/diagram.png>]
 Underfull \hbox (badness 10000) has occurred while \output is active
 \T1/ptm/m/n/10.95 24
  []
 
-[24] [25] <figures/brokersystem.png, id=575, 383.4325pt x 362.35374pt>
+[24 <./figures/collectionsdiagram.png>] [25]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 26
+ []
+
+[26] [27]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 28
+ []
+
+[28] [29]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 30
+ []
+
+[30] [31] <figures/usecases.png, id=717, 523.9575pt x 342.27875pt>
+File: figures/usecases.png Graphic file (type png)
+
+<use figures/usecases.png>
+Package pdftex.def Info: figures/usecases.png used on input line 312.
+(pdftex.def)             Requested size: 261.9781pt x 171.13895pt.
+
+<figures/register.png, id=718, 364.36125pt x 108.405pt>
+File: figures/register.png Graphic file (type png)
+
+<use figures/register.png>
+Package pdftex.def Info: figures/register.png used on input line 321.
+(pdftex.def)             Requested size: 182.18018pt x 54.20236pt.
+
+<figures/lookup.png, id=719, 482.80376pt x 209.78375pt>
+File: figures/lookup.png Graphic file (type png)
+
+<use figures/lookup.png>
+Package pdftex.def Info: figures/lookup.png used on input line 330.
+(pdftex.def)             Requested size: 241.40129pt x 104.8916pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/subscribe.png, id=720, 482.80376pt x 209.78375pt>
+File: figures/subscribe.png Graphic file (type png)
+
+<use figures/subscribe.png>
+Package pdftex.def Info: figures/subscribe.png used on input line 339.
+(pdftex.def)             Requested size: 241.40129pt x 104.8916pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/contextdata.png, id=721, 491.8375pt x 315.1775pt>
+File: figures/contextdata.png Graphic file (type png)
+
+<use figures/contextdata.png>
+Package pdftex.def Info: figures/contextdata.png used on input line 348.
+(pdftex.def)             Requested size: 245.91814pt x 157.58836pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 32
+ []
+
+[32 <./figures/usecases.png> <./figures/register.png>] [33 <./figures/lookup.pn
+g> <./figures/subscribe.png>]
+<figures/brokersystem.png, id=741, 383.4325pt x 362.35374pt>
 File: figures/brokersystem.png Graphic file (type png)
 
 <use figures/brokersystem.png>
-Package pdftex.def Info: figures/brokersystem.png used on input line 305.
+Package pdftex.def Info: figures/brokersystem.png used on input line 376.
 (pdftex.def)             Requested size: 191.71577pt x 181.17642pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (./chapters/tests.tex
+
 Underfull \hbox (badness 10000) has occurred while \output is active
-\T1/ptm/m/n/10.95 26
+\T1/ptm/m/n/10.95 34
  []
 
-[26] [27 <./figures/brokersystem.png>]
-<figures/broker.png, id=598, 1351.0475pt x 483.8075pt>
-File: figures/broker.png Graphic file (type png)
+[34 <./figures/contextdata.png>] [35 <./figures/brokersystem.png>]
+<figures/protocoldiagram.png, id=758, 983.675pt x 795.97375pt>
+File: figures/protocoldiagram.png Graphic file (type png)
 
-<use figures/broker.png>
-Package pdftex.def Info: figures/broker.png used on input line 9.
-(pdftex.def)             Requested size: 270.20471pt x 96.75978pt.
+<use figures/protocoldiagram.png>
+Package pdftex.def Info: figures/protocoldiagram.png used on input line 403.
+(pdftex.def)             Requested size: 393.46303pt x 318.38387pt.
 
-<figures/provider.png, id=599, 1319.93124pt x 763.85374pt>
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 36
+ []
+
+[36 <./figures/protocoldiagram.png>]) (./chapters/tests.tex [37]
+<broker.png, id=779, 1351.0475pt x 483.8075pt>
+File: broker.png Graphic file (type png)
+ <use broker.png>
+Package pdftex.def Info: broker.png used on input line 16.
+(pdftex.def)             Requested size: 405.31738pt x 145.14337pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/provider.png, id=780, 1319.93124pt x 763.85374pt>
 File: figures/provider.png Graphic file (type png)
 
 <use figures/provider.png>
-Package pdftex.def Info: figures/provider.png used on input line 17.
-(pdftex.def)             Requested size: 263.98157pt x 152.76804pt.
+Package pdftex.def Info: figures/provider.png used on input line 24.
+(pdftex.def)             Requested size: 395.98242pt x 229.15788pt.
 
-<figures/consumer.png, id=600, 1319.93124pt x 772.8875pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/consumer.png, id=781, 1319.93124pt x 772.8875pt>
 File: figures/consumer.png Graphic file (type png)
 
 <use figures/consumer.png>
-Package pdftex.def Info: figures/consumer.png used on input line 25.
-(pdftex.def)             Requested size: 263.98157pt x 154.57475pt.
+Package pdftex.def Info: figures/consumer.png used on input line 32.
+(pdftex.def)             Requested size: 395.98242pt x 231.86803pt.
 
-<figures/brokerprovs.png, id=601, 1351.0475pt x 475.7775pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/brokerprovs.png, id=782, 1351.0475pt x 475.7775pt>
 File: figures/brokerprovs.png Graphic file (type png)
 
 <use figures/brokerprovs.png>
-Package pdftex.def Info: figures/brokerprovs.png used on input line 33.
-(pdftex.def)             Requested size: 270.20471pt x 95.15381pt.
+Package pdftex.def Info: figures/brokerprovs.png used on input line 40.
+(pdftex.def)             Requested size: 405.31738pt x 142.73434pt.
 
-<figures/registries.png, id=602, 1371.1225pt x 643.40375pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/registries.png, id=783, 1371.1225pt x 643.40375pt>
 File: figures/registries.png Graphic file (type png)
 
 <use figures/registries.png>
-Package pdftex.def Info: figures/registries.png used on input line 41.
-(pdftex.def)             Requested size: 274.21964pt x 128.67847pt.
+Package pdftex.def Info: figures/registries.png used on input line 48.
+(pdftex.def)             Requested size: 411.33992pt x 193.02261pt.
 
-<figures/subscriptions.png, id=603, 1319.93124pt x 394.47375pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/subscriptions.png, id=784, 1319.93124pt x 394.47375pt>
 File: figures/subscriptions.png Graphic file (type png)
 
 <use figures/subscriptions.png>
-Package pdftex.def Info: figures/subscriptions.png used on input line 49.
-(pdftex.def)             Requested size: 263.98157pt x 78.89334pt.
+Package pdftex.def Info: figures/subscriptions.png used on input line 56.
+(pdftex.def)             Requested size: 395.98242pt x 118.34303pt.
 
-<figures/log.png, id=604, 1317.92375pt x 669.50125pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/log.png, id=785, 1317.92375pt x 669.50125pt>
 File: figures/log.png Graphic file (type png)
  <use figures/log.png>
-Package pdftex.def Info: figures/log.png used on input line 57.
-(pdftex.def)             Requested size: 263.58008pt x 133.89787pt.
-)
-(./chapters/conclusion.tex
+Package pdftex.def Info: figures/log.png used on input line 64.
+(pdftex.def)             Requested size: 395.38017pt x 200.85191pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./chapters/conclusion.tex
 Underfull \hbox (badness 10000) has occurred while \output is active
-\T1/ptm/m/n/10.95 28
+\T1/ptm/m/n/10.95 38
  []
 
-[28
+[38
 
-] [29 <./figures/broker.png> <./figures/provider.png> <./figures/consumer.png> 
-<./figures/brokerprovs.png>]
+] [39 <./broker.png> <./figures/provider.png> <./figures/consumer.png>]
 Underfull \hbox (badness 10000) has occurred while \output is active
-\T1/ptm/m/n/10.95 30
+\T1/ptm/m/n/10.95 40
  []
 
-[30 <./figures/registries.png> <./figures/subscriptions.png> <./figures/log.png
->]) (./cic-tc.bbl [31
+[40 <./figures/brokerprovs.png> <./figures/registries.png> <./figures/subscript
+ions.png>] [41 <./figures/log.png>]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 42
+ []
+
+[42
+
+]) (./cic-tc.bbl [43]
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 44
+ []
+
+[44
 
 ]
-Underfull \hbox (badness 10000) has occurred while \output is active
-\T1/ptm/m/n/10.95 32
- []
-
-[32
-
-]
-Underfull \hbox (badness 1062) in paragraph at lines 117--119
+Underfull \hbox (badness 1062) in paragraph at lines 137--139
 []\T1/ptm/m/n/12 JETBRAINS. \T1/ptm/b/n/12 Py-Charm - A Python IDE\T1/ptm/m/n/1
 2 . 2015. Avail-able at: 
  []
 
-) 
+[45]) 
 AED: lastpage setting LastPage
-[33]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 212.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 212.
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+\T1/ptm/m/n/10.95 46
+ []
+
+[46]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
  (./cic-tc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 212.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 212.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 231.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
 Package rerunfilecheck Info: File `cic-tc.out' has not changed.
-(rerunfilecheck)             Checksum: 4DEE1062FAE0F92B89DAC53ADA1EA759;8545.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 212.
+(rerunfilecheck)             Checksum: B73E980B489637FE7F4C06F41A928D70;9916.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 231.
  ) 
 Here is how much of TeX's memory you used:
- 17977 strings out of 495034
- 292420 string characters out of 6181677
- 351382 words of memory out of 5000000
- 20753 multiletter control sequences out of 15000+600000
- 22682 words of font info for 35 fonts, out of 8000000 for 9000
+ 18197 strings out of 495034
+ 296751 string characters out of 6181677
+ 355636 words of memory out of 5000000
+ 20914 multiletter control sequences out of 15000+600000
+ 32650 words of font info for 40 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 52i,7n,45p,10387b,584s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 52i,7n,45p,10387b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
-w/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a
-.pfb>
-Output written on cic-tc.pdf (33 pages, 803107 bytes).
+f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
+imes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on cic-tc.pdf (46 pages, 1038825 bytes).
 PDF statistics:
- 696 PDF objects out of 1000 (max. 8388607)
- 613 compressed objects within 7 object streams
- 163 named destinations out of 1000 (max. 500000)
- 463 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 907 PDF objects out of 1000 (max. 8388607)
+ 794 compressed objects within 8 object streams
+ 206 named destinations out of 1000 (max. 500000)
+ 543 words of extra memory for PDF output out of 10000 (max. 10000000)
 

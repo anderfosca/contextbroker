@@ -17,6 +17,12 @@
 \textbf{Dependable and Secure Computing, IEEE Transactions on}, IEEE, v.~1,
   n.~1, p. 11--33, 2004.}
 
+\bibitem[Azagury et al. 1994]{azagury1994highly}
+\abntrefinfo{Azagury et al.}{AZAGURY et al.}{1994}
+{AZAGURY, A. et al. Highly available cluster: A case study. In:  IEEE.
+  \textbf{Fault-Tolerant Computing, 1994. FTCS-24. Digest of Papers.,
+  Twenty-Fourth International Symposium on}. [S.l.], 1994. p. 404--413.}
+
 \bibitem[Baldauf, Dustdar e Rosenberg 2007]{baldauf2007survey}
 \abntrefinfo{Baldauf, Dustdar e Rosenberg}{BALDAUF; DUSTDAR; ROSENBERG}{2007}
 {BALDAUF, M.; DUSTDAR, S.; ROSENBERG, F. A survey on context-aware systems.
@@ -27,6 +33,11 @@
 \abntrefinfo{Barrera et al.}{BARRERA et al.}{1998}
 {BARRERA, J. et al. The design and architecture of the microsoft cluster
   service. In:  IEEE. [S.l.], 1998. p. 422--431.}
+
+\bibitem[Bittner 2002]{bittner2002use}
+\abntrefinfo{Bittner}{BITTNER}{2002}
+{BITTNER, K. \textbf{Use case modeling}. [S.l.]: Addison-Wesley Longman
+  Publishing Co., Inc., 2002.}
 
 \bibitem[Brown 1995]{brown1995stick}
 \abntrefinfo{Brown}{BROWN}{1995}
@@ -52,6 +63,12 @@
 {CRIPPA, M.~R. \textbf{Design and implementation of a broker for a
   service-oriented context management and distribution architecture}. 2010.}
 
+\bibitem[Cristian 1991]{cristian1991reaching}
+\abntrefinfo{Cristian}{CRISTIAN}{1991}
+{CRISTIAN, F. Reaching agreement on processor-group membrship in synchronous
+  distributed systems.
+\textbf{Distributed Computing}, Springer, v.~4, n.~4, p. 175--187, 1991.}
+
 \bibitem[Dey 2000]{dey2000providing}
 \abntrefinfo{Dey}{DEY}{2000}
 {DEY, A.~K.
@@ -64,19 +81,18 @@ Tese (Doutorado) --- Georgia Institute of Technology, 2000.}
 {ELROD, S. et al. Responsive office environments.
 \textbf{Communications of the ACM}, ACM, v.~36, n.~7, p. 84--85, 1993.}
 
+\bibitem[Engelmann e Scott 2005]{engelmann2005concepts}
+\abntrefinfo{Engelmann e Scott}{ENGELMANN; SCOTT}{2005}
+{ENGELMANN, C.; SCOTT, S.~L. Concepts for high availability in scientific
+  high-end computing. In:  \textbf{Proceedings of High Availability and
+  Performance Workshop (HAPCW)}. [S.l.: s.n.], 2005.}
+
 \bibitem[Fickas, Kortuem e Segall 1997]{fickas1997software}
 \abntrefinfo{Fickas, Kortuem e Segall}{FICKAS; KORTUEM; SEGALL}{1997}
 {FICKAS, S.; KORTUEM, G.; SEGALL, Z. Software organization for dynamic and
   adaptable wearable systems. In:  IEEE. \textbf{Wearable Computers, 1997.
   Digest of Papers., First International Symposium on}. [S.l.], 1997. p.
   56--63.}
-
-\bibitem[Fielding e Taylor 2002]{fielding2002principled}
-\abntrefinfo{Fielding e Taylor}{FIELDING; TAYLOR}{2002}
-{FIELDING, R.~T.; TAYLOR, R.~N. Principled design of the modern web
-  architecture.
-\textbf{ACM Transactions on Internet Technology (TOIT)}, ACM, v.~2, n.~2, p.
-  115--150, 2002.}
 
 \bibitem[Flask 2015]{flask}
 \abntrefinfo{Flask}{FLASK}{2015}
@@ -94,11 +110,11 @@ Available at: $<$http://flask.pocoo.org$>$. Visited on July~2015.}
 {GITHUB. \textbf{GitHub}. 2015.
 Available at: $<$https://github.com$>$. Visited on July~2015.}
 
-\bibitem[Google 2015]{protobuf}
-\abntrefinfo{Google}{GOOGLE}{2015}
-{GOOGLE. \textbf{Protocol Buffers}. 2015.
-Available at: $<$https://developers.google.com/protocol-buffers$>$. Visited on
-  July~2015.}
+\bibitem[Guerraoui 2002]{guerraoui2002non}
+\abntrefinfo{Guerraoui}{GUERRAOUI}{2002}
+{GUERRAOUI, R. Non-blocking atomic commit in asynchronous distributed systems
+  with failure detectors.
+\textbf{Distributed Computing}, Springer, v.~15, n.~1, p. 17--25, 2002.}
 
 \bibitem[Hull, Neaves e Bedford-Roberts 1997]{hull1997towards}
 \abntrefinfo{Hull, Neaves e Bedford-Roberts}{HULL; NEAVES;
@@ -112,10 +128,20 @@ Available at: $<$https://developers.google.com/protocol-buffers$>$. Visited on
 {ICTGROUP. \textbf{Project Context Casting}. 2015.
 Available at: $<$http://www.ict-ccast.eu/$>$. Visited on July~2015.}
 
+\bibitem[Jakl 2005]{jakl2005representational}
+\abntrefinfo{Jakl}{JAKL}{2005}
+{JAKL, M. \textbf{Representational State Transfer}. [S.l.]: Citeseer, 2005.}
+
 \bibitem[JetBrains 2015]{pycharm}
 \abntrefinfo{JetBrains}{JETBRAINS}{2015}
 {JETBRAINS. \textbf{PyCharm - A Python IDE}. 2015.
 Available at: $<$https://www.jetbrains.com/pycharm$>$. Visited on July~2015.}
+
+\bibitem[Kian et al. 2010]{kian2010federated}
+\abntrefinfo{Kian et al.}{KIAN et al.}{2010}
+{KIAN, S.~L. et al. A federated broker architecture for large scale context
+  dissemination. In:  IEEE. \textbf{Computer and Information Technology (CIT),
+  2010 IEEE 10th International Conference on}. [S.l.], 2010. p. 2964--2969.}
 
 \bibitem[Knappmeyer et al. 2010]{knappmeyer2010contextml}
 \abntrefinfo{Knappmeyer et al.}{KNAPPMEYER et al.}{2010}
@@ -124,10 +150,53 @@ Available at: $<$https://www.jetbrains.com/pycharm$>$. Visited on July~2015.}
   (ISWPC), 2010 5th IEEE International Symposium on}. [S.l.], 2010. p.
   367--372.}
 
+\bibitem[Maffeis e Schmidt 1997]{maffeis1997constructing}
+\abntrefinfo{Maffeis e Schmidt}{MAFFEIS; SCHMIDT}{1997}
+{MAFFEIS, S.; SCHMIDT, D.~C. Constructing reliable distributed communication
+  systems with corba.
+\textbf{Communications Magazine, IEEE}, IEEE, v.~35, n.~2, p. 56--60, 1997.}
+
+\bibitem[Moltchanov et al. 2011]{moltchanov2011context}
+\abntrefinfo{Moltchanov et al.}{MOLTCHANOV et al.}{2011}
+{MOLTCHANOV, B. et al. Context management framework and context representation
+  for mno. In:  \textbf{Workshops at the Twenty-Fifth AAAI Conference on
+  Artificial Intelligence}. [S.l.: s.n.], 2011.}
+
+\bibitem[MongoDB 2015]{mongodb}
+\abntrefinfo{MongoDB}{MONGODB}{2015}
+{MONGODB. \textbf{MongoDB}. 2015.
+Available at: $<$https://www.mongodb.org$>$. Visited on July~2015.}
+
+\bibitem[Natarajan et al. 2000]{natarajan2000doors}
+\abntrefinfo{Natarajan et al.}{NATARAJAN et al.}{2000}
+{NATARAJAN, B. et al. Doors: Towards high-performance fault tolerant corba. In:
+   IEEE. \textbf{Distributed Objects and Applications, 2000. Proceedings.
+  DOA'00. International Symposium on}. [S.l.], 2000. p. 39--48.}
+
 \bibitem[OMG 2015]{uml}
 \abntrefinfo{OMG}{OMG}{2015}
 {OMG. \textbf{UML}. 2015.
 Available at: $<$http://www.uml.org$>$. Visited on July~2015.}
+
+\bibitem[Oracle 2015]{oracleclustering}
+\abntrefinfo{Oracle}{ORACLE}{2015a}
+{ORACLE. \textbf{Using Clustering for High Availability}. 2015.
+Available at:
+  $<$http://docs.oracle.com/cd/E19693-01/819-0992/fpcvr/index.html$>$. Visited
+  on July~2015.}
+
+\bibitem[Oracle 2015]{oraclereplication}
+\abntrefinfo{Oracle}{ORACLE}{2015b}
+{ORACLE. \textbf{Using Replication and Redundancy for High Availability}. 2015.
+Available at:
+  $<$http://docs.oracle.com/cd/E19693-01/819-0992/gaxtb/index.html$>$. Visited
+  on July~2015.}
+
+\bibitem[Piedad e Hawkins 2008]{piedad2008high}
+\abntrefinfo{Piedad e Hawkins}{PIEDAD; HAWKINS}{2008}
+{PIEDAD, F.; HAWKINS, M.~W. \textbf{High Availability: Design, Techniques and
+  Processes (Harris Kern's Enterprise Computing Institute Series)}. [S.l.]:
+  Prentice Hall PTR, 2008.}
 
 \bibitem[Python 2015]{python}
 \abntrefinfo{Python}{PYTHON}{2015}
@@ -153,9 +222,25 @@ Available at: $<$http://www.python.org$>$. Visited on July~2015.}
   1981 ACM SIGMOD international conference on Management of data}. [S.l.],
   1981. p. 133--142.}
 
+\bibitem[TUKL 2015]{wicon}
+\abntrefinfo{TUKL}{TUKL}{2015}
+{TUKL. \textbf{Institue for Wireless Communication and Navigation}. 2015.
+Available at: $<$http://www.eit.uni-kl.de/wicon/home/$>$. Visited on
+  July~2015.}
+
 \bibitem[Twitter 2015]{bootstrap}
 \abntrefinfo{Twitter}{TWITTER}{2015}
 {TWITTER. \textbf{Bootstrap}. 2015.
 Available at: $<$http://getbootstrap.com/$>$. Visited on July~2015.}
+
+\bibitem[Vogels 2009]{vogels2009eventually}
+\abntrefinfo{Vogels}{VOGELS}{2009}
+{VOGELS, W. Eventually consistent.
+\textbf{Communications of the ACM}, ACM, v.~52, n.~1, p. 40--44, 2009.}
+
+\bibitem[Weygant 2001]{weygant2001clusters}
+\abntrefinfo{Weygant}{WEYGANT}{2001}
+{WEYGANT, P.~S. \textbf{Clusters for High Availability: A Primer of HP
+  Solutions}. [S.l.]: Prentice Hall Professional, 2001.}
 
 \end{thebibliography}

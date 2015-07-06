@@ -1,14 +1,26 @@
 \chapter{Introduction}
-\todo{...fill me...}
 
-\begin{itemize}
-\item[Motivation]\todo{...fill me...} 
-
-\end{itemize}
+Humans can interact easily, and naturally gather information about the context they're in. This is due to various factors as language, common understanding of the world's behavior and everyday situations, and the ability to understand implicit symbolization and effects, based on common knowledge. Unfortunately, a computer does not have this capability: it needs to be guided, to be told what to look for, what to sense, and how to interpret it; it needs explicitness \cite{dey2000providing}.
 
 
+Gathering context information is a way of computers interacting with its surroundings, collecting information about the user and the environment he's inserted. With today's wireless communications technologies, mobile and ubiquitous computing, sensors, etc., the information can be collected silently, i.e., without the need of a user to explicitly input it; and is more dynamic, as it rapidly changes not only through user interaction, but also when the context changes itself. An example is given below.
+
+A context-aware system could be used in an intelligent store. Let's assume we have information from a client's location, using its mobile phone position, and information of a store location and products, registered in the context-aware system as the store's context. 
+
+This information can be combined to show in the client's mobile phone offers and products from the store, either when the client passes by or enters it. If the client register its personal data to the context-aware system, it can even suggest products that would interest the client, resulting in a context-directed advertisement. Going further in this idea, the client could also see what products of his size are available at the store, if these context information about the client are registered in the context-aware system. This was a mere example, there are many other ways of using context data in real-world applications, as tourist context-aware recommendation content, ebooks interactions, content share services, etc. \cite{moltchanov2011context}.
+
+In a context-aware system, one can find Consumers and Providers of context information. They can interact directly, but as systems are getting bigger and more complex at each moment, a brokering component is required, as in many Service-Oriented Architectures \cite{arsanjani2004service}.
+
+In such a way, a Context Broker is essential to the well-behavior of a large context-aware system. Among many extensions that can be made to a Broker application, high availability comes out as a very interesting one. Given today's highly competitive perception of market, the availability of a solution can be decisive in the satisfaction rating of its services.
 
 
-The goals of this work are to create a regular Context Broker following previously defined architecture, and to demonstrate the feasibility of the construction of a highly available Context Broker, aiming at a bigger project of a future Dependable Context Broker.
+\begin{description}
+\item[Motivation] in the year 2014 I was given the opportunity to be part of an exchange program between Universidade Federal do Rio Grande do Sul (UFRGS) and Technische Universität Kaiserslautern (TU-KL) in the city of Kaiserslautern, Germany. I was selected to work on the Wicon Research Group \cite{wicon}, under the supervision of Msc. Marcos Rates Crippa, the co-advisor of this work. Initially I was given tasks of documenting and learning about Context and the Context Broker solution he had developed previously within TU-KL. As I was approaching the end of my computer science course at UFRGS and needed a final project subject, Marcos presented to me some options, among them the study of a method to add high availability technique to the Broker architecture. Then, I decided to develop my own Context Broker solution, following the same definitions, but in a different programming language, so it would arise as a challenge for me, and later study for a protocol to seek high availability in the Broker system.
 
-The text is organized as follows: Chapter \ref{chap:definitions} is divided on definitions of Context and Fault Tolerance terms, with Section \ref{sec:context} focusing on the former and Section \ref{sec:fault_tolerance} on the latter. Chapter \ref{chap:implementation} presents the design and implementation of the regular Broker, and the strategies to incorporate High Availability to it. Chapter \ref{chap:tests} shows the tests and comparisons made in this work, and finally Chapter \ref{chap:conclusion} brings the conclusions and future work.
+\end{description}
+
+This work follows a previous work done at UFRGS in cooperation with TU-KL \cite{crippa2010}. In that work, a Context Broker was defined and created using Java. The goals of this work are to create a regular Context Broker following previously defined architecture, over a different programming language, but that has the same behavior from the client point of view, showing that two different solutions can work side by side, without the need of modifying the client. This work also aims at demonstrating the feasibility of the construction of a highly available Context Broker, as an extension of the regular one, providing .
+
+The Context Broker structure presented in \cite{crippa2010} and in this work is still a new approach to context-aware systems. As far as I have searched, I've found no production regarding high availability or any other dependability approach to a Context Broker in the literature. What exist are broker-based tools that help a system become highly available \cite{maffeis1997constructing} \cite{natarajan2000doors}.
+
+The text is organized as follows: Chapter \ref{chap:definitions} is divided on definitions of Context and Fault Tolerance terms, with Section \ref{sec:context} focusing on the former and Section \ref{sec:fault_tolerance} on the latter. Chapter \ref{chap:implementation} presents the design and implementation of the regular Broker, and the strategies to incorporate High Availability to it. Chapter \ref{chap:tests} shows the tests made in this work, and finally Chapter \ref{chap:conclusion} brings the conclusions and future work.
